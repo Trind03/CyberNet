@@ -11,4 +11,4 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/Simple-Web-Server
 )
 
-add_executable(main.exe ${server}/main.cpp)
+add_executable(main ${server}/main.cpp)
