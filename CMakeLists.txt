@@ -10,7 +10,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/client
 
     # Library
-    ${CMAKE_SOURCE_DIR}/Simple-Web-Server
+    #${CMAKE_SOURCE_DIR}/Simple-Web-Server
 )
 
 add_executable(main 
