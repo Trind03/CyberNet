@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(CyberNet)
 
-add_subdirectory(Simple-Web-Server)
 set(server "${CMAKE_SOURCE_DIR}/server")
+
 include_directories(
     # Server
     ${CMAKE_SOURCE_DIR}/server
