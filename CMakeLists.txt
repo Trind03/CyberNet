@@ -3,9 +3,10 @@ project(CyberNet)
 
 set(server "${CMAKE_SOURCE_DIR}/server")
 
-#add_subdirectory(asio)
 
-include_directories(
+add_executable(main main.cpp)
+
+target_include_directories(main PUBLIC
     # Server
     ${CMAKE_SOURCE_DIR}/server
     # Client
@@ -14,5 +15,3 @@ include_directories(
     # Library
     ${CMAKE_SOURCE_DIR}/asio
 )
-
-add_executable(main main.cpp)
