@@ -1,14 +1,14 @@
 #include <iostream>
 #include <cstring>
-#include <asio/include/asio.hpp>
-
+#include "server.hpp"
+#include "client.hpp"
 int main(int argc, char *argv[])
 {
     if(strcmp(argv[1],"server") == 0 || strcmp(argv[1],"Server"))
-        std::cout << "server";
+        return server();
 
     else if(strcmp(argv[1],"client") == 0 || strcmp(argv[1],"Client"))
-        std::cout << "client";
+        return client();
 
     else
         std::cout << "Invalid arg";
