@@ -1,5 +1,7 @@
+#pragma once
 #include <iostream>
 #include <asio/include/asio.hpp>
+#include "utils.hpp"
 constexpr int port = 5554;
 int server()
 {
@@ -7,5 +9,5 @@ int server()
     asio::ip::tcp::endpoint con_details(asio::ip::tcp::v4(),port);
 
     asio::ip::tcp::acceptor(io_context,con_details);
-    
+
 }
