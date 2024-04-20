@@ -1,7 +1,8 @@
 #include <iostream>
 #include <cstring>
-#include "server.hpp"
 #include "client.hpp"
+#include "server.hpp"
+
 int main(int argc, char *argv[])
 {
     if(strcmp(argv[1],"server") == 0 || strcmp(argv[1],"Server"))
