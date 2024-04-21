@@ -7,10 +7,11 @@
 #include "command.h"
 
 
+
 int server()
 {
     static session_details session_details; 
-    //command command(&session_details);
+    command command(&session_details);
 
     asio::io_context io_context;
     asio::ip::tcp::endpoint con_details(asio::ip::tcp::v4(),session_details.port);
@@ -20,7 +21,8 @@ int server()
     {
         //command.command_handler();
         asio::ip::tcp::socket socket(io_context);
-        Connection_Handler(acceptor,socket);
+        acceptor.accept();
+        socket.close();
         std::cout << "Connection established" << std::endl;
         // command_validator.join();
     }
