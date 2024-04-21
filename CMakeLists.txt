@@ -5,8 +5,8 @@ set(server "${CMAKE_SOURCE_DIR}/server")
 
 set(CXX_STANDARD 20)
 
-add_executable(main main.cpp)
-
+add_executable(main main.cpp ${server}/commands.cpp)
+# ${server}/commands.cpp
 target_include_directories(main PUBLIC
     # Server
     ${CMAKE_SOURCE_DIR}/server
