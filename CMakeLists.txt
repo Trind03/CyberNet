@@ -1,18 +1,22 @@
 cmake_minimum_required(VERSION 3.29)
 project(CyberNet LANGUAGES CXX)
 
-set(server "${CMAKE_SOURCE_DIR}/server")
+set(Server "${CMAKE_SOURCE_DIR}/server")
+set(Client "${CMAKE_SOURCE_DIR}/client")
+set(Asio "${CMAKE_SOURCE_DIR}/asio")
+set(Inner_asio "${CMAKE_SOURCE_DIR}/asio/include/asio")
 
 set(CXX_STANDARD 20)
 
-add_executable(main main.cpp)
+add_executable(main main.cpp ${Server}/commands.cpp)
 
 target_include_directories(main PUBLIC
     # Server
-    ${CMAKE_SOURCE_DIR}/server
+    Server
     # Client
-    ${CMAKE_SOURCE_DIR}/client
+    Client
 
     # Library
-    ${CMAKE_SOURCE_DIR}/asio
+    Asio
+    Inner_asio
 )
