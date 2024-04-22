@@ -3,9 +3,8 @@
 #include "command.h"
 #include "utils.hpp"
 
-command::command(session_details *session): Session(session)
-{}
 
+command::command(session_details *Session): session(Session) {}
 
 void command::command_handler()
 {
@@ -18,21 +17,20 @@ void command::command_handler()
             std::cout << std::endl;
 
     else if(Command == "list" || Command == "List")
-        //list_connections();
-        std::cout << "test";
+        list_connections();
 }
 
 
 void command::list_connections()const
 {
-    if(Session->curr_connections <= 0)
+    if(session->curr_connections <= 0)
     {
         std::cout << "No active connections" << std::endl;
     }
     
     else
     {
-        for(int i = 0; i < Session->User.size(); i++)
-            std::cout << Session->User[i].ID << " - " << Session->User[i].IPV4 << std::endl;
+        for(int i = 0; i < session->User.size(); i++)
+            std::cout << session->User[i].ID << " - " << session->User[i].IPV4 << std::endl;
     }
 }

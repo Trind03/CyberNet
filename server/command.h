@@ -4,8 +4,8 @@
 
 struct command
 {
-    session_details* Session;
-    command::command(session_details *session);
+    session_details* session;
+    command::command(session_details *Session);
     void command_handler();
     void list_connections()const;
 };
