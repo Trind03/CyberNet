@@ -16,15 +16,15 @@ int server()
     asio::io_context io_context;
     asio::ip::tcp::endpoint con_details(asio::ip::tcp::v4(),session_details.port);
     asio::ip::tcp::acceptor acceptor(io_context,con_details);
+    asio::ip::tcp::socket socket(io_context);
+
+    command_validator = std::thread(&command::command_handler, &command);
 
     while(true)
     {
-        command_validator = std::thread(&command::command_handler, &command);
-        //command.command_handler();
-        asio::ip::tcp::socket socket(io_context);
         Connection_Handler(acceptor,socket);
-        std::cout << "Connection established" << std::endl;
-        command_validator.join();
+        std::cout << std::endl << "Connection established" << std::endl;
     }
+    command_validator.join();
     return EXIT_SUCCESS;
 }
