@@ -7,5 +7,5 @@ struct command
     session_details* session;
     command::command(session_details *Session);
     void command_handler();
-    void list_connections()const;
+    int list_connections();
 };

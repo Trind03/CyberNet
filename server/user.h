@@ -2,7 +2,7 @@
 
 struct user
 {
-    user::user(std::string ip, int id);
+    user::user(std::string ip, int id): IPV4(ip), ID(id) {}
     int ID;
     std::string IPV4;
 }; 
