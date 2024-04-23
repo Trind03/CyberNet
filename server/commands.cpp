@@ -10,27 +10,33 @@ void command::command_handler()
 {
     std::string Command;
 
-    std::cout << "> "; getline(std::cin, Command);
+    while(true)
+    {
+        std::cout << "> "; getline(std::cin, Command);
 
-    if(Command == "clear" || Command == "Clear")
-        for(int i = 0; i < 20; i++)
-            std::cout << std::endl;
+        if(Command == "clear" || Command == "Clear")
+            for(int i = 0; i < 20; i++)
+                std::cout << std::endl;
 
-    else if(Command == "list" || Command == "List")
-        list_connections();
+        else if(Command == "list" || Command == "List")
+            list_connections();
+    }
 }
 
 
-void command::list_connections()const
+int command::list_connections()
 {
     if(session->curr_connections <= 0)
     {
         std::cout << "No active connections" << std::endl;
+        return 0;
     }
     
     else
     {
         for(int i = 0; i < session->User.size(); i++)
             std::cout << session->User[i].ID << " - " << session->User[i].IPV4 << std::endl;
+            return 0;
     }
+    return -1;
 }
