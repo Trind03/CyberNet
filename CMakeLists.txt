@@ -8,9 +8,9 @@ set(Inner_asio; "${CMAKE_SOURCE_DIR}/asio/include/asio")
 
 set(CXX_STANDARD; 20)
 
-add_executable(main; main.cpp; ${Server}/commands.cpp)
+add_executable(${PROJECT_NAME}; main.cpp; ${Server}/commands.cpp)
 
-target_include_directories(main PRIVATE
+target_include_directories(${PROJECT_NAME}; PRIVATE
     # Server
     Server;
     # Client
@@ -18,5 +18,5 @@ target_include_directories(main PRIVATE
 
     # Library
     Asio;
-    Inner_asio;
+    Inner_asio
 )
