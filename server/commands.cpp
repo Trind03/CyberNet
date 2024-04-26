@@ -36,6 +36,7 @@ int command::list_connections()
     {
         for(int i = 0; i < session->curr_connections; i++)
             std::cout << std::endl << session->User[i].ID << " - " << session->User[i].IPV4.address() << std::endl;
+        return 0;
     }
     return -1;
 }
