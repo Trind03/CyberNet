@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <thread>
 #include <asio/include/asio.hpp>
 #include "utils.hpp"
