@@ -23,7 +23,6 @@ int server()
     while(true)
     {
         Connection_Handler(acceptor,socket);
-        std::cout << std::endl << "Connection established" << std::endl;
     }
     command_validator.join();
     return EXIT_SUCCESS;
