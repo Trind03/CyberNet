@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include "session.h"
-
+#include <vector>
+#include "session.h"
 struct command
 {
     session_details* session;

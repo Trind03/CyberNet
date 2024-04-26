@@ -6,6 +6,7 @@
 
 command::command(session_details *Session): session(Session) {}
 
+
 void command::command_handler()
 {
     std::string Command;
@@ -20,12 +21,21 @@ void command::command_handler()
 
         else if(Command == "list" || Command == "List")
             list_connections();
+        else
+            std::cout << "Invalid command" << std::endl;
     }
 }
 
+std::ostream& operator <<(std::ostream& stream,std::vector<user>&arr)
+{
+    for(int i = 0; i < arr.size(); i++)
+        stream << std::endl << arr[i].ID << " - " << arr[i].IPV4.address() << std::endl;
+    return stream;
+}
 
 int command::list_connections()
 {
+    
     if(session->curr_connections <= 0)
     {
         std::cout << "No active connections" << std::endl;
@@ -34,8 +44,7 @@ int command::list_connections()
     
     else
     {
-        for(int i = 0; i < session->curr_connections; i++)
-            std::cout << std::endl << session->User[i].ID << " - " << session->User[i].IPV4.address() << std::endl;
+        std::cout << session->User;
         return 0;
     }
     return -1;
