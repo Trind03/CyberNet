@@ -2,7 +2,7 @@
 #include <iostream>
 #include "command.h"
 #include "utils.hpp"
-
+#include <asio/include/asio.hpp>
 
 command::command(session_details *Session): session(Session) {}
 
@@ -34,9 +34,9 @@ int command::list_connections()
     
     else
     {
-        for(int i = 0; i < session->User.size(); i++)
-            std::cout << session->User[i].ID << " - " << session->User[i].IPV4 << std::endl;
-            return 0;
+        for(int i = 0; i < session->curr_connections; i++)
+            std::cout << std::endl << session->User[i].ID << " - " << session->User[i].IPV4.address() << std::endl;
+        return 0;
     }
     return -1;
 }

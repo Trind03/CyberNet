@@ -1,11 +1,10 @@
 #pragma once
+#include <asio/include/asio.hpp>
+
 
 struct user
 {
-    user::user(std::string ip, int id): IPV4(ip), ID(id) {}
+    user::user(asio::ip::tcp::endpoint ip, int id);
     int ID;
-    std::string IPV4;
-}; 
-/*
-user::user(std::string ip, int id): IPV4(ip), ID(id)
-{}*/
+    asio::ip::tcp::endpoint IPV4;
+};

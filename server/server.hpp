@@ -1,7 +1,6 @@
 #pragma once
-#include <iostream>
-#include <thread>
 #include <asio/include/asio.hpp>
+#include <thread>
 #include "utils.hpp"
 #include "session.h"
 #include "command.h"
