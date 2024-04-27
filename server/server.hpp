@@ -1,13 +1,20 @@
 #pragma once
 #include <asio/include/asio.hpp>
 #include <thread>
+#include <functional>
+#include <memory>
 #include "utils.hpp"
 #include "session.h"
 #include "command.h"
 
+std::function<void()> boot_message = []()
+{
+    std::cout << "\t\t\t" << "***** Prototype Of CyberNet Software *****" << "\n\n\n";
+};
 
 int server()
 {
+    boot_message();
     std::thread command_validator;
     session_details session_details(5554); 
     command command(&session_details);
