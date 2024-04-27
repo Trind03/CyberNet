@@ -13,7 +13,7 @@ std::function<void()> boot_message = []()
 
 int server()
 {
-    boot_message();
+    std::thread T_boot_message = std::thread(boot_message);
     session_details session_details(5554); 
     command command(&session_details);
 
@@ -22,12 +22,14 @@ int server()
     asio::ip::tcp::acceptor acceptor(io_context,con_details);
     asio::ip::tcp::socket socket(io_context);
 
-    std::thread command_validator = std::thread(&command::command_handler, &command);
+    T_boot_message.join();
+    std::thread T_command_validator = std::thread(&command::command_handler, &command);
 
     while(true)
     {
         Connection_Handler(acceptor,socket);
     }
-    command_validator.join();
+
+    T_command_validator.join();
     return EXIT_SUCCESS;
 }
