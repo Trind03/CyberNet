@@ -2,7 +2,6 @@
 #include <asio/include/asio.hpp>
 #include <thread>
 #include <functional>
-#include <memory>
 #include "utils.hpp"
 #include "session.h"
 #include "command.h"
