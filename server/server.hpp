@@ -14,7 +14,6 @@ std::function<void()> boot_message = []()
 int server()
 {
     boot_message();
-    std::thread command_validator;
     session_details session_details(5554); 
     command command(&session_details);
 
@@ -23,7 +22,7 @@ int server()
     asio::ip::tcp::acceptor acceptor(io_context,con_details);
     asio::ip::tcp::socket socket(io_context);
 
-    command_validator = std::thread(&command::command_handler, &command);
+    std::thread command_validator = std::thread(&command::command_handler, &command);
 
     while(true)
     {
