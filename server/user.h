@@ -1,7 +1,6 @@
 #pragma once
 #include <asio/include/asio.hpp>
 
-
 struct user
 {
     user::user(asio::ip::tcp::endpoint ip, int id);
