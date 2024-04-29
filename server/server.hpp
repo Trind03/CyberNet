@@ -5,7 +5,7 @@
 #include "utils.hpp"
 #include "session.h"
 #include "command.h"
-
+#include "user.h"
 std::function<void()> boot_message = []()
 {
     std::cout << "\t\t\t" << "***** Prototype Of CyberNet Software *****" << "\n\n\n";
@@ -29,7 +29,9 @@ int server()
     {
         Connection_Handler(acceptor,socket);
     }
+    
 
     T_command_validator.join();
+    socket.close();
     return EXIT_SUCCESS;
 }
