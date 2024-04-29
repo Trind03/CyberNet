@@ -25,8 +25,11 @@ int server()
     T_boot_message.join();
     std::thread T_command_validator = std::thread(&command::command_handler, &command);
 
-    Connection_Handler(acceptor,socket);
-    io_context.run();
+    while(true)
+    {
+        Connection_Handler(acceptor,socket);
+    }
+    
 
     T_command_validator.join();
     socket.close();

@@ -12,6 +12,16 @@ int client()
     asio::ip::tcp::socket sock(io_context);
 
     sock.connect(endpoint,error);
+
+    if(!error)
+    {
+        std::cout << "Connected!" << std::endl;
+    }
+
+    else
+    {
+        std::cout << "Connection failed" << " - "  << std::endl;
+    }
     io_context.run();
     return 0;
 }
