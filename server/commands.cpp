@@ -15,12 +15,18 @@ void command::command_handler()
     {
         std::cout << "> "; getline(std::cin, Command);
 
-        if(Command == "clear" || Command == "Clear")
+        if(Command == "" || Command == " ")
+            std::cout << std::endl;
+
+        else if(Command == "clear" || Command == "Clear")
             for(int i = 0; i < 20; i++)
                 std::cout << std::endl;
 
         else if(Command == "list" || Command == "List")
             list_connections();
+
+        else if(Command == "" || Command == " ")
+            std::cout << std::endl;
 
         else if(Command == "exit" || Command == "Exit")
         {

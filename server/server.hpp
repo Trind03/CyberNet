@@ -9,7 +9,7 @@
 
 int server()
 {
-    std::thread T_boot_message = std::thread(boot_message);
+    std::thread T_boot_message = std::thread(boot_message,"title.txt");
     session_details session_details(5554); 
     command command(&session_details);
 
