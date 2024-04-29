@@ -3,7 +3,7 @@
 #include "command.h"
 #include "utils.hpp"
 #include <asio/include/asio.hpp>
-
+#include <cstdlib>
 command::command(session_details *Session): session(Session) {}
 
 
@@ -21,6 +21,13 @@ void command::command_handler()
 
         else if(Command == "list" || Command == "List")
             list_connections();
+
+        else if(Command == "exit" || Command == "Exit")
+        {
+            std::cout << "K bye " << std::endl;
+            exit(0);
+        }
+
         else
             std::cout << "Invalid command" << std::endl;
     }

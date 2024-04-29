@@ -32,6 +32,5 @@ int server()
     
 
     T_command_validator.join();
-    socket.close();
     return EXIT_SUCCESS;
 }
