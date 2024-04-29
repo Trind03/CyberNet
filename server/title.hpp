@@ -2,8 +2,23 @@
 #include <iostream>
 #include <fstream>
 #include <functional>
+#include <string>
 
-std::function<void()> boot_message = []()
+std::function<void(const char*)> boot_message = [=](const char* filename)
 {
-    std::cout << "\t\t\t" << "***** Prototype Of CyberNet Software *****" << "\n\n\n";
+    std::fstream stream;
+    stream.open(filename);
+
+    if(stream.is_open())
+    {
+        std::string line;
+        while(std::getline(stream,line))
+        {
+            std::cout << line;
+        }
+    }
+    else
+    {
+        std::cout << "Failed to find title file" << std::endl;
+    }
 };
