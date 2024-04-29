@@ -1,19 +1,15 @@
 #pragma once
 #include <asio/include/asio.hpp>
 #include <thread>
-#include <functional>
 #include "utils.hpp"
 #include "session.h"
 #include "command.h"
 #include "user.h"
-std::function<void()> boot_message = []()
-{
-    std::cout << "\t\t\t" << "***** Prototype Of CyberNet Software *****" << "\n\n\n";
-};
+#include "title.hpp"
 
 int server()
 {
-    std::thread T_boot_message = std::thread(boot_message);
+    std::thread T_boot_message = std::thread(boot_message,"title.txt");
     session_details session_details(5554); 
     command command(&session_details);
 
@@ -32,6 +28,5 @@ int server()
     
 
     T_command_validator.join();
-    socket.close();
     return EXIT_SUCCESS;
 }

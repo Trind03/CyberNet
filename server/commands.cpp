@@ -3,7 +3,7 @@
 #include "command.h"
 #include "utils.hpp"
 #include <asio/include/asio.hpp>
-
+#include <cstdlib>
 command::command(session_details *Session): session(Session) {}
 
 
@@ -15,12 +15,25 @@ void command::command_handler()
     {
         std::cout << "> "; getline(std::cin, Command);
 
-        if(Command == "clear" || Command == "Clear")
+        if(Command == "" || Command == " ")
+            std::cout << std::endl;
+
+        else if(Command == "clear" || Command == "Clear")
             for(int i = 0; i < 20; i++)
                 std::cout << std::endl;
 
         else if(Command == "list" || Command == "List")
             list_connections();
+
+        else if(Command == "" || Command == " ")
+            std::cout << std::endl;
+
+        else if(Command == "exit" || Command == "Exit")
+        {
+            std::cout << "K bye " << std::endl;
+            exit(0);
+        }
+
         else
             std::cout << "Invalid command" << std::endl;
     }

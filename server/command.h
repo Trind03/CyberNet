@@ -3,6 +3,7 @@
 #include "session.h"
 #include <vector>
 #include "session.h"
+#include <cstdlib>
 struct command
 {
     session_details* session;
