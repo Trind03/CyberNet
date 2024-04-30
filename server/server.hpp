@@ -9,24 +9,24 @@
 
 int server()
 {
+    std::vector<user>users {};
     std::thread T_boot_message = std::thread(boot_message,"title.txt");
-    session_details session_details(5554); 
-    command command(&session_details);
-
     asio::io_context io_context;
-    asio::ip::tcp::endpoint con_details(asio::ip::tcp::v4(),session_details.port);
-    asio::ip::tcp::acceptor acceptor(io_context,con_details);
-    asio::ip::tcp::socket socket(io_context);
+    command command(&users);
+
+    asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),5554);
+    asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
     T_boot_message.join();
-    std::thread T_command_validator = std::thread(&command::command_handler, &command);
+    std::thread T_command_validator = std::thread(&command::command_handler,users);
 
     while(true)
     {
-        Connection_Handler(acceptor,socket);
+        asio::ip::tcp::socket socket(io_context);
+        acceptor.accept();
+        std::cout << socket.remote_endpoint() << std::endl;
     }
-    
 
-    T_command_validator.join();
+    //T_command_validator.join();
     return EXIT_SUCCESS;
 }
