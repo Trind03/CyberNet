@@ -42,7 +42,7 @@ void command::command_handler()
             std::cout << "Invalid command" << std::endl;
     }
 }
-/*
+
 std::ostream& operator <<(std::ostream& stream,std::vector<user>*array)
 {
     for (const auto& arr: *array) {
@@ -50,7 +50,8 @@ std::ostream& operator <<(std::ostream& stream,std::vector<user>*array)
     }
     return stream;
 }
-*/
+
+
 int command::list_connections()
 {
     
@@ -62,7 +63,7 @@ int command::list_connections()
     
     else
     {
-        //std::cout << &users;
+        std::cout << &users;
         return 0;
     }
     return -1;

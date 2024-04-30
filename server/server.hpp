@@ -1,6 +1,7 @@
 #pragma once
 #include <asio/include/asio.hpp>
 #include <thread>
+#include <memory>
 #include "utils.hpp"
 #include "session.h"
 #include "command.h"
@@ -18,7 +19,7 @@ int server()
     asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
     T_boot_message.join();
-    std::thread T_command_validator = std::thread(&command::command_handler,users);
+    command.command_handler();
 
     while(true)
     {
