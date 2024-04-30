@@ -19,7 +19,7 @@ int server()
     asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
     T_boot_message.join();
-    command.command_handler();
+    std::thread T_command_validator = std::thread(&command::command_handler,&command);
 
     while(true)
     {
@@ -28,6 +28,6 @@ int server()
         std::cout << socket.remote_endpoint() << std::endl;
     }
 
-    //T_command_validator.join();
+    T_command_validator.join();
     return EXIT_SUCCESS;
 }
