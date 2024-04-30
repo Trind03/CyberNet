@@ -4,7 +4,9 @@
 #include "utils.hpp"
 #include <asio/include/asio.hpp>
 #include <cstdlib>
-command::command(session_details *Session): session(Session) {}
+#include "user.h"
+
+//command::command(std::vector<user>*User): users(User) {}
 
 
 void command::command_handler()
@@ -19,8 +21,10 @@ void command::command_handler()
             std::cout << std::endl;
 
         else if(Command == "clear" || Command == "Clear")
-            for(int i = 0; i < 20; i++)
-                std::cout << std::endl;
+        {
+            for(int i = 0; i < 40; i++)
+                std::cout << "\n\n";
+        }
 
         else if(Command == "list" || Command == "List")
             list_connections();
@@ -39,17 +43,19 @@ void command::command_handler()
     }
 }
 
-std::ostream& operator <<(std::ostream& stream,std::vector<user>&arr)
+std::ostream& operator <<(std::ostream& stream,std::vector<user>*array)
 {
-    for(int i = 0; i < arr.size(); i++)
-        stream << std::endl << arr[i].ID << " - " << arr[i].IPV4.address() << std::endl;
+    for (const auto& arr: *array) {
+        stream << std::endl << arr.ID << " - " << arr.IPV4.address() << std::endl;
+    }
     return stream;
 }
+
 
 int command::list_connections()
 {
     
-    if(session->curr_connections <= 0)
+    if(users->size() <= 0)
     {
         std::cout << "No active connections" << std::endl;
         return 0;
@@ -57,7 +63,7 @@ int command::list_connections()
     
     else
     {
-        std::cout << session->User;
+        std::cout << &users;
         return 0;
     }
     return -1;

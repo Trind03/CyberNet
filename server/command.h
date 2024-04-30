@@ -4,10 +4,11 @@
 #include <vector>
 #include "session.h"
 #include <cstdlib>
+
 struct command
 {
-    session_details* session;
-    command::command(session_details *Session);
+    std::vector<user>*users;
+    command(std::vector<user>*User): users(User) {}
     void command_handler();
     int list_connections();
 };
