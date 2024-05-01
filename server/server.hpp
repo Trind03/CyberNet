@@ -11,7 +11,7 @@
 int server()
 {
     std::vector<user>users {};
-    std::thread T_boot_message = std::thread(boot_message,"title.txt");
+    std::thread T_boot_message = std::thread(boot_message,"title.dat");
     asio::io_context io_context;
     command command(&users);
 
