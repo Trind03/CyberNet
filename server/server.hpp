@@ -28,8 +28,7 @@ int server()
     while(true)
     {
         asio::ip::tcp::socket socket(io_context);
-        acceptor.accept();
-        socket.close();
+        Connection_Handler(acceptor,socket);
     }
     
 
