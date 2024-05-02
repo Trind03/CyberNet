@@ -1,10 +1,8 @@
 #pragma once
 #include <string>
-#include "session.h"
 #include <vector>
-#include "session.h"
 #include <cstdlib>
-
+#include "user.h"
 struct command
 {
     std::vector<user>*users;
