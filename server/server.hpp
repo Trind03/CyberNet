@@ -29,6 +29,7 @@ int server()
     {
         asio::ip::tcp::socket socket(io_context);
         Connection_Handler(acceptor,socket);
+        socket.close();
     }
     
 

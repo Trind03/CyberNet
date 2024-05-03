@@ -9,5 +9,5 @@ static void Connection_Handler(asio::ip::tcp::acceptor &acceptor, asio::ip::tcp:
     asio::ip::tcp::endpoint conn = socket.remote_endpoint();
     std::cout << "Connection established -> " << conn.address() << ":" << conn.port() << std::endl;
 
-    socket.close();
+    //socket.close();
 } 
