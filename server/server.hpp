@@ -24,16 +24,10 @@ int server()
     asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),5554);
     asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
-    
-    while(true)
-    {
-        asio::ip::tcp::socket socket(io_context);
-        acceptor.accept();
-        socket.close();
-    }
-    
 
-
+    asio::ip::tcp::socket socket(io_context);
+    Connection_Handler(acceptor,socket);
+    
 
     T_command_validator.join();
     return EXIT_SUCCESS;
