@@ -6,7 +6,7 @@
 struct command
 {
     std::vector<user>*users;
-    command(std::vector<user>*User): users(User) {}
+    command(std::vector<user>*User);
     void command_handler();
     int list_connections();
 };

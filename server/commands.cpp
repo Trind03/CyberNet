@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include "user.h"
 
-//command::command(std::vector<user>*User): users(User) {}
+command::command(std::vector<user>*User): users(User) {}
 
 
 void command::command_handler()
