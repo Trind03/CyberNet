@@ -24,7 +24,7 @@ static void Connection_Handler(asio::ip::tcp::acceptor &acceptor, asio::ip::tcp:
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << e.what() << std::endl;
     }
     
 } 
