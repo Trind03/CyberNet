@@ -16,6 +16,7 @@ int server()
     std::vector<user>users{};
     T_boot_message.join();
 
+
     command command(&users);
     std::thread T_command_validator = std::thread(&command::command_handler,&command);
 
