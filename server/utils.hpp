@@ -5,6 +5,11 @@
 
 static bool running = true;
 
+static void Mov_Cursor(int row, int col)
+{
+	std::cout << "\033[" << row << ";" << col << "H";
+}
+
 static void Connection_Handler(asio::ip::tcp::acceptor &acceptor, asio::ip::tcp::socket &socket)
 {
     try
