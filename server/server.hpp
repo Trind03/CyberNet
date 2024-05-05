@@ -11,13 +11,13 @@ constexpr const char* filename = "title.dat";
 
 int server()
 {
-    std::thread T_boot_message = std::thread(boot_message,filename);
+    std::thread t_boot_message = std::thread(boot_message,filename);
     const asio::ip::tcp IPV4 = asio::ip::tcp::v4();
     std::vector<user>users{};
-    T_boot_message.join();
+    t_boot_message.join();
 
     command command(&users);
-    std::thread T_command_validator = std::thread(&command::command_handler,&command);
+    std::thread t_command_validator = std::thread(&command::command_handler,&command);
 
     asio::io_context io_context;
 
@@ -29,6 +29,6 @@ int server()
     Connection_Handler(acceptor,socket);
     
 
-    T_command_validator.join();
+    t_command_validator.join();
     return EXIT_SUCCESS;
 }
