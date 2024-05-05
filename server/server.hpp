@@ -7,6 +7,7 @@
 #include "user.h"
 #include "title.hpp"
 
+constexpr short port = 5554;
 constexpr const char* filename = "title.dat";
 
 int server()
@@ -16,12 +17,13 @@ int server()
     std::vector<user>users{};
     T_boot_message.join();
 
+
     command command(&users);
     std::thread T_command_validator = std::thread(&command::command_handler,&command);
 
     asio::io_context io_context;
 
-    asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),5554);
+    asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),port);
     asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
 
