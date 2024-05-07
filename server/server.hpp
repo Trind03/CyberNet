@@ -7,7 +7,9 @@
 #include "user.h"
 #include "title.hpp"
 
-const short port = 5554;
+
+constexpr short port = 5554;
+
 constexpr const char* filename = "title.dat";
 
 int server()
@@ -16,6 +18,7 @@ int server()
     const asio::ip::tcp IPV4 = asio::ip::tcp::v4();
     std::vector<user>users{};
     t_boot_message.join();
+
 
     command command(&users);
     std::thread t_command_validator = std::thread(&command::command_handler,&command);
