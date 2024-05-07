@@ -7,6 +7,7 @@
 #include "user.h"
 #include "title.hpp"
 
+const short port = 5554;
 constexpr const char* filename = "title.dat";
 
 int server()
@@ -21,7 +22,7 @@ int server()
 
     asio::io_context io_context;
 
-    asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),5554);
+    asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),port);
     asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
 
