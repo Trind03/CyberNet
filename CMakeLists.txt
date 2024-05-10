@@ -6,17 +6,7 @@ set(Client "${CMAKE_SOURCE_DIR}/client")
 set(Asio "${CMAKE_SOURCE_DIR}/asio")
 set(Inner_asio "${CMAKE_SOURCE_DIR}/asio/include/asio")
 
-include_directories(
-# Server
-Server
-
-# Client
-Client
-
-# Library
-Asio
-Inner_asio
-)
+# Remove global include_directories command
 
 set(CXX_STANDARD 20)
 
@@ -24,11 +14,12 @@ add_executable(${PROJECT_NAME} main.cpp ${Server}/commands.cpp ${Server}/user.cp
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     # Server
-    Server
+    ${Server}
+
     # Client
-    Client
+    ${Client}
 
     # Library
-    Asio
-    Inner_asio
+    ${Asio}
+    ${Inner_asio}
 )
