@@ -28,9 +28,11 @@ int server()
     asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(),port);
     asio::ip::tcp::acceptor acceptor(io_context,endpoint);
 
-
-    asio::ip::tcp::socket socket(io_context);
-    Connection_Handler(acceptor,socket);
+    while(true)
+    {
+        asio::ip::tcp::socket socket(io_context);
+        Connection_Handler(acceptor,socket);
+    }
     
 
     t_command_validator.join();
