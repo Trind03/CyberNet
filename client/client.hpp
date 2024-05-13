@@ -3,7 +3,6 @@
 
 int client()
 {
-    constexpr const char* target_ip = "192.168.86.55";
     constexpr int target_port = 5554;    
 
     asio::error_code error;
