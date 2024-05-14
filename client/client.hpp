@@ -1,6 +1,6 @@
 #include <iostream>
 #include <asio/include/asio.hpp>
-
+#include "title.hpp"
 static bool running = true;
 int client()
 {
