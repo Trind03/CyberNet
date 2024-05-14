@@ -6,8 +6,7 @@
 
 std::function<void(const char*)>boot_message_client = [=](const char* filename)
 {
-    std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>();
-
-    stream->open(filename);
+    std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
+    //stream->open(filename);
 
 };
