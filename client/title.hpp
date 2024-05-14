@@ -20,7 +20,7 @@ std::function<void(const char*)>boot_message_client = [=](const char* filename)
 
     else
     {
-        std::cerr << "Error file not found" << std::endl;
+        std::cerr << "Error title file not found" << std::endl;
         exit(-1);
     }
 };
