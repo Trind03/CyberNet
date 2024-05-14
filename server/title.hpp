@@ -20,5 +20,5 @@ std::function<void(const char*)> boot_message_server = [=](const char* filename)
         std::cout << std::endl << std::endl;
     }
     else
-        std::cout << "Failed to find title file" << std::endl;
+        std::cout << "Error file not found" << std::endl;
 };
