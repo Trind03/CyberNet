@@ -14,7 +14,13 @@ std::function<void(const char*)>boot_message_client = [=](const char* filename)
         std::string line;
         while(std::getline((*stream),line))
         {
-
+            std::cout << line << std::endl;
         }
+    }
+
+    else
+    {
+        std::cerr << "Error file not found" << std::endl;
+        exit(-1);
     }
 };
