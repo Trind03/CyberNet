@@ -1,9 +1,12 @@
 #include <iostream>
+#include <thread>
 #include <asio/include/asio.hpp>
 #include "title.hpp"
 static bool running = true;
 int client()
 {
+    const char* filename = "title.dat";
+    std::thread title_client = std::thread(boot_message_client,filename);
     asio::ip::address_v4 IPV4 = asio::ip::address_v4();
     constexpr int target_port = 5554;    
 
