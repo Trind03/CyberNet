@@ -1,11 +1,10 @@
-#pragma once
 #include <iostream>
-#include <fstream>
 #include <functional>
-#include <string>
 #include <memory>
+#include <fstream>
+#include <string>
 
-std::function<void(const char*)> boot_message_server = [=](const char* filename)
+std::function<void(const char*)>boot_message_client = [=](const char* filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
     //stream->open(filename);
@@ -17,11 +16,11 @@ std::function<void(const char*)> boot_message_server = [=](const char* filename)
         {
             std::cout << line << std::endl;
         }
-        std::cout << std::endl << std::endl;
     }
+
     else
     {
-        std::cout << "Error title file not found" << std::endl;
+        std::cerr << "Error title file not found" << std::endl;
         exit(-1);
     }
 };

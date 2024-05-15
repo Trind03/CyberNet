@@ -14,7 +14,7 @@ constexpr const char* filename = "title.dat";
 
 int server()
 {
-    std::thread t_boot_message = std::thread(boot_message,filename);
+    std::thread t_boot_message = std::thread(boot_message_server,filename);
     const asio::ip::tcp IPV4 = asio::ip::tcp::v4();
     std::vector<user>users{};
     t_boot_message.join();
