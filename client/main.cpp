@@ -3,8 +3,8 @@
 #include <asio/asio/include/asio.hpp>
 #include "title.hpp"
 
-
 static bool running = true;
+
 int main()
 {
     const char* filename = "title.dat";
@@ -17,8 +17,20 @@ int main()
     asio::ip::tcp::endpoint endpoint(IPV4,target_port);
     asio::ip::tcp::socket sock(io_context);
 
-    while(running)
-    {}
+    sock.connect(endpoint,error);
 
+    if(!error)
+    {
+        std::cout << std::endl << "Connected to server" << std::endl;
+        while(true)
+        {
+            
+        }
+    }
+
+    else
+    {
+        std::cout << "Connection falure " << error.message() << std::endl;
+    }
     return 0;
 }
