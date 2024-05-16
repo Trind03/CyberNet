@@ -2,8 +2,10 @@
 #include <thread>
 #include <asio/include/asio.hpp>
 #include "title.hpp"
+
+
 static bool running = true;
-int client()
+int main()
 {
     const char* filename = "title.dat";
     std::thread title_client = std::thread(boot_message_client,filename);
