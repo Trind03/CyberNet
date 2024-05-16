@@ -9,9 +9,13 @@ int main()
 {
     const char* filename = "title.dat";
     std::thread title_client = std::thread(boot_message_client,filename);
-    asio::ip::address IPV4 = asio::ip::address::from_string("127.0.0.1");
-    constexpr int target_port = 5554;    
 
+
+    asio::ip::address IPV4 = asio::ip::address::from_string("127.0.0.1");
+    constexpr int target_port = 5554;  
+    title_client.join();
+    std::cout << "Joining thread: " << title_client.get_id() << std::endl;  
+    
     asio::error_code error;
     asio::io_context io_context;
     asio::ip::tcp::endpoint endpoint(IPV4,target_port);
@@ -30,7 +34,7 @@ int main()
 
     else
     {
-        std::cout << "Connection falure " << error.message() << std::endl;
+        std::cerr << "Connection falure " << error.message() << std::endl;
     }
     return 0;
 }
