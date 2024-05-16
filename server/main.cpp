@@ -12,7 +12,7 @@ constexpr short port = 5554;
 
 constexpr const char* filename = "title.dat";
 
-int server()
+int main()
 {
     std::thread t_boot_message = std::thread(boot_message_server,filename);
     const asio::ip::tcp IPV4 = asio::ip::tcp::v4();
