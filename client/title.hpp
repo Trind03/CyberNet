@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 
-std::function<void(const char*)>boot_message_client = [=](const char* filename)
+std::function<int(const char*)>boot_message_client = [=](const char* filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
     //stream->open(filename);
@@ -23,4 +23,5 @@ std::function<void(const char*)>boot_message_client = [=](const char* filename)
         std::cerr << "Error title file not found" << std::endl;
         exit(-1);
     }
+    return EXIT_SUCCESS;
 };
