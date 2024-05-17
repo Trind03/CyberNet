@@ -28,14 +28,3 @@ include_directories(
     ${Asio}
     ${Inner_asio}
 )
-target_include_directories(${Server_name} PRIVATE
-    # Server
-    ${Server}
-
-    # Client
-    ${Client}
-
-    # Library
-    ${Asio}
-    ${Inner_asio}
-)
