@@ -17,7 +17,7 @@ set(CXX_STANDARD 20)
 add_executable(${Server_name} ${Server}/main.cpp ${Server}/commands.cpp ${Server}/user.cpp)
 add_executable(${Client_name} ${Client}/main.cpp)
 
-target_include_directories(${Client_name} PRIVATE
+include_directories(
     # Server
     ${Server}
 
