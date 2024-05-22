@@ -26,7 +26,7 @@ int main()
     if(!error)
     {
         std::cout << std::endl << "Connected to server" << std::endl;
-        while(true)
+        while(running)
         {
             
         }
