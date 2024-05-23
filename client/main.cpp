@@ -2,6 +2,8 @@
 #include <thread>
 #include <asio/include/asio.hpp>
 #include "title.hpp"
+#include "Net_conn.h"
+
 
 static bool running = true;
 

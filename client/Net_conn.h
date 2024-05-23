@@ -1,16 +1,18 @@
 #pragma once
 #include <chrono>
-#include <asio.hpp>
+#include <asio/include/asio.hpp>
 
-struct Net_conn : public std::enable_shared_from_this<Net_conn>
+class Net_conn// : public std::enable_shared_from_this<Net_conn>
 {
-    
-    Net_conn(asio::ip::tcp::socket& sock,asio::steady_timer timer);
+public:
+    Net_conn();
     ~Net_conn();
 
-    asio::ip::tcp::socket& get_socket();
+    //asio::ip::tcp::socket& get_socket();
 
     void broadcast();
-    asio::ip::tcp::socket sock;
-    asio::steady_timer broadcast_interval;
+
+private:
+    asio::ip::tcp::socket socket;
+    asio::steady_timer &broadcast_interval;
 };
