@@ -9,7 +9,7 @@ public:
     Net_conn(Net_conn&) = delete;
     ~Net_conn();
 
-    //asio::ip::tcp::socket& get_socket();
+    asio::ip::tcp::socket& get_socket();
 
     void broadcast();
 
