@@ -2,6 +2,8 @@
 #include <thread>
 #include <asio/include/asio.hpp>
 #include "title.hpp"
+#include "Net_conn.h"
+
 
 static bool running = true;
 
@@ -14,7 +16,6 @@ int main()
     asio::ip::address IPV4 = asio::ip::address::from_string("127.0.0.1");
     constexpr int target_port = 5554;  
     title_client.join();
-    std::cout << "Joining thread: " << title_client.get_id() << std::endl;  
     
     asio::error_code error;
     asio::io_context io_context;
