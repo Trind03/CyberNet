@@ -2,7 +2,7 @@
 #include <thread>
 #include <asio/include/asio.hpp>
 #include "title.hpp"
-#include "Net_conn.h"
+#include "Net_com.h"
 
 
 static bool running = true;
