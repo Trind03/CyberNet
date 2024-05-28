@@ -15,6 +15,4 @@ private:
     asio::ip::tcp::acceptor Acceptor;
     asio::ip::tcp::socket Sock;
     unsigned short Port;
-
-
 };

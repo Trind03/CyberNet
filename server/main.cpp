@@ -3,7 +3,6 @@
 #include <thread>
 #include "utils.hpp"
 #include "command.h"
-#include "user.h"
 #include "server.h"
 
 int main()

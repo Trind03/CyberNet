@@ -4,7 +4,6 @@
 #include "utils.hpp"
 #include <asio/include/asio.hpp>
 #include <cstdlib>
-#include "user.h"
 
 
 void command::command_handler()
