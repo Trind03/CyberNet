@@ -40,11 +40,3 @@ void command::command_handler()
             std::cout << "Invalid command" << std::endl;
     }
 }
-
-std::ostream& operator <<(std::ostream& stream,std::vector<user>*array)
-{
-    for (const auto& arr: *array) {
-        stream << std::endl << arr.ID << " - " << arr.IPV4.address() << std::endl;
-    }
-    return stream;
-}
