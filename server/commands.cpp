@@ -24,9 +24,6 @@ void command::command_handler()
                 std::cout << "\n\n";
         }
 
-        else if(Command == "list" || Command == "List")
-            list_connections();
-
         else if(Command == "" || Command == " ")
             std::cout << std::endl;
 

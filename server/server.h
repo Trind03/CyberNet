@@ -5,12 +5,16 @@
 
 class server
 {
-    server();
+public:
+    server(unsigned short port, const char* filename);
 
-
+private:
     /* assets */
-    asio::io_context io_context;
-    asio::ip::tcp::endpoint endpoint;
-    asio::ip::tcp::acceptor acceptor;
-    asio::ip::tcp::socket sock;
+    asio::io_context Io_context;
+    asio::ip::tcp::endpoint Endpoint;
+    asio::ip::tcp::acceptor Acceptor;
+    asio::ip::tcp::socket Sock;
+    unsigned short Port;
+
+
 };
