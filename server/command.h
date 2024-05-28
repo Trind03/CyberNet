@@ -3,10 +3,8 @@
 #include <vector>
 #include <cstdlib>
 #include "user.h"
-struct command
+class command
 {
-    std::vector<user>*users;
-    command(std::vector<user>*User);
+public:
     void command_handler();
-    int list_connections();
 };

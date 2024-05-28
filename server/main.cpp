@@ -19,11 +19,10 @@ int main()
 {
     thread t_boot_message = thread(boot_message_server,filename);
     const tcp IPV4 = tcp::v4();
-    std::vector<user>users{};
     t_boot_message.join();
 
 
-    command command(&users);
+    command command();
     std::thread t_command_validator = thread(&command::command_handler,&command);
 
     asio::io_context io_context;
