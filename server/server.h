@@ -6,7 +6,7 @@
 class server
 {
 public:
-    server(unsigned short&& port, std::string&& filename);
+    server(unsigned short&& port, const char*&& filename);
 
 private:
     /* assets */
