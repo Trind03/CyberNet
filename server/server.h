@@ -7,7 +7,8 @@ class server
 {
 public:
     server(unsigned short&& port, const char*&& filename);
-
+    server(server&) = delete;
+    
 private:
     /* assets */
     asio::io_context Io_context;
