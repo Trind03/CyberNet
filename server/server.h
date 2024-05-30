@@ -6,9 +6,10 @@
 class server
 {
 public:
-    server(unsigned short&& port, const char*&& filename);
+    explicit server(unsigned short&& port, const char*&& filename);
     server(server&) = delete;
     void start(server* Server);
+    bool get_running_status();
 private:
     /* assets */
     asio::io_context Io_context;
@@ -17,4 +18,5 @@ private:
     asio::ip::tcp::socket Sock;
     asio::error_code Error;
     unsigned short Port;
+    bool running;
 };
