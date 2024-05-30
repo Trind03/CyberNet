@@ -15,5 +15,6 @@ private:
     asio::ip::tcp::endpoint Endpoint;
     asio::ip::tcp::acceptor Acceptor;
     asio::ip::tcp::socket Sock;
+    asio::error_code Error;
     unsigned short Port;
 };
