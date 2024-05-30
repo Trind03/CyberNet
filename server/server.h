@@ -9,6 +9,7 @@ public:
     explicit server(unsigned short&& port, const char*&& filename);
     server(server&) = delete;
     void start(server* Server);
+    void stop();
     bool get_running_status();
 private:
     /* assets */
@@ -18,5 +19,5 @@ private:
     asio::ip::tcp::socket Sock;
     asio::error_code Error;
     unsigned short Port;
-    bool running;
+    bool Running;
 };
