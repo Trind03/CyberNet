@@ -1,14 +1,13 @@
 #pragma once
-#include <vector>
 #include <asio/include/asio.hpp>
 
 
 class server
 {
 public:
-    explicit server(unsigned short&& port, const char*&& filename);
+    explicit server(unsigned short&& port,const char*&& filename);
     server(server&) = delete;
-    void start(server* Server);
+    void start(std::shared_ptr<server>Server);
     void stop();
     bool get_running_status();
 private:

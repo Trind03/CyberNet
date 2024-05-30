@@ -5,9 +5,9 @@
 #include "command.h"
 #include "server.h"
 
-int main()
+int main(int argc,const char[])
 {
-    std::unique_ptr<server>Server = std::make_unique<server>(5554,"title.dat");
+    std::shared_ptr<server>Server = std::make_shared<server>(5554,"title.dat");
     Server->start(Server);
     return EXIT_SUCCESS;
 }
