@@ -8,6 +8,6 @@
 int main()
 {
     server Server(5554,"title.dat");
-
+    Server.start(&Server);
     return EXIT_SUCCESS;
 }
