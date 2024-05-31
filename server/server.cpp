@@ -20,9 +20,9 @@ int server::start(std::shared_ptr<server>Server)
         Server->Sock.open(asio::ip::tcp::v4());
     }
 
-    catch(std::exception &ex)
+    catch(std::exception* ex)
     {
-        std::cout << ex.what() << std::endl;
+        std::cout << ex->what() << std::endl;
         return -1;
     }
     

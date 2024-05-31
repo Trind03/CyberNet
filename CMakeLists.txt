@@ -28,4 +28,4 @@ include_directories(
 
 
 add_executable(${Server_name} ${Server}/main.cpp ${Server}/commands.cpp ${Server}/server.cpp)
-add_executable(${Client_name} ${Client}/main.cpp ${Client}/Net_conn.cpp)
+#add_executable(${Client_name} ${Client}/main.cpp ${Client}/Net_conn.cpp)
