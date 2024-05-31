@@ -5,9 +5,9 @@
 class server
 {
 public:
-    explicit server(unsigned short&& port,const char*&& filename);
+    explicit server(unsigned short port,const char* filename);
     server(server&) = delete;
-    void start(std::shared_ptr<server>Server);
+    int start(std::shared_ptr<server>Server);
     void stop();
     bool get_running_status();
 private:
