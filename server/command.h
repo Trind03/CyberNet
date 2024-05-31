@@ -6,5 +6,5 @@
 class command
 {
 public:
-    void command_handler();
+    static void command_handler();
 };

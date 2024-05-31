@@ -6,7 +6,7 @@
 #include <cstdlib>
 
 
-void command::command_handler()
+ void command::command_handler()
 {
     std::string Command;
 
