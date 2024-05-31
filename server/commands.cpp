@@ -1,12 +1,11 @@
 #include <string>
 #include <iostream>
 #include "command.h"
-#include "utils.hpp"
 #include <asio/include/asio.hpp>
-#include <cstdlib>
+#include "server.h"
 
 
- void command::command_handler()
+ void command::command_handler(std::shared_ptr<server>Server)
 {
     std::string Command;
 

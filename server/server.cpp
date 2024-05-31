@@ -16,7 +16,7 @@ bool server::get_running_status() { return Running; }
 
 int server::start(std::shared_ptr<server>Server)
 {
-    std::unique_ptr<std::thread>command = std::make_unique<std::thread>(command::command_handler);
+    std::unique_ptr<std::thread>command = std::make_unique<std::thread>(command::command_handler,Server);
     try
     {
         Server->Sock.open(asio::ip::tcp::v4());
