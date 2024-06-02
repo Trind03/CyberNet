@@ -4,12 +4,14 @@
 #include <asio/include/asio.hpp>
 #include "server.h"
 
+command::command(std::shared_ptr<server>(ptr)): Server(ptr)
+{}
 
- void command::command_handler(std::shared_ptr<server>Server)
+void command::command_handler()
 {
     std::string Command;
 
-    while(true)
+    while(Server->get_running_status())
     {
         std::cout << "> "; getline(std::cin, Command);
 

@@ -6,5 +6,8 @@
 class command
 {
 public:
-    static void command_handler(std::shared_ptr<server>Server);
+    command(std::shared_ptr<server>(ptr));
+    void command_handler();
+private:
+    std::shared_ptr<server>(Server);
 };
