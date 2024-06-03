@@ -1,17 +1,19 @@
 #include <string>
 #include <iostream>
 #include "command.h"
-#include "utils.hpp"
 #include <asio/include/asio.hpp>
-#include <cstdlib>
+#include "server.h"
+
+command::command(std::shared_ptr<server>_Server): Server(_Server)
+{}
 
 
 void command::command_handler()
 {
     std::string Command;
 
-    while(true)
-    {
+    while(Server->get_running_status())
+    {        
         std::cout << "> "; getline(std::cin, Command);
 
         if(Command == "" || Command == " ")
