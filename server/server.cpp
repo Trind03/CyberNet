@@ -5,6 +5,7 @@
 #include "command.h"
 #include <functional>
 
+#define _Debug_
 
 server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Sock(Io_context), Running(true)
 {
@@ -42,6 +43,9 @@ void server::running()
     {
         this->Acceptor.listen();
         this->Acceptor.accept();
+#ifdef _Debug_
+        std::cout << "New connection" << std::endl;
+#endif
 
     } while(this->get_running_status());
 }
