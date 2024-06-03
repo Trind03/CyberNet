@@ -11,7 +11,7 @@ public:
     int start(std::shared_ptr<server>Server,std::shared_ptr<command>Command);
 
     void stop();
-    bool get_running_status();
+    bool get_running_status()const;
 /*
     asio::io_context* get_context();
     asio::ip::tcp::endpoint* get_endpoint();

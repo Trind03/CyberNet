@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <memory>
-//#include "server.h"
-class server;
+#include "server.h"
+
 
 class command
 {
