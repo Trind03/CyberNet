@@ -39,13 +39,21 @@ int server::start(std::shared_ptr<command>Command)
 }
 void server::running()
 {
+    #ifdef _Debug_
     do
     {
         this->Acceptor.listen();
         this->Acceptor.accept();
-#ifdef _Debug_
         std::cout << "New connection" << std::endl;
-#endif
 
     } while(this->get_running_status());
+    #endif
+
+    #ifndef _Debug_
+    do
+    {
+        this->Acceptor.listen();
+        this->Acceptor.accept();
+    } while(this->get_running_status());
+    #endif
 }
