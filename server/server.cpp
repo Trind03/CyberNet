@@ -32,12 +32,16 @@ int server::start(std::shared_ptr<command>Command)
         exit(-1);
     }
     
-    do 
+    this->running();
+    command->join();
+    return 0;
+}
+void server::running()
+{
+    do
     {
         this->Acceptor.listen();
         this->Acceptor.accept();
-        
+
     } while(this->get_running_status());
-    command->join();
-    return 0;
 }
