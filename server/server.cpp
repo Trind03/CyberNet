@@ -48,6 +48,10 @@ do {
         Acceptor.accept(sock);
         std::cout << "New connection" << std::endl;
 
+        /* 
+            Exception is thrown by the two following lines.
+            Possibly from undefined status of socket.
+        */
         std::cout << "Client IP: " << sock.remote_endpoint().address().to_string() << std::endl;
         std::cout << "Client Port: " << sock.remote_endpoint().port() << std::endl;
 
