@@ -20,27 +20,39 @@ bool server::get_running_status() const { return Running; }
 
 int server::start(std::shared_ptr<command>Command)
 {
+    this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
+    try
+    {
+        this->Sock->open(asio::ip::tcp::v4(),this->Error);
 
+    }
+
+    catch(std::exception& ex)
+    {
+        std::cout << ex.what() << std::endl;
+        this->stop();
+        command->join();
+        exit(-1);
+    }
     this->running();
     command->join();
     return 0;
 }
 void server::running()
 {
-    asio::ip::tcp::socket Sock(this->Io_context);
 #ifdef _Debug_
     do
     {
         try
         {
             Acceptor.listen();
-            asio::ip::tcp::socket socket(this->Io_context);
-            Acceptor.accept(Sock);
+            std::cout  << "asmr";
+            //this->Acceptor.accept((*Sock),this->Error);
             std::cout << "New connection" << std::endl;
 
-            std::cout << "Client IP: " << Sock.remote_endpoint().address().to_string() << std::endl;
-            std::cout << "Client Port: " << Sock.remote_endpoint().port() << std::endl;
+            std::cout << "Client IP: " << Sock->remote_endpoint().address().to_string() << std::endl;
+            std::cout << "Client Port: " << Sock->remote_endpoint().port() << std::endl;
 
         }
         
