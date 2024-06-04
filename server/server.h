@@ -1,6 +1,7 @@
 #pragma once
 #include <asio/include/asio.hpp>
 #include <memory>
+#include <vector>
 class command;
 
 class server
@@ -8,16 +9,11 @@ class server
 public:
     explicit server(unsigned short port,const char* filename);
     server(server&) = delete;
-    int start(std::shared_ptr<server>Server,std::shared_ptr<command>Command);
-
+    int start(std::shared_ptr<command>Command);
+    void running();
     void stop();
     bool get_running_status()const;
-/*
-    asio::io_context* get_context();
-    asio::ip::tcp::endpoint* get_endpoint();
-    asio::ip::tcp::acceptor* get_acceptor();
-    asio::ip::tcp::socket* get_sock();
-    asio::error_code* get_error();*/
+
 private:
     /* assets */
     asio::io_context Io_context;
@@ -27,4 +23,5 @@ private:
     asio::error_code Error;
     unsigned short Port;
     bool Running;
+    std::vector<asio::ip::tcp::socket>Connections;
 };
