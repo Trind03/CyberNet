@@ -9,11 +9,11 @@ class server
 public:
     explicit server(unsigned short port,const char* filename);
     server(server&) = delete;
+
     int start(std::shared_ptr<command>Command);
     void running();
-    void stop();
+    void stop() const;
     bool get_running_status()const;
-
 private:
     /* assets */
     asio::io_context Io_context;
@@ -22,6 +22,6 @@ private:
     asio::ip::tcp::socket Sock;
     asio::error_code Error;
     unsigned short Port;
-    bool Running;
-    std::vector<asio::ip::tcp::socket>Connections;
+    mutable bool Running;
+    std::vector<asio::ip::tcp::endpoint>Connections;
 };
