@@ -16,10 +16,19 @@ server::server(unsigned short port,const char* filename): Port(std::move(port)),
 
 void server::stop() const { Running = false; }
 bool server::get_running_status() const { return Running; }
+std::vector<asio::ip::tcp::endpoint> server::get_connections()const
+{
+    return this->Connections;
+}
 
+void server::add_connection(asio::ip::tcp::endpoint&& Endpoint)
+{
+    this->Connections.push_back(Endpoint);
+}
 
 int server::start(std::shared_ptr<command>Command)
 {
+    #ifdef _Debug_
     this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
@@ -38,6 +47,17 @@ int server::start(std::shared_ptr<command>Command)
     this->running();
     command->join();
     return 0;
+
+    #else
+
+    this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
+    std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
+  
+    this->running();
+    command->join();
+    return 0;
+
+    #endif
 }
 void server::running()
 {
@@ -46,18 +66,23 @@ void server::running()
         {
             try
             {
-                Acceptor.listen();
                 asio::ip::tcp::socket sock(this->Io_context);
-                Acceptor.accept(sock);
-                std::cout << "New connection" << std::endl;
-
-                /* 
-                    Exception is thrown by the two following lines.
-                    Possibly from undefined status of socket.
-                */
-                std::cout << "Client IP: " << sock.remote_endpoint().address().to_string() << std::endl;
-                std::cout << "Client Port: " << sock.remote_endpoint().port() << std::endl;
-
+                Acceptor.listen();
+                
+                Acceptor.async_accept([this](const std::error_code& Error,const asio::ip::tcp::socket& Sock)
+                {
+                    if(!Error)
+                    {
+                        this->add_connection(Sock.remote_endpoint());
+                        std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
+                    }
+                    
+                    else
+                    {
+                        std::cerr << "Connection failure occurred" << std::endl;
+                    }
+                });
+                this->Io_context.run();
             }
             
                 
@@ -67,9 +92,8 @@ void server::running()
                     std::cerr << this->Error.message() << '\n';
                 }
         } while (this->get_running_status());
-    #endif
-
-    #ifndef _Debug_
+    
+    #else
     do
     {
         this->Acceptor.listen();

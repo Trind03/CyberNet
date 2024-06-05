@@ -13,8 +13,10 @@ public:
 
     int start(std::shared_ptr<command>Command);
     void running();
-    void stop() const;
+    void stop()const;
     bool get_running_status()const;
+    std::vector<asio::ip::tcp::endpoint> get_connections()const;
+    void add_connection(asio::ip::tcp::endpoint&& Endpoint);
 private:
     /* assets */
     asio::io_context Io_context;
