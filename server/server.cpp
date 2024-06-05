@@ -41,27 +41,33 @@ int server::start(std::shared_ptr<command>Command)
 }
 void server::running()
 {
-#ifdef _Debug_
-    do
-    {
-        try
+    #ifdef _Debug_
+        do
         {
-            Acceptor.listen();
-            std::cout  << "asmr";
-            //this->Acceptor.accept((*Sock),this->Error);
-            std::cout << "New connection" << std::endl;
+            try
+            {
+                Acceptor.listen();
+                asio::ip::tcp::socket sock(this->Io_context);
+                Acceptor.accept(sock);
+                std::cout << "New connection" << std::endl;
 
-            std::cout << "Client IP: " << Sock->remote_endpoint().address().to_string() << std::endl;
-            std::cout << "Client Port: " << Sock->remote_endpoint().port() << std::endl;
+                /* 
+                    Exception is thrown by the two following lines.
+                    Possibly from undefined status of socket.
+                */
+                std::cout << "Client IP: " << sock.remote_endpoint().address().to_string() << std::endl;
+                std::cout << "Client Port: " << sock.remote_endpoint().port() << std::endl;
 
-        }
-        
-        catch (const std::exception& e)
-        {
-            std::cerr << this->Error.message() << '\n';
-        }
-    } while (this->get_running_status());
-#endif
+            }
+            
+                
+                catch (const std::exception& e)
+                {
+                    std::cerr << "Caught exception " << e.what() << std::endl;;
+                    std::cerr << this->Error.message() << '\n';
+                }
+        } while (this->get_running_status());
+    #endif
 
     #ifndef _Debug_
     do
