@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include "command.h"
-#include <asio/include/asio.hpp>
+#include <asio.hpp>
 #include "server.h"
 
 command::command(std::shared_ptr<server>_Server): Server(_Server)
