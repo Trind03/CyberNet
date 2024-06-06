@@ -4,7 +4,7 @@
 #include "server.h"
 #include "command.h"
 
-#define  ASIO_STANDALONE
+#define  ASIO_STANDALONE 1
 
 int main(int argc,const char** argv)
 {
