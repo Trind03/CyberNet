@@ -8,6 +8,7 @@
 #include <string>
 #define _Debug_
 
+
 server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Running(true)
 {
     std::unique_ptr<std::thread>display_title = std::make_unique<std::thread>(title_server,std::move(filename));
