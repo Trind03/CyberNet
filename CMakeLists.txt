@@ -24,6 +24,7 @@ include_directories(
     # Library
     ${CMAKE_SOURCE_DIR}/asio/asio/include
     ${CMAKE_SOURCE_DIR}/asio/asio/src
+    ${CMAKE_SOURCE_DIR}/asio/asio/include/asio/detail
 )
 
 # Platform dependant code
