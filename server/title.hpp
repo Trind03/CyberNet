@@ -5,7 +5,7 @@
 #include <string>
 #include <memory>
 
-std::function<void(const char*&&)> title_server = [&](const char*&& filename)
+std::function<void(const char*&&)> title_server = [](const char*&& filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 
@@ -18,6 +18,7 @@ std::function<void(const char*&&)> title_server = [&](const char*&& filename)
         }
         std::cout << std::endl << std::endl;
     }
+    
     else
     {
         std::cout << "Error title file not found" << std::endl;
