@@ -15,6 +15,7 @@ server::server(unsigned short port,const char* filename): Port(std::move(port)),
     display_title->join();
 };
 
+
 void server::stop() const { Running = false; }
 bool server::get_running_status() const { return Running; }
 std::vector<asio::ip::tcp::endpoint> server::get_connections()const

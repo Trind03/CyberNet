@@ -17,6 +17,7 @@ public:
     bool get_running_status()const;
     std::vector<asio::ip::tcp::endpoint> get_connections()const;
     void add_connection(asio::ip::tcp::endpoint&& Endpoint);
+    
 private:
     /* assets */
     asio::io_context Io_context;

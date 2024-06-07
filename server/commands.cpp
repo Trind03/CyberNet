@@ -7,7 +7,6 @@
 command::command(std::shared_ptr<server>_Server): Server(_Server)
 {}
 
-
 void command::command_handler()
 {
     std::string Command;

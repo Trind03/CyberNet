@@ -18,6 +18,7 @@ std::function<void(const char*&&)> title_server = [](const char*&& filename)
         }
         std::cout << std::endl << std::endl;
     }
+    
     else
     {
         std::cout << "Error title file not found" << std::endl;

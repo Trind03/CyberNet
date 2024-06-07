@@ -1,4 +1,3 @@
-#pragma once
 #include <asio.hpp>
 #include <memory>
 #include "server.h"
