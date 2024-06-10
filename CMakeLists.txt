@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 project(CyberNet LANGUAGES CXX)
 
 
-
+set(CMAKE_CXX_COMPILER "clang++")
 set(Winx64 TRUE)
 set(CXX_STANDARD 20)
 
