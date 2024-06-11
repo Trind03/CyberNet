@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 project(CyberNet LANGUAGES CXX)
 
 set(Winx64 FALSE)
-set(MACOSX FALSE)
+set(MACOSX TRUE)
 set(LINUX FALSE)
 
 
@@ -13,9 +13,6 @@ set(Server_name "server")
 # File path init
 set(Server "${CMAKE_SOURCE_DIR}/server")
 set(Client "${CMAKE_SOURCE_DIR}/client")
-
-add_executable(${Server_name} ${Server}/main.cpp ${Server}/commands.cpp ${Server}/server.cpp)
-#add_executable(${Client_name} ${Client}/main.cpp ${Client}/Net_conn.cpp)
 
 # Platform dependant code
 
@@ -49,3 +46,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio/detail
     ${Boost_INCLUDE_DIRS}
 )
+
+add_executable(${Server_name} ${Server}/main.cpp ${Server}/commands.cpp ${Server}/server.cpp)
+#add_executable(${Client_name} ${Client}/main.cpp ${Client}/Net_conn.cpp)
