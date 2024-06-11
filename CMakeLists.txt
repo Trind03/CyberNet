@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.29)
 project(CyberNet LANGUAGES CXX)
 
+set(Winx64 FALSE)
+set(MACOSX FALSE)
+set(LINUX FALSE)
 
-set(CMAKE_CXX_COMPILER "clang++")
-set(Winx64 TRUE)
-set(CXX_STANDARD 20)
 
 # Executable names
 set(Client_name "client")
@@ -14,19 +14,27 @@ set(Server_name "server")
 set(Server "${CMAKE_SOURCE_DIR}/server")
 set(Client "${CMAKE_SOURCE_DIR}/client")
 
-
-# Platform dependant code
-
 add_executable(${Server_name} ${Server}/main.cpp ${Server}/commands.cpp ${Server}/server.cpp)
 #add_executable(${Client_name} ${Client}/main.cpp ${Client}/Net_conn.cpp)
 
+# Platform dependant code
+
 if(Winx64)
-target_link_libraries(${Server_name} ws2_32 mswsock)
-#target_link_libraries(${Client_name} ws2_32 mswsock)
-add_definitions(-D_WIN32_WINNT=0x0601)
+    target_link_libraries(${Server_name} ws2_32 mswsock)
+    #target_link_libraries(${Client_name} ws2_32 mswsock)
+    add_definitions(-D_WIN32_WINNT=0x0601)
+
+elseif(MACOSX)
+    find_package(Boost REQUIRED)
+    set(CMAKE_CXX_COMPILER "clang++")
+    add_compile_options(-std=c++20)
+
+elseif(LINUX)
+    find_package(Boost REQUIRED)
+    set(CMAKE_CXX_COMPILER "g++")
+    add_compile_options(-std=c++20)
 endif()
 
-find_package(Boost REQUIRED)
 
 include_directories(
     # Server
