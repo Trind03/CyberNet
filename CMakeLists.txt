@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.29)
 project(CyberNet LANGUAGES CXX)
 
-set(Winx64 FALSE)
-set(MACOSX TRUE)
-set(LINUX FALSE)
-
 
 # Executable names
 set(Client_name "client")
@@ -16,20 +12,26 @@ set(Client "${CMAKE_SOURCE_DIR}/client")
 
 # Platform dependant code
 
-if(Winx64)
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+    message("-- System identyfied as: Windows")
     target_link_libraries(${Server_name} ws2_32 mswsock)
     #target_link_libraries(${Client_name} ws2_32 mswsock)
     add_definitions(-D_WIN32_WINNT=0x0601)
 
-elseif(MACOSX)
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+    message("-- System identyfied as: MacOS")
     find_package(Boost REQUIRED)
     set(CMAKE_CXX_COMPILER "clang++")
     add_compile_options(-std=c++20)
 
-elseif(LINUX)
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    message("-- System identyfied as: Linux")
     find_package(Boost REQUIRED)
     set(CMAKE_CXX_COMPILER "g++")
     add_compile_options(-std=c++20)
+else()
+    message("Error. Failed to identify system.")
+    return(-1)
 endif()
 
 
