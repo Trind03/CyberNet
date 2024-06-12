@@ -4,7 +4,6 @@
 #include "title.hpp"
 #include "command.h"
 #include <functional>
-#include <future>
 #include <string>
 #define _Debug_
 
@@ -18,14 +17,14 @@ server::server(unsigned short port,const char* filename): Port(std::move(port)),
 
 void server::stop() const { Running = false; }
 bool server::get_running_status() const { return Running; }
-std::vector<asio::ip::tcp::endpoint> server::get_connections()const
+std::deque<asio::ip::tcp::endpoint> server::get_connections()const
 {
     return this->Connections;
 }
 
 void server::add_connection(asio::ip::tcp::endpoint&& Endpoint)
 {
-    this->Connections.push_back(Endpoint);
+    this->Connections.push_front(Endpoint);
 }
 
 int server::start(std::shared_ptr<command>Command)
