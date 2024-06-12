@@ -1,13 +1,13 @@
 #include <asio.hpp>
 #include "client.h"
 
-Net_com::Net_com()
+client::client()
 {}
 
-Net_com::~Net_com()
+client::~client()
 {}
 
-asio::ip::tcp::socket* Net_com::get_socket()
+asio::ip::tcp::socket* client::get_socket()
 {
     return sock;
 }
