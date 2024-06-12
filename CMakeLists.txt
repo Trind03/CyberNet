@@ -15,7 +15,7 @@ set(Client "${CMAKE_SOURCE_DIR}/client")
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     target_link_libraries(${Server_name} ws2_32 mswsock)
-    #target_link_libraries(${Client_name} ws2_32 mswsock)
+    target_link_libraries(${Client_name} ws2_32 mswsock)
     add_definitions(-D_WIN32_WINNT=0x0601)
 
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
