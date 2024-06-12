@@ -1,5 +1,5 @@
-#include <asio/include/asio.hpp>
-#include "Net_com.h"
+#include <asio.hpp>
+#include "client.h"
 
 Net_com::Net_com()
 {}

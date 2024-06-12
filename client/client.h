@@ -1,6 +1,6 @@
 #pragma once
 #include <chrono>
-#include <asio/include/asio.hpp>
+#include <asio.hpp>
 
 class Net_com : public std::enable_shared_from_this<Net_com>
 {
