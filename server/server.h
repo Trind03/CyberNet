@@ -1,7 +1,7 @@
 #pragma once
 #include <asio.hpp>
 #include <memory>
-#include <vector>
+#include <deque>
 
 class command;
 
@@ -15,7 +15,7 @@ public:
     void running();
     void stop()const;
     bool get_running_status()const;
-    std::vector<asio::ip::tcp::endpoint> get_connections()const;
+    std::deque<asio::ip::tcp::endpoint> get_connections()const;
     void add_connection(asio::ip::tcp::endpoint&& Endpoint);
     
 private:
@@ -27,5 +27,5 @@ private:
     asio::error_code Error;
     unsigned short Port;
     mutable bool Running;
-    std::vector<asio::ip::tcp::endpoint>Connections;
+    std::deque<asio::ip::tcp::endpoint>Connections;
 };

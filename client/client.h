@@ -1,19 +1,20 @@
 #pragma once
 #include <chrono>
-#include <asio/include/asio.hpp>
+#include <asio.hpp>
 
-class Net_com : public std::enable_shared_from_this<Net_com>
+class client
 {
 public:
-    Net_com();
-    Net_com(Net_com&) = delete;
-    ~Net_com();
+    client();
+    client(client& _client) = delete;
+    ~client();
 
     asio::ip::tcp::socket* get_socket();
 
     void broadcast();
 
 private:
+    asio::io_context *Io_context;
     asio::ip::tcp::socket* sock;
     asio::steady_timer* broadcast_interval;
 };
