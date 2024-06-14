@@ -16,7 +16,7 @@ public:
     void broadcast();
 
 private:
-    asio::io_context *Io_context;
-    asio::ip::tcp::endpoint* Endpoint;
-    std::chrono::seconds* last_response;
+    asio::io_context Io_context();
+    asio::ip::tcp::endpoint Endpoint();
+    std::chrono::steady_clock last_response;
 };
