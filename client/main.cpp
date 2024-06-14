@@ -4,13 +4,12 @@
 #include "title.hpp"
 #include "client.h"
 
-
 static bool running = true;
 
 int main()
 {
     const char* filename = "title.dat";
-    std::thread title_client = std::thread(boot_message_client,filename);
+    std::thread title_client = std::thread(boot_message_client<const char*>,filename);
 
 
     asio::ip::address IPV4 = asio::ip::address::from_string("127.0.0.1");

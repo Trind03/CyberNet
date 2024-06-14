@@ -4,7 +4,8 @@
 #include <fstream>
 #include <string>
 
-std::function<int(const char*)>boot_message_client = [](const char*&& filename)
+template <typename T>
+std::function<int(T)>boot_message_client = [](T&& filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 
