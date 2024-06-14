@@ -11,7 +11,6 @@ set(Server "${CMAKE_SOURCE_DIR}/server")
 set(Client "${CMAKE_SOURCE_DIR}/client")
 
 # Platform dependant code
-
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     target_link_libraries(${Server_name} ws2_32 mswsock)

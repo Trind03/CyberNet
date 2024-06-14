@@ -13,10 +13,10 @@ public:
 
     int start(std::shared_ptr<command>Command);
     void running();
-    void stop()const;
-    bool get_running_status()const;
-    std::deque<asio::ip::tcp::endpoint> get_connections()const;
-    void add_connection(asio::ip::tcp::endpoint&& Endpoint);
+    void stop() const;
+    bool get_running_status() const;
+    std::deque<asio::ip::tcp::endpoint> get_connections() const;
+    void add_connection(asio::ip::tcp::endpoint Endpoint);
     
 private:
     /* assets */

@@ -22,14 +22,14 @@ std::deque<asio::ip::tcp::endpoint> server::get_connections()const
     return this->Connections;
 }
 
-void server::add_connection(asio::ip::tcp::endpoint&& Endpoint)
+void server::add_connection(asio::ip::tcp::endpoint Endpoint)
 {
     this->Connections.push_front(Endpoint);
 }
 
 int server::start(std::shared_ptr<command>Command)
 {
-    #ifdef _Debug_
+#ifdef _Debug_
     this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
@@ -49,7 +49,7 @@ int server::start(std::shared_ptr<command>Command)
     command->join();
     return 0;
 
-    #else
+#else
 
     this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
@@ -58,11 +58,11 @@ int server::start(std::shared_ptr<command>Command)
     command->join();
     return 0;
 
-    #endif
+#endif
 }
 void server::running()
 {
-    #ifdef _Debug_
+#ifdef _Debug_
         do
         {
             try
@@ -94,11 +94,11 @@ void server::running()
                 }
         } while (this->get_running_status());
     
-    #else
+#else
     do
     {
         this->Acceptor.listen();
         this->Acceptor.accept();
     } while(this->get_running_status());
-    #endif
+#endif
 }

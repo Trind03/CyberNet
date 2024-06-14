@@ -7,7 +7,17 @@ client::client()
 client::~client()
 {}
 
-asio::ip::tcp::socket* client::get_socket()
+void client::reset_timer()
 {
-    return sock;
+    last_response = std::chrono::
+}
+
+std::chrono::seconds client::get_last_ping() const
+{
+    return (*last_response);
+}
+
+asio::ip::tcp::endpoint* client::get_endpoint() const
+{
+    return Endpoint;
 }
