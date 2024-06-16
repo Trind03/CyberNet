@@ -1,13 +1,26 @@
 #include <asio.hpp>
 #include "client.h"
+#include <chrono>
 
 client::client()
-{}
+{
+    last_response = std::chrono::high_resolution_clock::now();
+}
 
 client::~client()
 {}
 
-asio::ip::tcp::socket* client::get_socket()
+void client::reset_timer()
 {
-    return sock;
+    std::chrono::seconds duration(0);
+}
+
+std::chrono::seconds client::get_last_ping() const
+{
+    return (*last_response);
+}
+
+asio::ip::tcp::endpoint* client::get_endpoint() const
+{
+    return Endpoint;
 }

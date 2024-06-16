@@ -3,44 +3,20 @@ project(CyberNet LANGUAGES CXX)
 
 
 # Executable names
-set(Client_name "client")
-set(Server_name "server")
+set(Client "client")
+set(Server "server")
 
 # File path init
-set(Server "${CMAKE_SOURCE_DIR}/server")
-set(Client "${CMAKE_SOURCE_DIR}/client")
-
-# Platform dependant code
-
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-    message("-- System identyfied as: Windows")
-    target_link_libraries(${Server_name} ws2_32 mswsock)
-    target_link_libraries(${Client_name} ws2_32 mswsock)
-    add_definitions(-D_WIN32_WINNT=0x0601)
-
-elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-    message("-- System identyfied as: MacOS")
-    find_package(Boost REQUIRED)
-    set(CMAKE_CXX_COMPILER "clang++")
-    add_compile_options(-std=c++20)
-
-elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    message("-- System identyfied as: Linux")
-    find_package(Boost REQUIRED)
-    set(CMAKE_CXX_COMPILER "g++")
-    add_compile_options(-std=c++20)
-else()
-    message("Error. Failed to identify system.")
-    return(-1)
-endif()
+set(Server_dir "${CMAKE_SOURCE_DIR}/server")
+set(Client_dir "${CMAKE_SOURCE_DIR}/client")
 
 
 include_directories(
     # Server
-    ${Server}
+    ${Server_dir}
 
     # Client
-    ${Client}
+    ${Client_dir}
 
     # Library
     ${CMAKE_SOURCE_DIR}/asio/asio/include
@@ -49,5 +25,39 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
 )
 
-add_executable(${Server_name} ${Server}/main.cpp ${Server}/commands.cpp ${Server}/server.cpp)
-add_executable(${Client_name} ${Client}/main.cpp ${Client}/client.cpp)
+
+
+# Platform dependant code
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+    message("-- System identyfied as: Windows")
+    add_compile_options(-std=c++20)
+    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
+    target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
+    #add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
+    #target_link_libraries(${Client} ws2_32 mswsock)
+    add_definitions(-D_WIN32_WINNT=0x0601)
+    return()
+
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+    message("-- System identyfied as: MacOS")
+    find_package(Boost REQUIRED)
+    set(CMAKE_CXX_COMPILER "clang++")
+    add_compile_options(-std=c++20)
+    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
+    return()
+
+elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    message("-- System identyfied as: Linux")
+    find_package(Boost REQUIRED)
+    set(CMAKE_CXX_COMPILER "g++")
+    add_compile_options(-std=c++20)
+    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
+    return()
+
+else()
+    message("Error. Failed to identify system.")
+    return(-1)
+endif()
+
