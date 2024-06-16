@@ -3,6 +3,8 @@
 #include <memory>
 #include <fstream>
 #include <string>
+#include "title.h"
+
 
 template <typename T>
 std::function<int(T)>boot_message_client = [](T&& filename)

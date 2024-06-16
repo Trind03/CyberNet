@@ -47,7 +47,7 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     set(CMAKE_CXX_COMPILER "clang++")
     add_compile_options(-std=c++20)
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
-    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp ${Client_dir}/title.cpp)
     return()
 
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
