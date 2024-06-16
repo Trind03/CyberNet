@@ -10,13 +10,13 @@ public:
     ~client();
     client(client& _client) = delete;
     void reset_timer();
-    std::chrono::seconds get_last_ping() const;
-    asio::ip::tcp::endpoint* get_endpoint() const;
+    std::chrono::steady_clock get_last_ping() const;
+    asio::ip::tcp::endpoint get_endpoint() const;
 
     void broadcast();
 
 private:
-    asio::io_context Io_context();
-    asio::ip::tcp::endpoint Endpoint();
+    asio::io_context Io_context;
+    asio::ip::tcp::endpoint Endpoint;
     std::chrono::steady_clock last_response;
 };

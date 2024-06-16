@@ -20,8 +20,8 @@ include_directories(
 
     # Library
     ${CMAKE_SOURCE_DIR}/asio/asio/include
-    ${CMAKE_SOURCE_DIR}/asio/asio/src
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio/detail
+    ${CMAKE_SOURCE_DIR}/asio/asio/include/asio
     ${Boost_INCLUDE_DIRS}
 )
 
@@ -30,11 +30,14 @@ include_directories(
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
-    add_compile_options(-std=c++20)
+    set(CMAKE_CXX_STANDARD 20)
+
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
     target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
-    #add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
-    #target_link_libraries(${Client} ws2_32 mswsock)
+
+    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
+    target_link_libraries(${Client} PRIVATE ws2_32 mswsock)
+
     add_definitions(-D_WIN32_WINNT=0x0601)
     return()
 

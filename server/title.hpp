@@ -5,7 +5,8 @@
 #include <string>
 #include <memory>
 
-std::function<void(const char*&&)> title_server = [](const char*&& filename)
+template <typename T>
+std::function<void(T)> title_server = [](T filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 
