@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 #include "title.h"
+
 int title_server(const char*&& filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
