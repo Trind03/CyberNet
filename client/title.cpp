@@ -5,8 +5,7 @@
 #include <string>
 #include "title.h"
 
-template <typename T>
-int boot_message_client(T filename)
+int boot_message_client(const char*&  filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 

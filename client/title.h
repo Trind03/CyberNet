@@ -1,3 +1,4 @@
 #pragma once
-template <typename T>
-int boot_message_client(T filename);
+#include <iostream>
+
+int boot_message_client(const char*&  filename);

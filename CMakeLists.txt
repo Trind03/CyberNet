@@ -35,7 +35,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
     target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
 
-    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp ${Client_dir}/title.cpp)
     target_link_libraries(${Client} PRIVATE ws2_32 mswsock)
 
     add_definitions(-D_WIN32_WINNT=0x0601)
