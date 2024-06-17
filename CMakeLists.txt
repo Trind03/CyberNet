@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.29)
+cmake_minimum_required(VERSION 3.29.3)
 project(CyberNet LANGUAGES CXX)
 
 
@@ -32,7 +32,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     set(CMAKE_CXX_STANDARD 20)
 
-    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
+    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp)
     target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
 
     add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp ${Client_dir}/title.cpp)
@@ -46,7 +46,7 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     find_package(Boost REQUIRED)
     set(CMAKE_CXX_COMPILER "clang++")
     add_compile_options(-std=c++20)
-    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp)
+    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp)
     add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/client.cpp ${Client_dir}/title.cpp)
     return()
 

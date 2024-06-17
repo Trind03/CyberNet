@@ -1,12 +1,10 @@
-#pragma once
 #include <iostream>
 #include <fstream>
 #include <functional>
 #include <string>
 #include <memory>
-
-template <typename T>
-std::function<void(T)> title_server = [](T filename)
+#include "title.h"
+int title_server(const char*&& filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 
@@ -25,4 +23,5 @@ std::function<void(T)> title_server = [](T filename)
         std::cout << "Error title file not found" << std::endl;
         exit(-1);
     }
+    return EXIT_FAILURE;
 };
