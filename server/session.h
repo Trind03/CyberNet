@@ -2,11 +2,11 @@
 #include <asio.hpp>
 #include <chrono>
 
-class client
+class session
 {
 public:
-    client(asio::ip::tcp::endpoint endpoint);
-    client(client& clients) = delete;
+    session(asio::ip::tcp::endpoint endpoint);
+    session(session& Session) = delete;
     float calculate_time();
     void reset();
 private:

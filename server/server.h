@@ -2,6 +2,8 @@
 #include <asio.hpp>
 #include <memory>
 #include <deque>
+#include "session.h"
+
 
 class command;
 
@@ -17,6 +19,7 @@ public:
     bool get_running_status() const;
     std::deque<asio::ip::tcp::endpoint> get_connections() const;
     void add_connection(asio::ip::tcp::endpoint Endpoint);
+    void disconnect_client(session &Session);
     
 private:
     /* assets */
