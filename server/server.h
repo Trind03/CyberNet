@@ -17,9 +17,9 @@ public:
     void running();
     void stop() const;
     bool get_running_status() const;
-    std::deque<asio::ip::tcp::endpoint> get_connections() const;
+    std::deque<session> server::get_connections()const;
     void add_connection(asio::ip::tcp::endpoint Endpoint);
-    void disconnect_client(session &Session);
+    void disconnect_client(int index);
     
 private:
     /* assets */
@@ -30,5 +30,5 @@ private:
     asio::error_code Error;
     unsigned short Port;
     mutable bool Running;
-    std::deque<asio::ip::tcp::endpoint>Connections;
+    std::deque<session>Connections;
 };
