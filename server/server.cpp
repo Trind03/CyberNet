@@ -38,15 +38,17 @@ void server::disconnect_client(int index)
 void server::session_status()
 {
     if(this->Connections.size() > 0)
-        for(int i = 0; i < this->Connections.size(); i++)
+        for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.size(); i++)
         {
-            std::deque<session>::iterator it = this->Connections.begin();
-
             std::cout << it->calculate_time() << std::endl;
-            it++;
         }
     else
         return;
+}
+
+int server::broadcast_client(session *Session)
+{
+
 }
 
 int server::start(std::shared_ptr<command>Command)
