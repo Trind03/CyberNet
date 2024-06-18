@@ -19,5 +19,5 @@ float session::calculate_time()
 
 session::session(asio::ip::tcp::endpoint endpoint): Endpoint(endpoint)
 {
-    reset();
+    time_stamp = std::chrono::system_clock::now();
 }
