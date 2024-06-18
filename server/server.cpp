@@ -6,6 +6,8 @@
 #include "server.h"
 #include "title.h"
 #include "command.h"
+#include "session.h"
+
 #define _Debug_
 
 
@@ -23,13 +25,28 @@ std::deque<session> server::get_connections()const { return this->Connections; }
 
 void server::add_connection(asio::ip::tcp::endpoint Endpoint)
 {
-    this->Connections.push_front(Endpoint);
+    session Session(Endpoint);
+    this->Connections.push_front(Session);
 }
+
 
 void server::disconnect_client(int index)
 {
     std::deque<session>::iterator it = this->Connections.begin() + index;
     this->Connections.erase(it);
+}
+void server::session_status()
+{
+    if(this->Connections.size() > 0)
+        for(int i = 0; i < this->Connections.size(); i++)
+        {
+            std::deque<session>::iterator it = this->Connections.begin();
+
+            std::cout << it->calculate_time() << std::endl;
+            it++;
+        }
+    else
+        return;
 }
 
 int server::start(std::shared_ptr<command>Command)
@@ -80,7 +97,7 @@ void server::running()
                     if(!Error)
                     {
                         this->add_connection(Sock.remote_endpoint());
-                        std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
+                        //std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
                     }
                     
                     else
