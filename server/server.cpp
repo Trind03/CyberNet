@@ -48,7 +48,7 @@ void server::session_status()
 
 int server::broadcast_client(session *Session)
 {
-    
+    return EXIT_SUCCESS;
 }
 
 int server::start(std::shared_ptr<command>Command)
