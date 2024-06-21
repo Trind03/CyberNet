@@ -19,6 +19,7 @@ server::server(unsigned short port,const char* filename): Port(std::move(port)),
 
 
 void server::stop() const { Running = false; }
+
 bool server::get_running_status() const { return Running; }
 
 std::deque<session> server::get_connections()const { return this->Connections; }
