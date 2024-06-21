@@ -23,9 +23,9 @@ bool server::get_running_status() const { return Running; }
 
 std::deque<session> server::get_connections()const { return this->Connections; }
 
-void server::add_connection(asio::ip::tcp::endpoint Endpoint)
+void server::add_connection(asio::ip::tcp::endpoint &&Endpoint)
 {
-    session Session(Endpoint);
+    session Session(std::move(Endpoint));
     this->Connections.push_front(Session);
 }
 
