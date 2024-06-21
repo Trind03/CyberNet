@@ -35,6 +35,7 @@ void server::disconnect_client(int index)
     std::deque<session>::iterator it = this->Connections.begin() + index;
     this->Connections.erase(it);
 }
+
 void server::session_status()
 {
     if(this->Connections.size() > 0)
@@ -84,6 +85,7 @@ int server::start(std::shared_ptr<command>Command)
 
 #endif
 }
+
 void server::running()
 {
 #ifdef _Debug_
