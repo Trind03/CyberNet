@@ -1,11 +1,11 @@
 #include <iostream>
-#include <functional>
-#include <memory>
 #include <fstream>
+#include <functional>
 #include <string>
+#include <memory>
+#include "title.h"
 
-template <typename T>
-std::function<int(T)>boot_message_client = [](T&& filename)
+int title_server(const char*&& filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 
@@ -16,12 +16,13 @@ std::function<int(T)>boot_message_client = [](T&& filename)
         {
             std::cout << line << std::endl;
         }
+        std::cout << std::endl << std::endl;
     }
-
+    
     else
     {
-        std::cerr << "Error title file not found" << std::endl;
+        std::cout << "Error title file not found" << std::endl;
         exit(-1);
     }
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 };

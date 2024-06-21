@@ -1,10 +1,13 @@
+#include <iostream>
 #include <memory>
 #include <asio.hpp>
-#include "server.h"
-#include "title.hpp"
-#include "command.h"
 #include <functional>
 #include <string>
+#include "server.h"
+#include "title.h"
+#include "command.h"
+#include "session.h"
+
 #define _Debug_
 
 
@@ -17,14 +20,35 @@ server::server(unsigned short port,const char* filename): Port(std::move(port)),
 
 void server::stop() const { Running = false; }
 bool server::get_running_status() const { return Running; }
-std::deque<asio::ip::tcp::endpoint> server::get_connections()const
-{
-    return this->Connections;
-}
+
+std::deque<session> server::get_connections()const { return this->Connections; }
 
 void server::add_connection(asio::ip::tcp::endpoint Endpoint)
 {
-    this->Connections.push_front(Endpoint);
+    session Session(Endpoint);
+    this->Connections.push_front(Session);
+}
+
+
+void server::disconnect_client(int index)
+{
+    std::deque<session>::iterator it = this->Connections.begin() + index;
+    this->Connections.erase(it);
+}
+void server::session_status()
+{
+    if(this->Connections.size() > 0)
+        for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
+        {
+            std::cout << it->calculate_time() << std::endl;
+        }
+    else
+        return;
+}
+
+int server::broadcast_client(session *Session)
+{
+    return EXIT_SUCCESS;
 }
 
 int server::start(std::shared_ptr<command>Command)
@@ -75,7 +99,7 @@ void server::running()
                     if(!Error)
                     {
                         this->add_connection(Sock.remote_endpoint());
-                        std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
+                        //std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
                     }
                     
                     else
