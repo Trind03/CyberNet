@@ -19,13 +19,14 @@ server::server(unsigned short port,const char* filename): Port(std::move(port)),
 
 
 void server::stop() const { Running = false; }
+
 bool server::get_running_status() const { return Running; }
 
 std::deque<session> server::get_connections()const { return this->Connections; }
 
-void server::add_connection(asio::ip::tcp::endpoint Endpoint)
+void server::add_connection(asio::ip::tcp::endpoint &&Endpoint)
 {
-    session Session(Endpoint);
+    session Session(std::move(Endpoint));
     this->Connections.push_front(Session);
 }
 
@@ -35,6 +36,7 @@ void server::disconnect_client(int index)
     std::deque<session>::iterator it = this->Connections.begin() + index;
     this->Connections.erase(it);
 }
+
 void server::session_status()
 {
     if(this->Connections.size() > 0)
@@ -84,6 +86,7 @@ int server::start(std::shared_ptr<command>Command)
 
 #endif
 }
+
 void server::running()
 {
 #ifdef _Debug_

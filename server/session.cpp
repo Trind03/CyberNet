@@ -16,7 +16,7 @@ float session::calculate_time()
 }
 
 
-session::session(asio::ip::tcp::endpoint endpoint): Endpoint(endpoint)
+session::session(asio::ip::tcp::endpoint &&endpoint): Endpoint(std::move(endpoint))
 {
     time_stamp = std::chrono::system_clock::now();
 }
