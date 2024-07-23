@@ -9,8 +9,8 @@ set(Server "server")
 set(Cpp_standard "c++20")
 
 # File path init
-set(Server_dir "${CMAKE_SOURCE_DIR}/server")
-set(Client_dir "${CMAKE_SOURCE_DIR}/client")
+set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
+set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 
 
 include_directories(
@@ -64,5 +64,6 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 else()
     message("Error. Failed to identify system.")
     return(-1)
+    
 endif()
 
