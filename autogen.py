@@ -24,6 +24,7 @@ def gethash(path):
                 print(f"Error cannot read {file_path}")
     return hash.hexdigest()
 
+
 def get_changes():
     global running
 
