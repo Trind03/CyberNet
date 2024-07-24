@@ -6,7 +6,6 @@ class session
 {
 public:
     session(asio::ip::tcp::endpoint &&endpoint);
-    //session(session& Session) = delete;
     float calculate_time();
     void reset();
 private:

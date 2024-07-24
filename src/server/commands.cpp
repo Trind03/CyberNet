@@ -1,7 +1,8 @@
 #include <string>
 #include <iostream>
-#include "command.h"
 #include <asio.hpp>
+#include <cctype>
+#include "command.h"
 #include "server.h"
 
 command::command(std::shared_ptr<server>_Server): Server(_Server)
@@ -18,16 +19,13 @@ void command::command_handler()
         if(Command == "" || Command == " ")
             std::cout << std::endl;
 
-        else if(Command == "clear" || Command == "Clear")
+        else if(Command == this->commands[0])
         {
-            for(int i = 0; i < 40; i++)
-                std::cout << "\n\n";
+            for(int i = 0; i < 20; i++)
+                std::cout << std::endl;
         }
 
-        else if(Command == "" || Command == " ")
-            std::cout << std::endl;
-
-        else if(Command == "exit" || Command == "Exit")
+        else if(Command == this->commands[2])
         {
             std::cout << "K bye " << std::endl;
             exit(0);
