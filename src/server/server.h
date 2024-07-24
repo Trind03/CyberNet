@@ -16,8 +16,10 @@ public:
     int start(std::shared_ptr<command>Command);
     void running();
     void stop() const;
+
     bool get_running_status() const;
     std::deque<session> get_connections()const;
+    
     void add_connection(asio::ip::tcp::endpoint &&Endpoint);
     void disconnect_client(int index);
     void session_status();
