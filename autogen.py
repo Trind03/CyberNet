@@ -27,7 +27,7 @@ def gethash(path):
 def get_changes():
     global running
 
-    checksum = "Nothing"
+    checksum = ""
     new_checksum = ""
 
     while(running): 
