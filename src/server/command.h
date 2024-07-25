@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <memory>
+#include <array>
 
 class server;
 
@@ -11,4 +12,6 @@ public:
     void command_handler();
 private:
     std::shared_ptr<server>Server;
+
+    std::array<const char*,3> commands = {"clear"," ","exit"};
 };
