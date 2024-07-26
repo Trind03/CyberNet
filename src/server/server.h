@@ -15,13 +15,13 @@ public:
 
     int start(std::shared_ptr<command>Command);
     void running();
-    void stop() const;
+    void stop();
 
     bool get_running_status() const;
-    std::deque<session> get_connections()const;
+    std::deque<session> get_connections() const;
     
     void add_connection(asio::ip::tcp::endpoint &&Endpoint);
-    void disconnect_client(int index);
+    void disconnect_client(std::deque<session>::iterator it);
     void session_status();
     int broadcast_client(session *Session);
     
@@ -33,6 +33,6 @@ private:
     std::unique_ptr<asio::ip::tcp::socket>Sock;
     asio::error_code Error;
     unsigned short Port;
-    mutable bool Running;
+    bool Running;
     std::deque<session>Connections;
 };
