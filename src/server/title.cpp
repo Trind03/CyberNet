@@ -12,6 +12,7 @@ int title_server(const char*&& filename)
     if(stream->is_open())
     {
         std::string line;
+
         while(std::getline((*stream),line))
         {
             std::cout << line << std::endl;
@@ -22,7 +23,7 @@ int title_server(const char*&& filename)
     else
     {
         std::cout << "Error title file not found" << std::endl;
-        exit(-1);
+        return EXIT_FAILURE;
     }
-    return EXIT_FAILURE;
+    return EXIT_SUCCESS;
 };
