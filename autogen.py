@@ -3,8 +3,6 @@ import hashlib
 import sys
 import threading
 
-PRE_BUILD = f"cmake -B ./build -S . -G \"Unix Makefiles\""
-BUILD = f"cmake --build ./build --config \" {sys.argv[1]}\""
 checksum = ""
 new_checksum = ""
 
@@ -27,6 +25,8 @@ def gethash(path):
 
 def get_changes():
     global running
+    PRE_BUILD = f"cmake -B ./build -S . -G \"Unix Makefiles\""
+    BUILD = f"cmake --build ./build --config \" {sys.argv[1]}\""
 
     checksum = ""
     new_checksum = ""
