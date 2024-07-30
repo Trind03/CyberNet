@@ -1,5 +1,6 @@
 #include <asio.hpp>
 #include <chrono>
+#include <iostream>
 #include "session.h"
 
 
@@ -19,4 +20,9 @@ float session::calculate_time()
 session::session(asio::ip::tcp::endpoint &&endpoint): Endpoint(std::move(endpoint))
 {
     time_stamp = std::chrono::system_clock::now();
+}
+
+session::~session()
+{
+    std::cout << "Client " << Endpoint.address() << " disconnected" << std::endl;
 }

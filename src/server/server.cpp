@@ -43,6 +43,9 @@ void server::session_status()
         {
             if(!it->calculate_time() < 10)
                 this->disconnect_client(it);
+
+            else
+                continue;
         }
     else
         return;
@@ -69,7 +72,7 @@ int server::start(std::shared_ptr<command>Command)
         std::cout << ex.what() << std::endl;
         this->stop();
         command->join();
-        exit(-1);
+        return EXIT_FAILURE;
     }
     this->running();
     command->join();
