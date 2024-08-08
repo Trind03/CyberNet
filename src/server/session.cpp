@@ -17,12 +17,12 @@ float session::calculate_time()
 }
 
 
-session::session(asio::ip::tcp::endpoint &&endpoint): Endpoint(std::move(endpoint))
+session::session(asio::ip::tcp::endpoint *socket): Sock(socket)
 {
     time_stamp = std::chrono::system_clock::now();
 }
 
 session::~session()
 {
-    std::cout << "Client " << Endpoint.address() << " disconnected" << std::endl;
+    std::cout << "Client " << Sock->remote_endpoint().address().to_string() << " disconnected" << std::endl;
 }

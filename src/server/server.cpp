@@ -22,12 +22,11 @@ void server::stop() { Running = false; }
 
 bool server::get_running_status() const { return Running; }
 
-std::deque<session> server::get_connections()const { return this->Connections; }
+std::deque<session*> server::get_connections()const { return this->Connections; }
 
-void server::add_connection(asio::ip::tcp::endpoint &&Endpoint)
+void server::add_connection(asio::ip::tcp::socket *Sock)
 {
-    session Session(std::move(Endpoint));
-    this->Connections.push_front(Session);
+    session *Session = new session(&Sock);
 }
 
 
@@ -41,8 +40,11 @@ void server::session_status()
     if(this->Connections.size() > 0)
         for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
         {
-            if(!it->calculate_time() < 10)
+            if(!(it->calculate_time() < 10))
+            {
+                std::cout << "Disconnected from client: " << it->getinfo() << std::endl;
                 this->disconnect_client(it);
+            }
 
             else
                 continue;
@@ -53,6 +55,7 @@ void server::session_status()
 
 int server::broadcast_client(session *Session)
 {
+    //asio::write()
     return EXIT_SUCCESS;
 }
 
@@ -97,15 +100,15 @@ void server::running()
         {
             try
             {
-                asio::ip::tcp::socket sock(this->Io_context);
+                this->session_status();
+                asio::ip::tcp::socket *sock = new asio::ip::tcp::socket((this->Io_context));
                 Acceptor.listen();
                 
-                Acceptor.async_accept([this](const std::error_code& Error,const asio::ip::tcp::socket& Sock)
+                Acceptor.async_accept([this](const std::error_code& Error,const asio::ip::tcp::socket* Sock)
                 {
                     if(!Error)
                     {
-                        this->add_connection(Sock.remote_endpoint());
-                        //std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
+                        this->Connections.push_front(this->add_connection(&Sock));
                     }
                     
                     else
