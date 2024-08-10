@@ -9,9 +9,9 @@ public:
     ~session();
     float calculate_time();
     void reset();
-    std::string getinfo()
+    std::string get_Address()
     {
-        return Sock.local_endpoint().address().to_string();
+        return Sock->remote_endpoint().address().to_string();
     }
 private:
     std::chrono::system_clock::time_point time_stamp;

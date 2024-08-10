@@ -17,7 +17,7 @@ float session::calculate_time()
 }
 
 
-session::session(asio::ip::tcp::endpoint *socket): Sock(socket)
+session::session(asio::ip::tcp::socket *socket): Sock(socket)
 {
     time_stamp = std::chrono::system_clock::now();
 }

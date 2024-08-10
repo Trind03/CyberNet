@@ -22,15 +22,16 @@ void server::stop() { Running = false; }
 
 bool server::get_running_status() const { return Running; }
 
-std::deque<session*> server::get_connections()const { return this->Connections; }
+std::deque<session*> server::get_connections() const { return this->Connections; }
 
 void server::add_connection(asio::ip::tcp::socket *Sock)
 {
-    session *Session = new session(&Sock);
+    session *Session = new session(Sock);
+    this->Connections.push_front(std::move(Session));
 }
 
 
-void server::disconnect_client(std::deque<session>::iterator it)
+void server::disconnect_client(std::deque<session*>::iterator it)
 {
     this->Connections.erase(it);
 }
@@ -38,11 +39,11 @@ void server::disconnect_client(std::deque<session>::iterator it)
 void server::session_status()
 {
     if(this->Connections.size() > 0)
-        for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
+        for(std::deque<session*>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
         {
-            if(!(it->calculate_time() < 10))
+            if(!((*it)->calculate_time() < 10))
             {
-                std::cout << "Disconnected from client: " << it->getinfo() << std::endl;
+                std::cout << "Disconnected from client: " << (*it)->get_Address() << std::endl;
                 this->disconnect_client(it);
             }
 
@@ -104,11 +105,11 @@ void server::running()
                 asio::ip::tcp::socket *sock = new asio::ip::tcp::socket((this->Io_context));
                 Acceptor.listen();
                 
-                Acceptor.async_accept([this](const std::error_code& Error,const asio::ip::tcp::socket* Sock)
+                Acceptor.async_accept([this](const std::error_code& Error,asio::ip::tcp::socket* Sock)
                 {
                     if(!Error)
                     {
-                        this->Connections.push_front(this->add_connection(&Sock));
+                        this->add_connection(Sock);
                     }
                     
                     else
