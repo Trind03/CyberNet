@@ -25,4 +25,5 @@ session::session(asio::ip::tcp::socket *socket): Sock(socket)
 session::~session()
 {
     std::cout << "Client " << Sock->remote_endpoint().address().to_string() << " disconnected" << std::endl;
+    delete Sock;
 }
