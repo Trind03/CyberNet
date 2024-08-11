@@ -103,9 +103,10 @@ void server::running()
             {
                 this->session_status();
                 asio::ip::tcp::socket *sock = new asio::ip::tcp::socket((this->Io_context));
+
                 Acceptor.listen();
                 
-                Acceptor.async_accept([this](const std::error_code& Error,asio::ip::tcp::socket* Sock)
+                Acceptor.async_accept([this]( std::error_code& Error,asio::ip::tcp::socket* Sock)
                 {
                     if(!Error)
                     {
