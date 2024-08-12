@@ -6,6 +6,8 @@ class session
 {
 public:
     session(asio::ip::tcp::socket &&Socket);
+    session(const session&)noexcept = default;
+    session& operator=(session&&)noexcept = default;
     ~session();
     float calculate_time();
     void reset();
