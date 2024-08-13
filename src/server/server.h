@@ -19,7 +19,7 @@ public:
 
     bool get_running_status() const;
     
-    const std::deque<session>& server::get_connections();
+    const std::deque<session>& get_connections();
     void add_connection(asio::ip::tcp::socket &&Sock);
     void disconnect_client(std::deque<session>::iterator it);
     void session_status();
