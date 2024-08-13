@@ -30,8 +30,8 @@ private:
     asio::io_context Io_context;
     asio::ip::tcp::endpoint Endpoint;
     asio::ip::tcp::acceptor Acceptor;
-    std::unique_ptr<asio::ip::tcp::socket>Sock;
     asio::error_code Error;
+    asio::ip::tcp::socket Sock;
     unsigned short Port;
     bool Running;
     std::deque<session>Connections;

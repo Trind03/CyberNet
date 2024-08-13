@@ -7,10 +7,12 @@
 #include "command.h"
 #include "session.h"
 
+#define checkpoint(message) std::cerr << message << std::endl;
 #define _Debug_
 
 
-server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Running(true)
+server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Running(true),
+Sock(Io_context)
 {
     std::unique_ptr<std::thread>display_title = std::make_unique<std::thread>(title_server,std::move(filename));
     display_title->join();
@@ -26,7 +28,8 @@ const std::deque<session>& server::get_connections()
 
 void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
-    session Session(static_cast<asio::ip::tcp::socket&&>(Sock));
+    session Session(std::move(Sock));
+
     this->Connections.push_front(std::move(Session));
 }
 
@@ -68,7 +71,7 @@ int server::start(std::shared_ptr<command>Command)
     try
     {
         this->Sock->open(asio::ip::tcp::v4(),this->Error);
-
+    
     }
 
     catch(std::exception& ex)
@@ -102,7 +105,6 @@ void server::running()
             try
             {
                 this->session_status();
-                asio::ip::tcp::socket *sock = new asio::ip::tcp::socket((this->Io_context));
 
                 Acceptor.listen();
                 
@@ -110,7 +112,8 @@ void server::running()
                 {
                     if(!Error)
                     {
-                        this->add_connection(static_cast<asio::ip::tcp::socket&&>(Sock));
+                        checkpoint("Before entry")
+                        this->add_connection(std::move(Sock));
                     }
                     
                     else
@@ -119,11 +122,13 @@ void server::running()
                     }
                 });
                 this->Io_context.run();
+
             }
             
                 
                 catch (const std::exception& e)
                 {
+                    checkpoint(12)
                     std::cerr << "Caught exception " << e.what() << std::endl;;
                     std::cerr << this->Error.message() << '\n';
                 }
