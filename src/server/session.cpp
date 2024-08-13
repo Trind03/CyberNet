@@ -1,5 +1,6 @@
 #include <asio.hpp>
 #include <chrono>
+#include <iostream>
 #include "session.h"
 
 
@@ -15,8 +16,17 @@ float session::calculate_time()
     return result.count();
 }
 
+const char* session::get_Address()
+{
+    return Sock.remote_endpoint().address().to_string().c_str();
+}
 
-session::session(asio::ip::tcp::endpoint &&endpoint): Endpoint(std::move(endpoint))
+session::session(asio::ip::tcp::socket &&socket): Sock(static_cast<asio::ip::tcp::socket&&>(socket))
 {
     time_stamp = std::chrono::system_clock::now();
+}
+
+session::~session()
+{
+    std::cout << "Client " << Sock.remote_endpoint().address().to_string() << " disconnected" << std::endl;
 }

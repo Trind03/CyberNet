@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 #include <asio.hpp>
 #include <functional>
 #include <string>
@@ -22,12 +21,13 @@ void server::stop() { Running = false; }
 
 bool server::get_running_status() const { return Running; }
 
-std::deque<session> server::get_connections()const { return this->Connections; }
+const std::deque<session>& server::get_connections()
+{ return this->Connections; }
 
-void server::add_connection(asio::ip::tcp::endpoint &&Endpoint)
+void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
-    session Session(std::move(Endpoint));
-    this->Connections.push_front(Session);
+    session Session(static_cast<asio::ip::tcp::socket&&>(Sock));
+    this->Connections.push_front(std::move(Session));
 }
 
 
@@ -41,8 +41,14 @@ void server::session_status()
     if(this->Connections.size() > 0)
         for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
         {
-            if(!it->calculate_time() < 10)
+            if(!(it->calculate_time() < 10))
+            {
+                std::cout << "Disconnected from client: " << it->get_Address() << std::endl;
                 this->disconnect_client(it);
+            }
+
+            else
+                continue;
         }
     else
         return;
@@ -50,6 +56,7 @@ void server::session_status()
 
 int server::broadcast_client(session *Session)
 {
+    //asio::write()
     return EXIT_SUCCESS;
 }
 
@@ -69,7 +76,7 @@ int server::start(std::shared_ptr<command>Command)
         std::cout << ex.what() << std::endl;
         this->stop();
         command->join();
-        exit(-1);
+        return EXIT_FAILURE;
     }
     this->running();
     command->join();
@@ -94,15 +101,16 @@ void server::running()
         {
             try
             {
-                asio::ip::tcp::socket sock(this->Io_context);
+                this->session_status();
+                asio::ip::tcp::socket *sock = new asio::ip::tcp::socket((this->Io_context));
+
                 Acceptor.listen();
                 
-                Acceptor.async_accept([this](const std::error_code& Error,const asio::ip::tcp::socket& Sock)
+                Acceptor.async_accept([this]( std::error_code Error,asio::ip::tcp::socket Sock)
                 {
                     if(!Error)
                     {
-                        this->add_connection(Sock.remote_endpoint());
-                        //std::cout << this->get_connections().size() << " Connection " << Sock.remote_endpoint().address() << " on port " << Sock.remote_endpoint().port() << std::endl;
+                        this->add_connection(static_cast<asio::ip::tcp::socket&&>(Sock));
                     }
                     
                     else

@@ -18,9 +18,9 @@ public:
     void stop();
 
     bool get_running_status() const;
-    std::deque<session> get_connections() const;
     
-    void add_connection(asio::ip::tcp::endpoint &&Endpoint);
+    const std::deque<session>& server::get_connections();
+    void add_connection(asio::ip::tcp::socket &&Sock);
     void disconnect_client(std::deque<session>::iterator it);
     void session_status();
     int broadcast_client(session *Session);
