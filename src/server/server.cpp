@@ -21,7 +21,8 @@ void server::stop() { Running = false; }
 
 bool server::get_running_status() const { return Running; }
 
-std::deque<session> server::get_connections() const { return this->Connections; }
+const std::deque<session>& server::get_connections()
+{ return this->Connections; }
 
 void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
