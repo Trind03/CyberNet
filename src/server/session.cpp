@@ -16,6 +16,10 @@ float session::calculate_time()
     return result.count();
 }
 
+const char* session::get_Address()
+{
+    return Sock.remote_endpoint().address().to_string().c_str();
+}
 
 session::session(asio::ip::tcp::socket &&socket): Sock(static_cast<asio::ip::tcp::socket&&>(socket))
 {
