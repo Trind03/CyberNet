@@ -8,7 +8,7 @@ new_checksum = ""
 
 running = True
 
-def write_Data(m_data):
+def render_Data(m_file,m_data):
     print(m_data)
 
 
