@@ -8,8 +8,11 @@ new_checksum = ""
 
 running = True
 
+def write_Data(m_data):
+    print(m_data)
 
-def gethash(path):
+
+def getHash(path):
     hash = hashlib.md5()
     for root,dist,files in os.walk(path):
         for file in sorted(files):
@@ -33,7 +36,7 @@ def get_changes():
 
     while(running): 
         with threading.Lock(): 
-            hashed_repo = gethash("./src/server") + gethash("./src/client")
+            hashed_repo = getHash("./src/server") + getHash("./src/client")
             hash = hashlib.sha256(hashed_repo.encode("utf-8"))
             new_checksum = hash.hexdigest()
         
