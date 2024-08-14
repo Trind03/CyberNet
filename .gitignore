@@ -5,3 +5,7 @@ bin/
 
 # Files
 .DS_Store
+/CMakeFiles/3.30.0-rc4
+/CMakeFiles
+CMakeCache.txt
+cache.dat
