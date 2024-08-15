@@ -10,25 +10,35 @@ new_checksum = ""
 
 running = True
 
+class structure:
+    def __init__(self,m_hash):
+        self.time = datetime.date.today().strftime("%m-%d-%y")
+        self.checksum = m_hash
+        
+        
+def create_File(filename,hash):
+    mode = 'w'
+    obj = structure(hash)
+    
+    with open(filename,mode) as file:
+        file.write("**** Build caching ****\n\n\n")
+    with open(filename,'a') as file:
+        file.write(f"{obj.time} {obj.checksum} \n")
+
+        
 def render_Data(m_file,m_data):
-    class structure:
-        def __init__(self,m_file, m_data):
-            self.filename = m_file
-            self.file_hash = m_data
-            self.timestamp = datetime.now()
+    obj = structure(m_data)
+
     try:
         mode = 'x' if(not os.path.exists(m_file)) else 'a'
 
-
-        if(os.path.getsize(m_file) > 0):
+        if('a' == mode):
             with open(m_file,mode) as file:
-                obj = structure(m_file,m_data)
-                file.write(json.dumps(obj))
+                file.write(f"{json.dumps(obj.__dict__)}\n")
 
         else:
             with open(m_file,mode) as file:
-                obj = structure(m_file,m_data)
-                file.write(json.dumps(obj))
+                create_File(m_file,m_data)
 
     except Exception as e:
         print(f"error {e}")
@@ -50,8 +60,8 @@ def getHash(path):
 
 def get_changes():
     global running
-    PRE_BUILD = f"cmake -B ./build -S . -G \"Unix Makefiles\""
-    BUILD = f"cmake --build ./build --config \" {sys.argv[1]}\""
+    PRE_BUILD = "pre build"#f"cmake -B ./build -S ."
+    BUILD = "build"#f"cmake --build ./build --config \"{sys.argv[1]}\""
 
     checksum = ""
     new_checksum = ""
@@ -65,8 +75,11 @@ def get_changes():
         if(checksum == new_checksum): continue
 
         else:
-            os.system(PRE_BUILD)
-            os.system(BUILD)
+            #os.system(PRE_BUILD)
+            #os.system(BUILD)
+            print(datetime.date.today().strftime("%m-%d-%y"))
+            print(PRE_BUILD)
+            print(BUILD)
 
         with threading.Lock(): checksum = new_checksum
         render_Data("cache.dat",checksum)

@@ -5,6 +5,7 @@
 #include "command.h"
 #include "server.h"
 
+
 command::command(std::shared_ptr<server>_Server): Server(_Server)
 {}
 
@@ -30,7 +31,6 @@ void command::command_handler()
             std::cout << "K bye " << std::endl;
             exit(0);
         }
-
         else
             std::cout << "Invalid command" << std::endl;
     }
