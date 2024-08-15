@@ -5,7 +5,6 @@
 #include "command.h"
 #include "server.h"
 
-
 command::command(std::shared_ptr<server>_Server): Server(_Server)
 {}
 
