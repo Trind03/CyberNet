@@ -66,12 +66,10 @@ int server::broadcast_client(session *Session)
 int server::start(std::shared_ptr<command>Command)
 {
 #ifdef _Debug_
-    this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
     {
-        this->Sock->open(asio::ip::tcp::v4(),this->Error);
-    
+        this->Sock.open(asio::ip::tcp::v4(),this->Error);    
     }
 
     catch(std::exception& ex)
