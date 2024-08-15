@@ -9,3 +9,4 @@ bin/
 /CMakeFiles
 CMakeCache.txt
 cache.dat
+cache.json
