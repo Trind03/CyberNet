@@ -43,7 +43,6 @@ def render_Data(m_file,m_data):
     except Exception as e:
         print(f"error {e}")
 
-
 def getHash(path):
     hash = hashlib.md5()
     for root,dist,files in os.walk(path):
@@ -82,7 +81,7 @@ def get_changes():
             print(BUILD)
 
         with threading.Lock(): checksum = new_checksum
-        render_Data("cache.dat",checksum)
+        render_Data("cache.json",checksum)
         
 
 event_checker = threading.Thread(target=get_changes)
