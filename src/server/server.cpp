@@ -6,11 +6,13 @@
 #include "title.h"
 #include "command.h"
 #include "session.h"
-
+static int debug_counter = 0;
+#define checkpoint(message) std::cerr << message << std::endl;
 #define _Debug_
 
 
-server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Running(true)
+server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Running(true),
+Sock(Io_context)
 {
     std::unique_ptr<std::thread>display_title = std::make_unique<std::thread>(title_server,std::move(filename));
     display_title->join();
@@ -24,10 +26,41 @@ bool server::get_running_status() const { return Running; }
 const std::deque<session>& server::get_connections()
 { return this->Connections; }
 
+void server::show_clients()
+{
+    int index = 1;
+
+    std::cout << "**** Clients currently connected ****" << std::endl;
+    for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
+    {
+        std::cout << "Client - " << index++ << " " << it->get_Address() << std::endl;
+    }
+}
+
 void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
-    session Session(static_cast<asio::ip::tcp::socket&&>(Sock));
-    this->Connections.push_front(std::move(Session));
+    session Session(std::move(Sock));
+
+    if(Session.is_valid())
+        try
+        {
+            checkpoint("Before")
+            this->Connections.push_front(std::move(Session));
+        }
+        catch(const std::bad_alloc &ex)
+        {
+            std::cerr << "Unable to allocate more memory for new client" << '\n'; 
+            std::cerr << "Shutting down..." << '\n'; 
+            this->stop();
+        }
+        catch(const std::exception &ex)
+        {
+            std::cerr << "Unknown exception" << std::endl;
+            this->stop();
+        }
+        
+    else 
+        std::cout << "Failed to add client to deque" << std::endl;
 }
 
 
@@ -39,7 +72,7 @@ void server::disconnect_client(std::deque<session>::iterator it)
 void server::session_status()
 {
     if(this->Connections.size() > 0)
-        for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
+        for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
         {
             if(!(it->calculate_time() < 10))
             {
@@ -63,12 +96,12 @@ int server::broadcast_client(session *Session)
 int server::start(std::shared_ptr<command>Command)
 {
 #ifdef _Debug_
-    this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
     {
-        this->Sock->open(asio::ip::tcp::v4(),this->Error);
-
+        checkpoint("1")
+        this->Sock.open(asio::ip::tcp::v4(),this->Error);   
+        checkpoint("2")
     }
 
     catch(std::exception& ex)
@@ -102,7 +135,6 @@ void server::running()
             try
             {
                 this->session_status();
-                asio::ip::tcp::socket *sock = new asio::ip::tcp::socket((this->Io_context));
 
                 Acceptor.listen();
                 
@@ -110,17 +142,21 @@ void server::running()
                 {
                     if(!Error)
                     {
-                        this->add_connection(static_cast<asio::ip::tcp::socket&&>(Sock));
+                        checkpoint("3")
+                        this->add_connection(std::move(Sock));
+                        checkpoint("4")
                     }
                     
                     else
                     {
                         std::cerr << "Connection failure occurred" << std::endl;
+                        checkpoint("5")
                     }
                 });
+                this->Io_context.restart();
                 this->Io_context.run();
+
             }
-            
                 
                 catch (const std::exception& e)
                 {

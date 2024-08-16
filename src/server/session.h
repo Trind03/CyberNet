@@ -11,11 +11,13 @@ public:
     session(asio::ip::tcp::socket &&Socket);
     session& operator=(session&&)noexcept = default;
     
-    session(session&&)noexcept = default;
+    session(session&& other);
     ~session();
+    
+    bool is_valid();
     float calculate_time();
     void reset();
-    const char* get_Address();
+    std::string get_Address();
 private:
     std::chrono::system_clock::time_point time_stamp;
     asio::ip::tcp::socket Sock;

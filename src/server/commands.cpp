@@ -30,7 +30,6 @@ void command::command_handler()
             std::cout << "K bye " << std::endl;
             exit(0);
         }
-
         else
             std::cout << "Invalid command" << std::endl;
     }

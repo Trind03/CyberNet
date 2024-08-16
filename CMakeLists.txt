@@ -33,7 +33,7 @@ include_directories(
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     add_compile_options(-std=${Cpp_standard})
-
+    message(${CMAKE_SYSTEM_NAME})
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
     target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
 
