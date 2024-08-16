@@ -6,7 +6,7 @@
 #include "title.h"
 #include "command.h"
 #include "session.h"
-
+static int debug_counter = 0;
 #define checkpoint(message) std::cerr << message << std::endl;
 #define _Debug_
 
@@ -28,9 +28,11 @@ const std::deque<session>& server::get_connections()
 
 void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
+    checkpoint("9")
     session Session(std::move(Sock));
-
-    this->Connections.push_front(std::move(Session));
+    checkpoint("10")
+    //this->Connections.push_front(std::move(Session));
+    checkpoint("11")
 }
 
 
@@ -69,7 +71,9 @@ int server::start(std::shared_ptr<command>Command)
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
     {
-        this->Sock.open(asio::ip::tcp::v4(),this->Error);    
+        checkpoint("1")
+        this->Sock.open(asio::ip::tcp::v4(),this->Error);   
+        checkpoint("2")
     }
 
     catch(std::exception& ex)
@@ -110,23 +114,25 @@ void server::running()
                 {
                     if(!Error)
                     {
-                        checkpoint("Before entry")
+                        checkpoint("3")
                         this->add_connection(std::move(Sock));
+                        checkpoint("4")
                     }
                     
                     else
                     {
                         std::cerr << "Connection failure occurred" << std::endl;
+                        checkpoint("5")
                     }
                 });
+                checkpoint("6")
                 this->Io_context.run();
+                checkpoint("7")
 
             }
-            
                 
                 catch (const std::exception& e)
                 {
-                    checkpoint(12)
                     std::cerr << "Caught exception " << e.what() << std::endl;;
                     std::cerr << this->Error.message() << '\n';
                 }

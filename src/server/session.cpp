@@ -21,7 +21,7 @@ const char* session::get_Address()
     return Sock.remote_endpoint().address().to_string().c_str();
 }
 
-session::session(asio::ip::tcp::socket &&socket): Sock(static_cast<asio::ip::tcp::socket&&>(socket))
+session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
 {
     time_stamp = std::chrono::system_clock::now();
 }
