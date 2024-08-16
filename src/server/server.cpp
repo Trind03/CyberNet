@@ -26,13 +26,41 @@ bool server::get_running_status() const { return Running; }
 const std::deque<session>& server::get_connections()
 { return this->Connections; }
 
+void server::show_clients()
+{
+    int index = 1;
+
+    std::cout << "**** Clients currently connected ****" << std::endl;
+    for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
+    {
+        std::cout << "Client - " << index++ << " " << it->get_Address() << std::endl;
+    }
+}
+
 void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
-    checkpoint("9")
     session Session(std::move(Sock));
-    checkpoint("10")
-    //this->Connections.push_front(std::move(Session));
-    checkpoint("11")
+
+    if(Session.is_valid())
+        try
+        {
+            checkpoint("Before")
+            this->Connections.push_front(std::move(Session));
+        }
+        catch(const std::bad_alloc &ex)
+        {
+            std::cerr << "Unable to allocate more memory for new client" << '\n'; 
+            std::cerr << "Shutting down..." << '\n'; 
+            this->stop();
+        }
+        catch(const std::exception &ex)
+        {
+            std::cerr << "Unknown exception" << std::endl;
+            this->stop();
+        }
+        
+    else 
+        std::cout << "Failed to add client to deque" << std::endl;
 }
 
 
@@ -44,7 +72,7 @@ void server::disconnect_client(std::deque<session>::iterator it)
 void server::session_status()
 {
     if(this->Connections.size() > 0)
-        for(std::deque<session>::iterator it = this->Connections.begin(); it < this->Connections.end(); ++it)
+        for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
         {
             if(!(it->calculate_time() < 10))
             {
@@ -125,9 +153,8 @@ void server::running()
                         checkpoint("5")
                     }
                 });
-                checkpoint("6")
+                this->Io_context.restart();
                 this->Io_context.run();
-                checkpoint("7")
 
             }
                 

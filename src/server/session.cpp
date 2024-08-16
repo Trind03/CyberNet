@@ -16,9 +16,19 @@ float session::calculate_time()
     return result.count();
 }
 
-const char* session::get_Address()
+bool session::is_valid()
 {
-    return Sock.remote_endpoint().address().to_string().c_str();
+    return Sock.is_open();
+}
+
+std::string session::get_Address()
+{
+    return Sock.remote_endpoint().address().to_string();
+}
+
+session::session(session&& other): Sock(std::move(other.Sock)), time_stamp(other.time_stamp)
+{
+    //std::cout << "Mov" << std::endl;
 }
 
 session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
@@ -28,5 +38,5 @@ session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
 
 session::~session()
 {
-    std::cout << "Client " << Sock.remote_endpoint().address().to_string() << " disconnected" << std::endl;
+    //std::cout << "Destructor called!" << std::endl;
 }

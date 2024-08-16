@@ -24,7 +24,8 @@ public:
     void disconnect_client(std::deque<session>::iterator it);
     void session_status();
     int broadcast_client(session *Session);
-    
+    void show_clients();
+
 private:
     /* assets */
     asio::io_context Io_context;
