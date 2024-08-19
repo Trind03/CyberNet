@@ -28,12 +28,13 @@ std::string session::get_Address()
 
 session::session(session&& other): Sock(std::move(other.Sock)), time_stamp(other.time_stamp)
 {
-    //std::cout << "Mov" << std::endl;
+    std::cout << "Session saved to memory" << std::endl;
 }
 
 session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
 {
     time_stamp = std::chrono::system_clock::now();
+    std::cout << "Connected to: " << Sock.remote_endpoint().address().to_string() << std::endl;
 }
 
 session::~session()

@@ -7,7 +7,9 @@
 #include "command.h"
 #include "session.h"
 static int debug_counter = 0;
-#define checkpoint(message) std::cerr << message << std::endl;
+
+// #define checkpoint(message) std::cerr << message << std::endl;
+
 #define _Debug_
 
 
@@ -44,7 +46,6 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
     if(Session.is_valid())
         try
         {
-            checkpoint("Before")
             this->Connections.push_front(std::move(Session));
         }
         catch(const std::bad_alloc &ex)
@@ -99,9 +100,7 @@ int server::start(std::shared_ptr<command>Command)
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
     {
-        checkpoint("1")
         this->Sock.open(asio::ip::tcp::v4(),this->Error);   
-        checkpoint("2")
     }
 
     catch(std::exception& ex)
@@ -142,15 +141,12 @@ void server::running()
                 {
                     if(!Error)
                     {
-                        checkpoint("3")
                         this->add_connection(std::move(Sock));
-                        checkpoint("4")
                     }
                     
                     else
                     {
                         std::cerr << "Connection failure occurred" << std::endl;
-                        checkpoint("5")
                     }
                 });
                 this->Io_context.restart();
