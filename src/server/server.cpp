@@ -78,7 +78,7 @@ void server::session_status()
             if(!(it->calculate_time() < 10))
             {
                 std::cout << "Disconnected from client: " << it->get_Address() << std::endl;
-                this->disconnect_client(it);
+                this->Connections.erase(it);
             }
 
             else

@@ -16,16 +16,18 @@ void command::command_handler()
     {        
         std::cout << "> "; getline(std::cin, Command);
 
-        if(Command == "" || Command == " ")
+        if(Command == this->commands[0])
             std::cout << std::endl;
 
-        else if(Command == this->commands[0])
+        else if(Command == this->commands[1])
         {
             for(int i = 0; i < 20; i++)
                 std::cout << std::endl;
         }
 
-        else if(Command == this->commands[2])
+        else if(Command == this->commands[2]) Server->show_clients();
+
+        else if(Command == this->commands[3])
         {
             std::cout << "K bye " << std::endl;
             exit(0);

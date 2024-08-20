@@ -38,6 +38,4 @@ session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
 }
 
 session::~session()
-{
-    //std::cout << "Destructor called!" << std::endl;
-}
+{}
