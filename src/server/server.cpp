@@ -73,12 +73,12 @@ void server::disconnect_client(std::deque<session>::iterator it)
 void server::session_status()
 {
     if(this->Connections.size() > 0)
-        for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
+        for(std::size_t i = 0; i < this->Connections.size(); i++)
         {
-            if(!(it->calculate_time() < 10))
+            if(!(this->Connections.size() < 10))
             {
-                std::cout << "Disconnected from client: " << it->get_Address() << std::endl;
-                this->Connections.erase(it);
+                std::cout << "Disconnected from client: " << this->Connections[i].get_Address() << std::endl;
+                this->Connections.erase(this->Connections.begin() + i);
             }
 
             else
