@@ -35,7 +35,7 @@ void server::show_clients()
     std::cout << "**** Clients currently connected ****" << std::endl;
     for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
     {
-        std::cout << "Client - " << index++ << " " << it->get_Address() << std::endl;
+        std::cout << "Client - " << index++ << " - Address: " << it->get_Address() << " - Calculated time since last: " << it->calculate_time() <<  std::endl;
     }
 }
 
@@ -72,20 +72,23 @@ void server::disconnect_client(std::deque<session>::iterator it)
 
 void server::session_status()
 {
-    if(this->Connections.size() > 0)
-        for(std::size_t i = 0; i < this->Connections.size(); i++)
-        {
-            if(!(this->Connections.size() < 10))
-            {
-                std::cout << "Disconnected from client: " << this->Connections[i].get_Address() << std::endl;
-                this->Connections.erase(this->Connections.begin() + i);
-            }
+    while(this->Running)
+    {
+        std::this_thread::sleep_for(std::chrono::seconds(1));
 
-            else
-                continue;
-        }
-    else
-        return;
+        if(this->Connections.size() > 0)
+            for(std::size_t i = 0; i < this->Connections.size(); i++)
+            {
+                if(!(this->Connections[i].calculate_time() < 10))
+                {
+                    std::cout << "Disconnected from client: " << this->Connections[i].get_Address() << std::endl;
+                    this->Connections.erase(this->Connections.begin() + i);
+                }
+
+                else
+                    continue;
+            }
+    }
 }
 
 int server::broadcast_client(session *Session)
@@ -110,8 +113,10 @@ int server::start(std::shared_ptr<command>Command)
         command->join();
         return EXIT_FAILURE;
     }
+    std::unique_ptr<std::thread>(session_tracker) = std::make_unique<std::thread>(std::thread(&server::session_status,this));
     this->running();
     command->join();
+    session_tracker->join();
     return 0;
 
 #else
@@ -133,8 +138,6 @@ void server::running()
         {
             try
             {
-                this->session_status();
-
                 Acceptor.listen();
                 
                 Acceptor.async_accept([this]( std::error_code Error,asio::ip::tcp::socket Sock)

@@ -38,4 +38,6 @@ session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
 }
 
 session::~session()
-{}
+{
+    
+}
