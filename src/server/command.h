@@ -3,6 +3,8 @@
 #include <memory>
 #include <array>
 
+
+
 class server;
 
 class command
@@ -12,6 +14,5 @@ public:
     void command_handler();
 private:
     std::shared_ptr<server>Server;
-
-    std::array<const char*,3> commands = {"clear"," ","exit"};
+    std::array<std::string,4>commands = {"", "clear", "list","exit"};
 };
