@@ -93,9 +93,13 @@ void server::session_status()
 
 int server::broadcast_client(session *Session,std::string m_data)
 {
+    if(!Session->is_valid())
+        return EXIT_FAILURE;
+
     Session->Sock.set_option(asio::socket_base::broadcast(true));
+    asio::const_buffer buffer(m_data.data(), m_data.size());
 
-
+    asio::write(Session->Sock, buffer);
     return EXIT_SUCCESS;
 }
 
