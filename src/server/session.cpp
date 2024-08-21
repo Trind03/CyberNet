@@ -16,6 +16,7 @@ float session::calculate_time()
     return result.count();
 }
 
+
 bool session::is_valid()
 {
     return Sock.is_open();

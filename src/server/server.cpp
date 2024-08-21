@@ -91,9 +91,11 @@ void server::session_status()
     }
 }
 
-int server::broadcast_client(session *Session)
+int server::broadcast_client(session *Session,std::string m_data)
 {
-    //asio::write()
+    Session->Sock.set_option(asio::socket_base::broadcast(true));
+
+
     return EXIT_SUCCESS;
 }
 

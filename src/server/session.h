@@ -18,7 +18,7 @@ public:
     float calculate_time();
     void reset();
     std::string get_Address();
-private:
+
     std::chrono::system_clock::time_point time_stamp;
     asio::ip::tcp::socket Sock;
 };
