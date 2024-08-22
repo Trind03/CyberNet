@@ -2,8 +2,7 @@
 #include <thread>
 #include <asio.hpp>
 #include "title.h"
-#include "title.h"
-
+#include "client.h"
 static bool running = true;
 
 int main()

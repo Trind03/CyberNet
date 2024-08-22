@@ -6,7 +6,6 @@
 #include "title.h"
 #include "command.h"
 #include "session.h"
-static int debug_counter = 0;
 
 // #define checkpoint(message) std::cerr << message << std::endl;
 

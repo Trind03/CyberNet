@@ -37,7 +37,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
     target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
 
-    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/title.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp ${Client_dir}/client.cpp)
     target_link_libraries(${Client} PRIVATE ws2_32 mswsock)
 
     add_definitions(-D_WIN32_WINNT=0x0601)
@@ -50,7 +50,7 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     set(CMAKE_CXX_COMPILER "clang++")
 
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
-    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp ${Client_dir}/client.cpp)
     return()
 
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
@@ -60,7 +60,7 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     add_compile_options(-std=${Cpp_standard})
     
     add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
-    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp ${Client_dir}/client.cpp )
     return()
 
 else()
