@@ -2,18 +2,18 @@
 #include <thread>
 #include <asio.hpp>
 #include "client.h"
-static bool running = true;
+#include <memory>
 
 int main()
 {
-    client client("title.dat",asio::ip::address::from_string("127.0.0.1"), 5554);
+    std::unique_ptr<client>(Client) = std::make_unique<client>("title.dat",asio::ip::address::from_string("127.0.0.1"), 5554);
 
-    client._Sock.connect(client._Endpoint);
+    Client->_Sock.connect(Client->_Endpoint);
 
-    if(!client._Error)
+    if(!Client->_Error)
     {
         std::cout << std::endl << "Connected to server" << std::endl;
-        while(running)
+        while(Client->_Running)
         {
 
         }
@@ -21,7 +21,7 @@ int main()
 
     else
     {
-        std::cerr << "Connection failure " << client._Error.message() << std::endl;
+        std::cerr << "Connection failure " << Client->_Error.message() << std::endl;
     }
     return 0;
 }
