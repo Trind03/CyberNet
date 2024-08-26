@@ -23,7 +23,7 @@ public:
     void add_connection(asio::ip::tcp::socket &&Sock);
     void disconnect_client(std::deque<session>::iterator it);
     void session_status();
-    int broadcast_client(session *Session);
+    int broadcast_client(session *Session,std::string m_data);
     void show_clients();
 
 private:

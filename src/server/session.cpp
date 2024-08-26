@@ -16,6 +16,7 @@ float session::calculate_time()
     return result.count();
 }
 
+
 bool session::is_valid()
 {
     return Sock.is_open();
@@ -38,4 +39,6 @@ session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
 }
 
 session::~session()
-{}
+{
+    
+}

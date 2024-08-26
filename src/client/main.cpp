@@ -1,39 +1,28 @@
 #include <iostream>
 #include <thread>
 #include <asio.hpp>
-#include "title.h"
-#include "title.h"
+#include "client.h"
+#include <memory>
 
-static bool running = true;
-
+#define Checkpoint(message) std::cout << message << std::endl;
 int main()
 {
-    const char* filename = "title.dat";
-    std::thread title_client = std::thread(std::bind(boot_message_client,filename));
+    std::unique_ptr<client>(Client) = std::make_unique<client>("title.dat",asio::ip::address::from_string("127.0.0.1"), 5554);
 
-    asio::ip::address IPV4 = asio::ip::address::from_string("127.0.0.1");
-    constexpr int target_port = 5554;  
-    
-    asio::error_code error;
-    asio::io_context io_context;
-    asio::ip::tcp::endpoint endpoint(IPV4,target_port);
-    asio::ip::tcp::socket sock(io_context);
-    title_client.join();
+    Client->_Sock.connect(Client->_Endpoint,Client->_Error);
 
-    sock.connect(endpoint,error);
-
-    if(!error)
+    if(!Client->_Error)
     {
         std::cout << std::endl << "Connected to server" << std::endl;
-        while(running)
+        while(Client->_Running)
         {
-            
+
         }
     }
 
     else
     {
-        std::cerr << "Connection failure " << error.message() << std::endl;
+        std::cerr << "Connection failure " << Client->_Error.message() << std::endl;
     }
     return 0;
 }
