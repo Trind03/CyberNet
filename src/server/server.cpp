@@ -56,6 +56,8 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
     session Session(std::move(Sock));
 
+    std::lock_guard<std::mutex>lock(resource_lock);
+    
     if(Session.is_valid())
         try
         {
@@ -80,6 +82,7 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
 
 void server::disconnect_client(std::deque<session>::iterator it)
 {
+    std::lock_guard<std::mutex>lock(resource_lock);
     this->Connections.erase(it);
 }
 
