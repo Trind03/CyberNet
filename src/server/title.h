@@ -1,2 +1,2 @@
 #pragma once
-int title_server(const char*&& filename);
+void title_server(const char*&& filename);
