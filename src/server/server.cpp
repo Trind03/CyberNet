@@ -25,9 +25,20 @@ Sock(Io_context)
 };
 
 
-void server::stop() { Running = false; }
+void server::stop()
+{
+    std::mutex(stop_mutex);
+    std::lock_guard<std::mutex>lock(stop_mutex);
+    Running = false;
+}
 
-bool server::get_running_status() const { return Running; }
+bool server::get_running_status()const
+{
+    std::mutex(running_mutex);
+    std::lock_guard<std::mutex> lock(running_mutex);
+    bool running = this->Running;
+    return running;
+}
 
 const std::deque<session>& server::get_connections()
 { return this->Connections; }
