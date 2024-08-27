@@ -17,7 +17,7 @@ public:
     void running();
     void stop();
 
-    bool get_running_status() const;
+    bool get_running_status();
     
     const std::deque<session>& get_connections();
     void add_connection(asio::ip::tcp::socket &&Sock);
@@ -36,4 +36,5 @@ private:
     unsigned short Port;
     bool Running;
     std::deque<session>Connections;
+    std::mutex resource_lock;
 };

@@ -27,15 +27,13 @@ Sock(Io_context)
 
 void server::stop()
 {
-    std::mutex(stop_mutex);
-    std::lock_guard<std::mutex>lock(stop_mutex);
+    std::lock_guard<std::mutex>lock(resource_lock);
     Running = false;
 }
 
-bool server::get_running_status()const
+bool server::get_running_status()
 {
-    std::mutex(running_mutex);
-    std::lock_guard<std::mutex> lock(running_mutex);
+    std::lock_guard<std::mutex>lock(this->resource_lock);
     bool running = this->Running;
     return running;
 }
