@@ -14,9 +14,7 @@ int main()
     {
         std::cout << std::endl << "Connected to server" << std::endl;
         while(Client->_Running)
-        {
-
-        }
+        {}
     }
 
     else
