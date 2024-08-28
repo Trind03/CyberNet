@@ -1,5 +1,4 @@
 #include <iostream>
-#include <thread>
 #include <asio.hpp>
 #include "client.h"
 #include <memory>
