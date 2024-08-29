@@ -6,8 +6,9 @@ project(CyberNet LANGUAGES CXX)
 set(Client "client")
 set(Server "server")
 
+# Settings init
 set(Standard "c++20")
-
+set(CMAKE_CXX_EXTENSIONS OFF)
 # File path init
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
