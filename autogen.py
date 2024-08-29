@@ -5,8 +5,8 @@ import threading
 import datetime
 import json
 
-checksum
-new_checksum
+checksum = ""
+new_checksum = ""
 
 running = True
 
