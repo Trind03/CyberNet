@@ -12,6 +12,7 @@ set(Standard "c++20")
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 
+enable_testing()
 
 include_directories(
     # Server
