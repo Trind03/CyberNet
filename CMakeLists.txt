@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 
+enable_testing()
 include(${CMAKE_SOURCE_DIR}/tests/tests.cmake)
 
 project(CyberNet LANGUAGES CXX)
@@ -16,7 +17,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 
-enable_testing()
 
 include_directories(
     # Server

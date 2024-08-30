@@ -4,6 +4,7 @@
 #include <string>
 #include "server.h"
 #include "title.h"
+#include <thread>
 #include "command.h"
 #include "session.h"
 
