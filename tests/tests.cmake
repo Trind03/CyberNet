@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(tests)
-
+enable_testing()
 
 set(Server_tests "tserver")
 set(Client_tests "tclient")
@@ -14,5 +14,5 @@ add_executable(${Client_tests} ${tests_dir}/client_test.cpp)
 target_link_libraries(${Server_tests}  gtest gtest_main)
 target_link_libraries(${Client_tests}  gtest gtest_main) 
 
-add_test(Server_test ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${Server_tests})
-add_test(Client_test ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${Client_tests})
+add_test(NAME Server_test COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${Server_tests})
+add_test(NAME Client_test COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${Client_tests})

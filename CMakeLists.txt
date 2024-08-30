@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
 
-enable_testing()
 include(${CMAKE_SOURCE_DIR}/tests/tests.cmake)
 
 project(CyberNet LANGUAGES CXX)
