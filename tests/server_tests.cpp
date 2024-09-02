@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include "server.h"
+#include "session.h"
 
 class t_server : public ::testing::Test
 {

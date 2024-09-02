@@ -17,9 +17,17 @@ include_directories(
     ${CMAKE_SOURCE_DIR}../src/client/client.cpp
 )
 
-add_executable(${Server_tests} ${tests_dir}/server_tests.cpp)
+add_executable(${Server_tests}
+    ${tests_dir}/server_tests.cpp
+    ${CMAKE_SOURCE_DIR}../src/server/server.cpp
+    ${CMAKE_SOURCE_DIR}../src/server/session.cpp
+    ${CMAKE_SOURCE_DIR}../src/server/title.cpp
+    ${CMAKE_SOURCE_DIR}../src/server/commands.cpp
 
-add_executable(${Client_tests} ${tests_dir}/client_test.cpp
+)
+
+add_executable(${Client_tests}
+    ${tests_dir}/client_test.cpp
     ${CMAKE_SOURCE_DIR}../src/client/client.cpp
     ${CMAKE_SOURCE_DIR}../src/client/title.cpp
     )
