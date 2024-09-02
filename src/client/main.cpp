@@ -1,5 +1,4 @@
 #include <iostream>
-#include <thread>
 #include <asio.hpp>
 #include "client.h"
 #include <memory>
@@ -15,9 +14,7 @@ int main()
     {
         std::cout << std::endl << "Connected to server" << std::endl;
         while(Client->_Running)
-        {
-
-        }
+        {}
     }
 
     else

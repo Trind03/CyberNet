@@ -5,7 +5,7 @@
 #include <memory>
 #include "title.h"
 
-int title_server(const char*&& filename)
+void title_server(const char*&& filename)
 {
     std::unique_ptr<std::fstream>(stream) = std::make_unique<std::fstream>(filename);
 
@@ -23,7 +23,7 @@ int title_server(const char*&& filename)
     else
     {
         std::cout << "Error title file not found" << std::endl;
-        return EXIT_FAILURE;
+        return;
     }
-    return EXIT_SUCCESS;
+    return;
 };

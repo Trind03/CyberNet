@@ -4,6 +4,7 @@
 #include <string>
 #include "server.h"
 #include "title.h"
+#include <thread>
 #include "command.h"
 #include "session.h"
 
@@ -12,17 +13,31 @@
 #define _Debug_
 
 
-server::server(unsigned short port,const char* filename): Port(std::move(port)), Io_context(), Endpoint(asio::ip::tcp::v4(),port), Acceptor(Io_context,Endpoint), Running(true),
+server::server(unsigned short port,const char* filename):
+Port(std::move(port)),
+Io_context(), 
+Endpoint(asio::ip::tcp::v4(),
+port),
+Acceptor(Io_context,Endpoint),
+Running(true),
 Sock(Io_context)
 {
-    std::unique_ptr<std::thread>display_title = std::make_unique<std::thread>(title_server,std::move(filename));
-    display_title->join();
+    title_server(std::move(filename));
 };
 
 
-void server::stop() { Running = false; }
+void server::stop()
+{
+    std::lock_guard<std::mutex>lock(resource_lock);
+    Running = false;
+}
 
-bool server::get_running_status() const { return Running; }
+bool server::get_running_status()
+{
+    std::lock_guard<std::mutex>lock(this->resource_lock);
+    bool running = this->Running;
+    return running;
+}
 
 const std::deque<session>& server::get_connections()
 { return this->Connections; }
@@ -42,6 +57,8 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
 {
     session Session(std::move(Sock));
 
+    std::lock_guard<std::mutex>lock(resource_lock);
+    
     if(Session.is_valid())
         try
         {
@@ -66,6 +83,7 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
 
 void server::disconnect_client(std::deque<session>::iterator it)
 {
+    std::lock_guard<std::mutex>lock(resource_lock);
     this->Connections.erase(it);
 }
 
