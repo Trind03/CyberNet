@@ -1,17 +1,22 @@
 #include <gtest/gtest.h>
 #include "client.h"
+#include <asio.hpp>
 
 class t_client : public ::testing::Test
 {
 protected:
     void SetUp() override
     {
-
+        Client = new client("");
     }
     void TearDown() override
     {
-
+        delete Client;
     }
+    client *Client;
+
+    /* Mock properties */
+
 };
 
 
