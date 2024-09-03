@@ -7,7 +7,10 @@ class t_client : public ::testing::Test
 protected:
     void SetUp() override
     {
-        Client = new client("");
+        binding_addr = asio::ip::address::from_string("127.0.0.1");
+        port = 5554;
+        Client = new client(false,std::move(binding_addr),std::move(port));
+
     }
     void TearDown() override
     {
@@ -16,15 +19,20 @@ protected:
     client *Client;
 
     /* Mock properties */
-
+    asio::ip::address binding_addr;
+    unsigned int port;
 };
 
-
-TEST(t_client, test)
+TEST_F(t_client, Class_instance)
 {
-    EXPECT_EQ(1,2);
+    ASSERT_NE(Client, nullptr);
 }
 
+TEST_F(t_client, Initialization)
+{
+    EXPECT_EQ(Client->_Binding_addr,binding_addr);
+    EXPECT_EQ(Client->_Port, port);
+}
 
 int main(int argc, char *argv[])
 {

@@ -13,7 +13,7 @@
 #define _Debug_
 
 
-server::server(unsigned short port,const char* filename):
+server::server(unsigned short port,bool title):
 Port(std::move(port)),
 Io_context(), 
 Endpoint(asio::ip::tcp::v4(),
@@ -22,7 +22,11 @@ Acceptor(Io_context,Endpoint),
 Running(true),
 Sock(Io_context)
 {
-    title_server(std::move(filename));
+    if(title)
+    {
+        const char* filename = "title.dat";
+        title_server(std::move(filename));
+    }
 };
 
 

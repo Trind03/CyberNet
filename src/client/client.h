@@ -6,7 +6,7 @@ class client
 public:
     client(client&) = delete;
     client() = delete;
-    client(const char* filename,asio::ip::address&& binding_addr,const unsigned int&& port);
+    client(bool title,asio::ip::address&& binding_addr,const unsigned int&& port);
 
     asio::error_code _Error;
     const unsigned int _Port;

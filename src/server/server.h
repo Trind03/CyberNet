@@ -10,7 +10,7 @@ class command;
 class server
 {
 public:
-    explicit server(unsigned short port,const char* filename);
+    explicit server(unsigned short port,bool title);
     server(server&) = delete;
 
     int start(std::shared_ptr<command>Command);
