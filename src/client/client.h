@@ -8,6 +8,7 @@ public:
     client() = delete;
     client(bool title,asio::ip::address&& binding_addr,const unsigned int&& port);
 
+    void start();
     asio::error_code _Error;
     const unsigned int _Port;
     asio::io_context _Io_context;

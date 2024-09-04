@@ -15,3 +15,19 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
 
 }
 
+void client::start()
+{
+    this->_Sock.connect(this->_Endpoint,this->_Error);
+
+    if(!this->_Error)
+    {
+        std::cout << std::endl << "Connected to server" << std::endl;
+        while(this->_Running)
+        {}
+    }
+
+    else
+    {
+        std::cerr << "Connection failure " << this->_Error.message() << std::endl;
+    }
+}

@@ -8,7 +8,6 @@
 #include "command.h"
 #include "session.h"
 
-// #define checkpoint(message) std::cerr << message << std::endl;
 
 #define _Debug_
 
