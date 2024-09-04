@@ -7,7 +7,7 @@ class t_client : public ::testing::Test
 protected:
     void SetUp() override
     {
-        binding_addr = asio::ip::address::from_string("127.0.0.1");
+        binding_addr = asio::ip::address_v4::from_string("127.0.0.1");
         port = 5554;
         Client = new client(false,std::move(binding_addr),std::move(port));
 
@@ -19,7 +19,7 @@ protected:
     client *Client;
 
     /* Mock properties */
-    asio::ip::address binding_addr;
+    asio::ip::address_v4 binding_addr;
     unsigned int port;
 };
 
