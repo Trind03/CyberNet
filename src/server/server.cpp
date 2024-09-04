@@ -12,14 +12,9 @@
 #define _Debug_
 
 
-server::server(unsigned short port,bool title):
-Port(std::move(port)),
-Io_context(), 
-Endpoint(asio::ip::tcp::v4(),
-port),
-Acceptor(Io_context,Endpoint),
-Running(true),
-Sock(Io_context)
+server::server(unsigned short port,bool title): Port(std::move(port)), Io_context(), 
+Endpoint(asio::ip::tcp::v4(),port),Acceptor(Io_context,Endpoint),
+Running(true),Sock(Io_context)
 {
     if(title)
     {
@@ -113,8 +108,7 @@ void server::session_status()
 
 int server::broadcast_client(session *Session,std::string m_data)
 {
-    if(!Session->is_valid())
-        return EXIT_FAILURE;
+    if(!Session->is_valid()) return EXIT_FAILURE;
 
     Session->Sock.set_option(asio::socket_base::broadcast(true));
     asio::const_buffer buffer(m_data.data(), m_data.size());
