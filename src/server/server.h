@@ -23,9 +23,8 @@ public:
     void add_connection(asio::ip::tcp::socket &&Sock);
     void disconnect_client(std::deque<session>::iterator it);
     void session_status();
-    int broadcast_client(session *Session,std::string m_data);
     void show_clients();
-
+    void validate_live_connection();
 private:
     /* assets */
     asio::io_context Io_context;

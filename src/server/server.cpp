@@ -11,7 +11,6 @@
 
 #define _Debug_
 
-
 server::server(unsigned short port,bool title): Port(std::move(port)), Io_context(), 
 Endpoint(asio::ip::tcp::v4(),port),Acceptor(Io_context,Endpoint),
 Running(true),Sock(Io_context)
@@ -94,6 +93,7 @@ void server::session_status()
         if(this->Connections.size() > 0)
             for(std::size_t i = 0; i < this->Connections.size(); i++)
             {
+
                 if(!(this->Connections[i].calculate_time() < 10))
                 {
                     std::cout << "Disconnected from client: " << this->Connections[i].get_Address() << std::endl;
@@ -106,15 +106,12 @@ void server::session_status()
     }
 }
 
-int server::broadcast_client(session *Session,std::string m_data)
+void server::validate_live_connection()
 {
-    if(!Session->is_valid()) return EXIT_FAILURE;
-
-    Session->Sock.set_option(asio::socket_base::broadcast(true));
-    asio::const_buffer buffer(m_data.data(), m_data.size());
-
-    asio::write(Session->Sock, buffer);
-    return EXIT_SUCCESS;
+    for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
+    {
+        
+    }
 }
 
 int server::start(std::shared_ptr<command>Command)
