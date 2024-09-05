@@ -1,9 +1,9 @@
 #include <asio.hpp>
+#include <iostream>
 #include <thread>
 #include "title.h"
 #include "client.h"
-#include <iostream>
-
+#include <chrono>
 
 
 client::client(bool title,asio::ip::address_v4&& binding_addr,const unsigned int&& port) : _Port(std::move(port)), _Binding_addr(std::move(binding_addr)),
@@ -18,19 +18,31 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
 
 }
 
+
+
+std::chrono::seconds client::timeout(std::chrono::seconds* ptr)
+{
+    std::this_thread::sleep_for(*ptr);
+    return std::chrono::seconds(5);
+}
+
 void client::start()
 {
-    _Sock.connect(_Endpoint,_Error);
-
-    if(!_Error)
+    std::chrono::seconds *time = new std::chrono::seconds(5);
+    while(_Error)
     {
-        std::cout << std::endl << "Connected to server" << std::endl;
-        while(_Running)
-        {}
-    }
+        _Sock.connect(_Endpoint,_Error);
 
-    else
-    {
-        std::cerr << "Connection failure " << _Error.message() << std::endl;
+        if(!_Error)
+        {
+            std::cout << std::endl << "Connected to server" << std::endl;
+            delete time;
+        }
+
+        else
+        {
+            std::cerr << "Connection failure " << _Error.message() << std::endl;
+            *(time) += timeout(time);
+        }
     }
 }

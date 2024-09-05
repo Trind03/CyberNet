@@ -7,6 +7,7 @@ public:
     client(client&) = delete;
     client() = delete;
     client(bool title,asio::ip::address_v4&& binding_addr,const unsigned int&& port);
+    std::chrono::seconds timeout(std::chrono::seconds* ptr);
 
     void start();
     asio::error_code _Error;
