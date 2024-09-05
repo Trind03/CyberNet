@@ -16,6 +16,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 
+set(client_build_list "${Client_dir}/main.cpp" "${Client_dir}/title.cpp" "${Client_dir}/client.cpp")
 
 include_directories(
     # Server
@@ -32,20 +33,25 @@ include_directories(
 )
 
 
-
+set(server_build_list
+"${Server_dir}/main.cpp"
+"${Server_dir}/commands.cpp"
+"${Server_dir}/server.cpp"
+"${Server_dir}/title.cpp"
+"${Server_dir}/session.cpp)")
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     set(CXX_STANDARD Standard)
-    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
+    add_executable(${Server} ${server_build_list})
+
     target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
 
-    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp ${Client_dir}/client.cpp)
+    add_executable(${Client} ${client_build_list})
     target_link_libraries(${Client} PRIVATE ws2_32 mswsock)
 
     add_definitions(-D_WIN32_WINNT=0x0601)
     return()
-
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     message("-- System identyfied as: MacOS")
     find_package(Boost REQUIRED)
