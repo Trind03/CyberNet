@@ -7,7 +7,7 @@
 
 class command;
 
-class server : public internet_computer
+class server : public ::internet_computer
 {
 public:
     explicit server(unsigned short port,bool title);

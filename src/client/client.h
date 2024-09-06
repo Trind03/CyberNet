@@ -2,7 +2,7 @@
 #include <asio.hpp>
 #include "../internet_computer.h"
 
-class client : public internet_computer
+class client : public ::internet_computer
 {
 public:
     client(client&) = delete;
