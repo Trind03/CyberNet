@@ -17,18 +17,18 @@ set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 
 set(client_build_list
-"${Client_dir}/main.cpp"
-"${Client_dir}/title.cpp"
-"${Client_dir}/client.cpp"
-"${CMAKE_SOURCE_DIR}/src/internet_computer.cpp")
+${Client_dir}/main.cpp
+${Client_dir}/title.cpp
+${Client_dir}/client.cpp
+${CMAKE_SOURCE_DIR}/src/internet_computer.cpp)
 
 set(server_build_list
-"${Server_dir}/main.cpp"
-"${Server_dir}/commands.cpp"
-"${Server_dir}/server.cpp"
-"${Server_dir}/title.cpp"
-"${Server_dir}/session.cpp"
-"${CMAKE_SOURCE_DIR}/src/internet_computer.cpp")
+${Server_dir}/main.cpp
+${Server_dir}/commands.cpp
+${Server_dir}/server.cpp
+${Server_dir}/title.cpp
+${Server_dir}/session.cpp
+${CMAKE_SOURCE_DIR}/src/internet_computer.cpp)
 
 include_directories(
     # Server
