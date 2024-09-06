@@ -11,6 +11,7 @@
 
 #define _Debug_
 
+
 server::server(unsigned short port,bool title): Port(std::move(port)), Io_context(), 
 Endpoint(asio::ip::tcp::v4(),port),Acceptor(Io_context,Endpoint),
 Running(true),Sock(Io_context)
@@ -46,7 +47,7 @@ void server::show_clients()
     std::cout << "**** Clients currently connected ****" << std::endl;
     for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
     {
-        std::cout << "Client - " << index++ << " - Address: " << it->get_Address() << " - Calculated time since last: " << it->calculate_time() <<  std::endl;
+        std::cout << "Client - " << index++ << " - Address: " << it->get_Address() << " - Calculated time since last: " << calculate_time(it->get_time()) <<  std::endl;
     }
 }
 
@@ -70,7 +71,7 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
         catch(const std::exception &ex)
         {
             std::cerr << "Unknown exception" << std::endl;
-            this->stop();
+            stop();
         }
         
     else 
@@ -81,23 +82,23 @@ void server::add_connection(asio::ip::tcp::socket &&Sock)
 void server::disconnect_client(std::deque<session>::iterator it)
 {
     std::lock_guard<std::mutex>lock(resource_lock);
-    this->Connections.erase(it);
+    Connections.erase(it);
 }
 
 void server::session_status()
 {
-    while(this->Running)
+    while(Running)
     {
         std::this_thread::sleep_for(std::chrono::seconds(1));
 
-        if(this->Connections.size() > 0)
-            for(std::size_t i = 0; i < this->Connections.size(); i++)
+        if(Connections.size() > 0)
+            for(std::size_t i = 0; i < Connections.size(); i++)
             {
 
-                if(!(this->Connections[i].calculate_time() < 10))
+                if(!(calculate_time(Connections[i].get_time()) < 10))
                 {
-                    std::cout << "Disconnected from client: " << this->Connections[i].get_Address() << std::endl;
-                    this->Connections.erase(this->Connections.begin() + i);
+                    std::cout << "Disconnected from client: " << Connections[i].get_Address() << std::endl;
+                    Connections.erase(Connections.begin() + i);
                 }
 
                 else
@@ -108,7 +109,7 @@ void server::session_status()
 
 void server::validate_live_connection()
 {
-    for(std::deque<session>::iterator it = this->Connections.begin(); it != this->Connections.end(); it++)
+    for(std::deque<session>::iterator it = Connections.begin(); it != Connections.end(); it++)
     {
         
     }
@@ -120,28 +121,28 @@ int server::start(std::shared_ptr<command>Command)
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
     try
     {
-        this->Sock.open(asio::ip::tcp::v4(),this->Error);   
+        Sock.open(asio::ip::tcp::v4(),Error);   
     }
 
     catch(std::exception& ex)
     {
         std::cout << ex.what() << std::endl;
-        this->stop();
+        stop();
         command->join();
         return EXIT_FAILURE;
     }
     std::unique_ptr<std::thread>(session_tracker) = std::make_unique<std::thread>(std::thread(&server::session_status,this));
-    this->running();
+    running();
     command->join();
     session_tracker->join();
     return 0;
 
 #else
 
-    this->Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
+    Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
   
-    this->running();
+    running();
     command->join();
     return 0;
 
@@ -161,7 +162,7 @@ void server::running()
                 {
                     if(!Error)
                     {
-                        this->add_connection(std::move(Sock));
+                        add_connection(std::move(Sock));
                     }
                     
                     else
@@ -169,22 +170,22 @@ void server::running()
                         std::cerr << "Connection failure occurred" << std::endl;
                     }
                 });
-                this->Io_context.restart();
-                this->Io_context.run();
+                Io_context.restart();
+                Io_context.run();
 
             }
                 
                 catch (const std::exception& e)
                 {
                     std::cerr << "Caught exception " << e.what() << std::endl;;
-                    std::cerr << this->Error.message() << '\n';
+                    std::cerr << Error.message() << '\n';
                 }
-        } while (this->get_running_status());
+        } while (get_running_status());
     
 #else
     do
     {
-        this->Acceptor.listen();
+        Acceptor.listen();
         this->Acceptor.accept();
     } while(this->get_running_status());
 #endif

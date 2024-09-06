@@ -1,9 +1,9 @@
 #include "internet_computer.h"
 #include <chrono>
 
-std::chrono::system_clock::time_point internet_computer::reset()
+void internet_computer::reset(std::chrono::system_clock::time_point *time)
 {
-    return std::chrono::system_clock::now();
+    *time = std::chrono::system_clock::now();
 }
 
 float internet_computer::calculate_time(std::chrono::system_clock::time_point *time_stamp)

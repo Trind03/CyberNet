@@ -19,14 +19,16 @@ set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 set(client_build_list
 "${Client_dir}/main.cpp"
 "${Client_dir}/title.cpp"
-"${Client_dir}/client.cpp")
+"${Client_dir}/client.cpp"
+"${CMAKE_SOURCE_DIR}/src/internet_computer.cpp")
 
 set(server_build_list
 "${Server_dir}/main.cpp"
 "${Server_dir}/commands.cpp"
 "${Server_dir}/server.cpp"
 "${Server_dir}/title.cpp"
-"${Server_dir}/session.cpp")
+"${Server_dir}/session.cpp"
+"${CMAKE_SOURCE_DIR}/src/internet_computer.cpp")
 
 include_directories(
     # Server
@@ -63,8 +65,8 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     add_compile_options(-std=${Standard})
     set(CMAKE_CXX_COMPILER "clang++")
 
-    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
-    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp ${Client_dir}/client.cpp)
+    add_executable(${Server} ${server_build_list})
+    add_executable(${Client} ${client_build_list})
     return()
 
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
@@ -73,8 +75,8 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     set(CMAKE_CXX_COMPILER "g++")
     add_compile_options(-std=${Standard})
     
-    add_executable(${Server} ${Server_dir}/main.cpp ${Server_dir}/commands.cpp ${Server_dir}/server.cpp ${Server_dir}/title.cpp ${Server_dir}/session.cpp)
-    add_executable(${Client} ${Client_dir}/main.cpp  ${Client_dir}/title.cpp ${Client_dir}/client.cpp )
+    add_executable(${Server} ${server_build_list})
+    add_executable(${Client} ${client_build_list})
     return()
 
 else()

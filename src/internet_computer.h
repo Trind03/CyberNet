@@ -5,7 +5,7 @@
 class internet_computer
 {
 protected:
-    void virtual render_base() = 0;
-    std::chrono::system_clock::time_point reset();
+    virtual void render() = 0;
+    void reset(std::chrono::system_clock::time_point* time);
     float calculate_time(std::chrono::system_clock::time_point *time_stamp);
 };

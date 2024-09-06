@@ -23,6 +23,7 @@ add_executable(${Server_tests}
     ${CMAKE_SOURCE_DIR}/src/server/session.cpp
     ${CMAKE_SOURCE_DIR}/src/server/title.cpp
     ${CMAKE_SOURCE_DIR}/src/server/commands.cpp
+    ${CMAKE_SOURCE_DIR}/src/internet_computer.cpp
 
 )
 
@@ -30,6 +31,7 @@ add_executable(${Client_tests}
     ${tests_dir}/client_test.cpp
     ${CMAKE_SOURCE_DIR}/src/client/client.cpp
     ${CMAKE_SOURCE_DIR}/src/client/title.cpp
+    ${CMAKE_SOURCE_DIR}/src/internet_computer.cpp
     )
 
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin" OR ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")

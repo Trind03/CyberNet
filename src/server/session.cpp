@@ -4,18 +4,10 @@
 #include "session.h"
 #include <mutex>
 
-void session::reset()
+std::chrono::system_clock::time_point* session::get_time()
 {
-    time_stamp = std::chrono::system_clock::now();
+    return &time_stamp;
 }
-
-float session::calculate_time()
-{
-    std::chrono::system_clock::time_point now_time = std::chrono::system_clock::now();
-    std::chrono::duration<float>result = now_time - time_stamp;
-    return result.count();
-}
-
 
 bool session::is_valid()
 {
