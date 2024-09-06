@@ -3,11 +3,11 @@
 #include <memory>
 #include <deque>
 #include "session.h"
-
+#include "../internet_computer.h"
 
 class command;
 
-class server
+class server : public internet_computer
 {
 public:
     explicit server(unsigned short port,bool title);

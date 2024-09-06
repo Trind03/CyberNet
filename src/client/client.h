@@ -1,7 +1,8 @@
 #pragma once
 #include <asio.hpp>
+#include "../internet_computer.h"
 
-class client
+class client : public internet_computer
 {
 public:
     client(client&) = delete;
