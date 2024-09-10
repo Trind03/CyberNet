@@ -39,7 +39,7 @@ void client::start()
         if(!_Error)
         {
             std::cout << std::endl << "Connected to server" << std::endl;
-            running_timeout = false;
+            running_timeout = !running_timeout;
         }
 
         else
