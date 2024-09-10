@@ -15,7 +15,7 @@ public:
     ~session();
     
     bool is_valid();
-    std::chrono::system_clock::time_point* get_time();
+    std::chrono::system_clock::time_point& get_time();
     std::string get_Address();
     int broadcast_client(std::string m_data);
 

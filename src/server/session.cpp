@@ -4,9 +4,9 @@
 #include "session.h"
 #include <mutex>
 
-std::chrono::system_clock::time_point* session::get_time()
+std::chrono::system_clock::time_point& session::get_time()
 {
-    return &time_stamp;
+    return time_stamp;
 }
 
 bool session::is_valid()

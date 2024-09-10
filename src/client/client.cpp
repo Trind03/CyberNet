@@ -20,29 +20,32 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
 
 
 
-std::chrono::seconds client::timeout(std::chrono::seconds* ptr)
+std::chrono::seconds client::timeout(std::chrono::seconds& time)
 {
-    std::this_thread::sleep_for(*ptr);
+    std::this_thread::sleep_for(time);
     return std::chrono::seconds(5);
 }
 
 void client::start()
 {
-    std::chrono::seconds *time = new std::chrono::seconds(5);
-    while(_Error)
+    bool running_timeout = true;
+    std::chrono::seconds time = std::chrono::seconds(5);
+    while(running_timeout)
     {
+        _Sock.close();
+        _Sock.open(_Endpoint.protocol());
         _Sock.connect(_Endpoint,_Error);
 
         if(!_Error)
         {
             std::cout << std::endl << "Connected to server" << std::endl;
-            delete time;
+            running_timeout = false;
         }
 
         else
         {
-            std::cerr << "Connection failure " << _Error.message() << std::endl;
-            *(time) += timeout(time);
+            std::cerr << "Connection failure: " << _Error.message() << " awaiting " << time.count() << " seconds" << std::endl;
+            time += timeout(time);
         }
     }
 }
