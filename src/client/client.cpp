@@ -26,7 +26,7 @@ std::chrono::seconds client::timeout(std::chrono::seconds& time)
     return std::chrono::seconds(5);
 }
 
-void client::start()
+int client::start()
 {
     bool running_timeout = true;
     std::chrono::seconds time = std::chrono::seconds(5);
@@ -40,7 +40,10 @@ void client::start()
         {
             std::cout << std::endl << "Connected to server" << std::endl;
             running_timeout = !running_timeout;
+            return EXIT_SUCCESS;
         }
+
+        else if(time.count() >= 60) { return EXIT_FAILURE; }
 
         else
         {
@@ -48,4 +51,5 @@ void client::start()
             time += timeout(time);
         }
     }
+    return EXIT_SUCCESS;
 }
