@@ -16,7 +16,6 @@ public:
     int start(std::shared_ptr<command>Command);
     void running();
     void stop();
-    void render() override {}
 
     bool get_running_status();
     
