@@ -12,6 +12,7 @@ public:
 
     void running(std::chrono::seconds moderator);
     int start();
+protected:
     asio::error_code _Error;
     const unsigned int _Port;
     asio::io_context _Io_context;
