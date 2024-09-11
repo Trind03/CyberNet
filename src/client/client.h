@@ -1,6 +1,6 @@
 #pragma once
 #include <asio.hpp>
-#include "../internet_computer.h"
+#include "internet_computer.h"
 
 class client : public ::internet_computer
 {

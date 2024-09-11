@@ -15,6 +15,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # File path init
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
+set(Root_src "${CMAKE_SOURCE_DIR}/src")
 
 set(client_build_list
 ${Client_dir}/main.cpp
@@ -28,7 +29,7 @@ ${Server_dir}/commands.cpp
 ${Server_dir}/server.cpp
 ${Server_dir}/title.cpp
 ${Server_dir}/session.cpp
-${CMAKE_SOURCE_DIR}/src/internet_computer.cpp)
+${Root_src}/internet_computer.cpp)
 
 include_directories(
     # Server
@@ -37,6 +38,10 @@ include_directories(
     # Client
     ${Client_dir}
 
+    # Source dir
+
+    ${Root_src}
+    
     # Library
     ${CMAKE_SOURCE_DIR}/asio/asio/include
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio/detail
