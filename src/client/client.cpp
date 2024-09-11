@@ -15,7 +15,6 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
         std::thread title_client = std::thread(std::bind(boot_message_client,filename));
         title_client.join();
     }
-
 }
 
 
