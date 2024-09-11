@@ -10,6 +10,7 @@ public:
     client(bool title,asio::ip::address_v4&& binding_addr,const unsigned int&& port);
     std::chrono::seconds timeout(std::chrono::seconds& time);
 
+    void client::running(std::chrono::seconds moderator);
     int start();
     asio::error_code _Error;
     const unsigned int _Port;

@@ -43,7 +43,11 @@ int client::start()
             return EXIT_SUCCESS;
         }
 
-        else if(time.count() >= 60) { return EXIT_FAILURE; }
+        else if(time.count() >= 60)
+        {
+            std::cout << "Connection failure terminating program.." << std::endl;
+            return EXIT_FAILURE;
+        }
 
         else
         {
@@ -52,4 +56,14 @@ int client::start()
         }
     }
     return EXIT_SUCCESS;
+}
+
+void client::running(std::chrono::seconds moderator)
+{
+
+    while (_Running)
+    {
+        std::this_thread::sleep_for(moderator);
+    }
+    
 }
