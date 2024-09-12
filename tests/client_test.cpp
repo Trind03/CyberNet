@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "client.h"
+#include "client_t.h"
 #include <asio.hpp>
 
 class t_client : public ::testing::Test
@@ -9,14 +9,15 @@ protected:
     {
         binding_addr = asio::ip::address_v4::from_string("127.0.0.1");
         port = 5554;
-        Client = new client(false,std::move(binding_addr),std::move(port));
+        Client = new client_t(false,std::move(binding_addr),std::move(port));
 
     }
     void TearDown() override
     {
         delete Client;
     }
-    client *Client;
+public:
+    client_t *Client;
 
     /* Mock properties */
     asio::ip::address_v4 binding_addr;
