@@ -14,7 +14,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio/detail
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio
     ${Boost_INCLUDE_DIRS}
-    ${CMAKE_SOURCE_DIR}/src/client
 )
 
 add_executable(${Server_tests}
@@ -31,6 +30,7 @@ add_executable(${Client_tests}
     ${tests_dir}/client_test.cpp
     ${tests_dir}/client_t.cpp
     ${CMAKE_SOURCE_DIR}/src/client/client.cpp
+    ${CMAKE_SOURCE_DIR}/src/client/title.cpp
     ${CMAKE_SOURCE_DIR}/src/internet_computer.cpp
     )
 
