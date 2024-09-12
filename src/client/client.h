@@ -22,6 +22,7 @@ public:
     asio::ip::tcp::endpoint get_Endpoint();
     asio::ip::address_v4 get_Binding_addr();
     const bool get_Running_status();
+    
 protected:
     asio::error_code _Error;
     const unsigned int _Port;
