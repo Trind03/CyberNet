@@ -6,7 +6,7 @@ class client : public ::internet_computer
 {
 public:
     client(client&) = delete;
-    client() = delete;
+    client();
     client(bool title,asio::ip::address_v4&& binding_addr,const unsigned int&& port);
     std::chrono::seconds timeout(std::chrono::seconds& time);
 

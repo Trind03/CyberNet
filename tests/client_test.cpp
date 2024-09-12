@@ -8,8 +8,7 @@ protected:
     void SetUp() override
     {
         binding_addr = asio::ip::address_v4::from_string("127.0.0.1");
-        port = 5554;
-        Client = new client_t(false,std::move(binding_addr),std::move(port));
+        Client = new client_t(false,std::move(binding_addr),std::move(5554));
 
     }
     void TearDown() override
@@ -18,10 +17,10 @@ protected:
     }
 public:
     client_t *Client;
-
+private:
     /* Mock properties */
+    unsigned int _Port;
     asio::ip::address_v4 binding_addr;
-    unsigned int port;
 };
 
 TEST_F(t_client, Class_instance)
@@ -31,8 +30,8 @@ TEST_F(t_client, Class_instance)
 
 TEST_F(t_client, Initialization)
 {
-    EXPECT_EQ(Client->_Binding_addr,binding_addr);
-    EXPECT_EQ(Client->_Port, port);
+    ASSERT_EQ(Client->get_Binding_addr(),asio::ip::address_v4::from_string("127.0.0.1"));
+    ASSERT_EQ(Client->get_Port(), 5554);
 }
 
 int main(int argc, char *argv[])

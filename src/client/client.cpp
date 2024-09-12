@@ -17,6 +17,27 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
     }
 }
 
+asio::error_code client::get_Error()
+{
+    return _Error;
+}
+const unsigned int client::get_Port()
+{
+    return _Port;
+}
+
+asio::ip::tcp::endpoint client::get_Endpoint()
+{
+    return _Endpoint;
+}
+asio::ip::address_v4 client::get_Binding_addr()
+{
+    return _Binding_addr;
+}
+const bool client::get_Running_status()
+{
+    return _Running;
+}
 
 
 std::chrono::seconds client::timeout(std::chrono::seconds& time)
