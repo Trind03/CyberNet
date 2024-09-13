@@ -56,7 +56,7 @@ def getHash(path):
 
 def get_changes():
     global running
-    PRE_BUILD = f"cmake -B ./build -S ."
+    PRE_BUILD = f"cmake -B ./build -S . -G \"Unix Makefiles\""
     BUILD = f"cmake --build ./build --config \"{sys.argv[1]}\""
 
     checksum = ""
