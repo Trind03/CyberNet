@@ -3,14 +3,14 @@
 #include <memory>
 #include <deque>
 #include "session.h"
-
+#include "../internet_computer.h"
 
 class command;
 
-class server
+class server : public ::internet_computer
 {
 public:
-    explicit server(unsigned short port,const char* filename);
+    explicit server(unsigned short port,bool title);
     server(server&) = delete;
 
     int start(std::shared_ptr<command>Command);
@@ -23,9 +23,8 @@ public:
     void add_connection(asio::ip::tcp::socket &&Sock);
     void disconnect_client(std::deque<session>::iterator it);
     void session_status();
-    int broadcast_client(session *Session,std::string m_data);
     void show_clients();
-
+    void validate_live_connection();
 private:
     /* assets */
     asio::io_context Io_context;

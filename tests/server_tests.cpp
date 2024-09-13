@@ -1,20 +1,25 @@
 #include <gtest/gtest.h>
+#include "server.h"
+#include "session.h"
 
 class t_server : public ::testing::Test
 {
     void SetUp() override
     {
-
+        Server = new server(port,true);
     }
 
     void TearDown() override
     {
-
+        delete Server;
     }
+    server *Server;
 
+    /* Mock data */
+    unsigned int port = 5554;
 };
 
-TEST(t_server, test)
+TEST_F(t_server, test)
 {
     EXPECT_EQ(1,1);
 }
