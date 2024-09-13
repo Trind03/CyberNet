@@ -9,11 +9,8 @@
 #include "session.h"
 
 
-#define _Debug_
-
-
 server::server(unsigned short port,bool title): Port(std::move(port)), Io_context(), 
-Endpoint(asio::ip::tcp::v4(),port),Acceptor(Io_context,Endpoint),
+Endpoint(asio::ip::address::from_string(Active_Ip_addr),port),Acceptor(Io_context,Endpoint),
 Running(true),Sock(Io_context)
 {
     if(title)
@@ -22,7 +19,6 @@ Running(true),Sock(Io_context)
         title_server(std::move(filename));
     }
 };
-
 
 void server::stop()
 {
@@ -139,7 +135,6 @@ int server::start(std::shared_ptr<command>Command)
 
 #else
 
-    Sock = std::make_unique<asio::ip::tcp::socket>(Io_context);
     std::unique_ptr<std::thread>command = std::make_unique<std::thread>(std::bind(&command::command_handler,*Command));
   
     running();

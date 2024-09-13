@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.30)
 
+add_compile_definitions(Active_Ip_addr="10.4.5.126")
+add_compile_definitions(Active_Port=5554)
+add_compile_definitions(_Debug_=true)
+
 include(${CMAKE_SOURCE_DIR}/tests/tests.cmake)
 
 project(CyberNet LANGUAGES CXX)
-
 
 # Executable names
 set(Client "client")
