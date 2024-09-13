@@ -1,5 +1,6 @@
 #include "internet_computer.h"
 #include <chrono>
+#include <iostream>
 
 void internet_computer::reset(std::chrono::system_clock::time_point &time)
 {
@@ -12,3 +13,5 @@ float internet_computer::calculate_time(std::chrono::system_clock::time_point &t
     std::chrono::duration<float>result = now_time - time_stamp;
     return result.count();
 }
+
+    //std::cout << "Port: " << port << " - " << "Address: " << addr << std::endl; 

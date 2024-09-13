@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "client_t.h"
 #include <asio.hpp>
+#include "internet_computer.h"
 
 class t_client : public ::testing::Test
 {

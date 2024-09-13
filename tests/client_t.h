@@ -1,5 +1,6 @@
 #pragma once
 #include "client.h"
+#include "internet_computer.h"
 
 class client_t : public client
 {

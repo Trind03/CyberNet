@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "server.h"
 #include "session.h"
+#include "internet_computer.h"
 
 class t_server : public ::testing::Test
 {

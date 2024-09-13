@@ -8,9 +8,8 @@
 #include "command.h"
 #include "session.h"
 
-
 server::server(unsigned short port,bool title): Port(std::move(port)), Io_context(), 
-Endpoint(asio::ip::address::from_string(Active_Ip_addr),port),Acceptor(Io_context,Endpoint),
+Endpoint(asio::ip::address::from_string(server_ip),port),Acceptor(Io_context,Endpoint),
 Running(true),Sock(Io_context)
 {
     if(title)
@@ -18,6 +17,7 @@ Running(true),Sock(Io_context)
         const char* filename = "title.dat";
         title_server(std::move(filename));
     }
+    std::cout << "Port: " << port << " - " << "Address: " << server_ip << std::endl; 
 };
 
 void server::stop()

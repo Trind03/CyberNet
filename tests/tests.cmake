@@ -23,7 +23,6 @@ add_executable(${Server_tests}
     ${CMAKE_SOURCE_DIR}/src/server/title.cpp
     ${CMAKE_SOURCE_DIR}/src/server/commands.cpp
     ${CMAKE_SOURCE_DIR}/src/internet_computer.cpp
-
 )
 
 add_executable(${Client_tests}
