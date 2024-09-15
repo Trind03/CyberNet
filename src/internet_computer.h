@@ -5,7 +5,8 @@
 class internet_computer
 {
 protected:
-    internet_computer(){}
+    internet_computer();
     void reset(std::chrono::system_clock::time_point &time);
     float calculate_time(std::chrono::system_clock::time_point &time_stamp);
+    std::string auth_token;
 };

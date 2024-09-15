@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.30)
 
 # Defining global source macros for build
 add_compile_definitions(server_ip="127.0.0.1")
-add_compile_definitions(client_connect="10.4.5.126")
+add_compile_definitions(client_connect="192.168.188.101")
 add_compile_definitions(Active_Port=5554)
 
 add_compile_definitions(_Debug_=true)

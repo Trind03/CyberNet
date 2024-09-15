@@ -14,7 +14,6 @@ public:
     int start();
 
     /* Getter funktions */
-
     asio::error_code get_Error();
     const unsigned int get_Port();
     asio::io_context get_Io_context();

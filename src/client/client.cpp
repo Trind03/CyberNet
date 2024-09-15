@@ -18,7 +18,6 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
     std::cout << "Port: " << port << " - " << "Address: " << binding_addr << std::endl; 
 }
 
-
 asio::error_code client::get_Error()
 {
     return _Error;
