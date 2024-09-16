@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.30)
-
+include(ip_processor.cmake)
 # Defining global source macros for build
 add_compile_definitions(server_ip="127.0.0.1")
-add_compile_definitions(client_connect="192.168.188.101")
+add_compile_definitions(client_connect="10.4.4.53")
 add_compile_definitions(Active_Port=5554)
 
 add_compile_definitions(_Debug_=true)
@@ -20,6 +20,7 @@ set(Server "server")
 # Settings init
 set(Standard "c++20")
 set(CMAKE_CXX_EXTENSIONS OFF)
+
 # File path init
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")

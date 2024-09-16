@@ -3,8 +3,6 @@
 #include <memory>
 #include <array>
 
-
-
 class server;
 
 class command
