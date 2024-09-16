@@ -18,9 +18,16 @@ _Io_context(), _Sock(asio::ip::tcp::socket(_Io_context)), _Endpoint(_Binding_add
     std::cout << "Port: " << port << " - " << "Address: " << binding_addr << std::endl; 
 }
 
+void client::_load_data(std::vector<char>&m_data)
+{
+    for(int i = 0; i < this->byte_length; i++)
+    {
+        std::cout << m_data[i];
+    }
+}
+
 void client::_connection_handler(asio::ip::tcp::socket* _Sock_stream)
 {
-    asio::buffer(this->auth_token,this->auth_token.length());
     _Sock_stream->connect(this->_Endpoint, this->_Error);
 
     if(_Sock_stream->available() > 0)

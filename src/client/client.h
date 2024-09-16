@@ -14,6 +14,7 @@ public:
     void running(std::chrono::seconds moderator);
     int start();
     void _connection_handler(asio::ip::tcp::socket* _Sock_stream);
+    void _load_data(std::vector<char>&m_data);
 
     /* Getter funktions */
     asio::error_code get_Error();
