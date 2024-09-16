@@ -1,5 +1,6 @@
 #pragma once
 #include <asio.hpp>
+#include <vector>
 #include "internet_computer.h"
 
 class client : public ::internet_computer
@@ -12,6 +13,7 @@ public:
 
     void running(std::chrono::seconds moderator);
     int start();
+    void _connection_handler(asio::ip::tcp::socket* _Sock_stream);
 
     /* Getter funktions */
     asio::error_code get_Error();
@@ -23,6 +25,8 @@ public:
     const bool get_Running_status();
     
 protected:
+    std::vector<char>client_buffer;
+    std::size_t byte_length;
     asio::error_code _Error;
     const unsigned int _Port;
     asio::io_context _Io_context;
