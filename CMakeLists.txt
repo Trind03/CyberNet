@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.30)
 include(ip_processor.cmake)
 # Defining global source macros for build
-add_compile_definitions(server_ip="127.0.0.1")
-add_compile_definitions(client_connect="10.4.4.53")
+add_compile_definitions(server_ip="0.0.0.0")
+add_compile_definitions(client_connect="10.4.4.140")
 add_compile_definitions(Active_Port=5554)
 
 add_compile_definitions(_Debug_=true)
