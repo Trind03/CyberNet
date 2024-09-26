@@ -85,7 +85,7 @@ int client::start()
 
         else if(time.count() >= 60)
         {
-            std::cout << "Connection failure terminating program.." << std::endl;
+            std::cerr << "Connection failure terminating program.." << std::endl;
             return EXIT_FAILURE;
         }
 
