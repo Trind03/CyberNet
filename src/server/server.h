@@ -2,6 +2,7 @@
 #include <asio.hpp>
 #include <memory>
 #include <deque>
+#include <vector>
 #include "session.h"
 #include "../internet_computer.h"
 
@@ -35,5 +36,6 @@ private:
     unsigned short Port;
     bool Running;
     std::deque<session>Connections;
+    std::vector<unsigned char>Buffer(1240);
     std::mutex resource_lock;
 };
