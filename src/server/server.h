@@ -34,6 +34,7 @@ private:
     asio::ip::tcp::socket Sock;
     unsigned short Port;
     bool Running;
+    std::vector<unsigned char>Buffer(1240)
     std::deque<session>Connections;
     std::mutex resource_lock;
 };
