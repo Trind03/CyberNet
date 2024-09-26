@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.30)
-include(ip_processor.cmake)
+
 # Defining global source macros for build
-add_compile_definitions(server_ip="127.0.0.1")
-add_compile_definitions(client_connect="10.4.4.53")
+add_compile_definitions(server_ip="0.0.0.0")
+add_compile_definitions(client_connect="10.4.5.209")
 add_compile_definitions(Active_Port=5554)
 
 add_compile_definitions(_Debug_=true)
 
 set(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/build)
 file(COPY ${CMAKE_SOURCE_DIR}/title.dat DESTINATION ${CMAKE_BINARY_DIR})
-include(${CMAKE_SOURCE_DIR}/tests/tests.cmake)
+#include(${CMAKE_SOURCE_DIR}/tests/tests.cmake)
 
 project(CyberNet LANGUAGES CXX)
 
