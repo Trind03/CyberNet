@@ -6,39 +6,51 @@
 
 std::chrono::system_clock::time_point& session::get_time()
 {
-    return time_stamp;
+    return _Time_stamp;
 }
 
 bool session::is_valid()
 {
-    return Sock.is_open();
+    return _Sock.is_open();
 }
 
 std::string session::get_Address()
 {
-    return Sock.remote_endpoint().address().to_string();
+    return this->_Sock.remote_endpoint().address().to_string();
 }
 
-session::session(session&& other): Sock(std::move(other.Sock)), time_stamp(other.time_stamp)
+session::session(session&& other): _Sock(std::move(other._Sock)), _Time_stamp(other._Time_stamp), _Buffer(std::vector<unsigned char>(1240))
 {
     std::cout << "Session saved to memory" << std::endl;
 }
 
-session::session(asio::ip::tcp::socket &&socket): Sock(std::move(socket))
+session::session(asio::ip::tcp::socket &&socket): _Sock(std::move(socket)), _Buffer(std::vector<unsigned char>(1240))
 {
-    time_stamp = std::chrono::system_clock::now();
-    std::cout << "Connected to: " << Sock.remote_endpoint().address().to_string() << std::endl;
+    this->_Time_stamp = std::chrono::system_clock::now();
+    std::cout << "Connected to: " << this->_Sock.remote_endpoint().address().to_string() << std::endl;
 }
 
 int session::broadcast_client(std::string m_data)
 {
     if(!is_valid()) return EXIT_FAILURE;
 
-    Sock.set_option(asio::socket_base::broadcast(true));
+    this->_Sock.set_option(asio::socket_base::broadcast(true));
     asio::const_buffer buffer(m_data.data(), m_data.size());
 
-    asio::write(Sock, buffer);
+    asio::write(this->_Sock, buffer);
     return EXIT_SUCCESS;
+}
+
+void session::response()
+{
+    if(this->_Sock.available(this->_Error) > 0 && !this->_Error)
+    {
+        std::size_t bytes = this->_Sock.read_some(asio::buffer(this->_Buffer));
+        for(uint16_t i = 0; i < bytes; i++)
+        {
+            std::cout << this->_Buffer[i] << std::endl;
+        }
+    }
 }
 
 session::~session()

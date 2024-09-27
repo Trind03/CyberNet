@@ -1,6 +1,7 @@
 #pragma once
 #include <asio.hpp>
 #include <chrono>
+#include <vector>
 
 class session
 {
@@ -18,7 +19,10 @@ public:
     std::chrono::system_clock::time_point& get_time();
     std::string get_Address();
     int broadcast_client(std::string m_data);
+    void response();
 
-    std::chrono::system_clock::time_point time_stamp;
-    asio::ip::tcp::socket Sock;
+    std::chrono::system_clock::time_point _Time_stamp;
+    asio::ip::tcp::socket _Sock;
+    std::vector<unsigned char>_Buffer;
+    asio::error_code _Error;
 };
