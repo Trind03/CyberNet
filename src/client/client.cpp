@@ -32,7 +32,7 @@ void client::_connection_handler(asio::ip::tcp::socket* _Sock_stream)
 
     if(_Sock_stream->available() > 0)
     {
-        std::cout << "Loading data recieved.." << std::endl;
+        std::cout << "Loading data.." << std::endl;
         this->byte_length = _Sock_stream->read_some(asio::buffer(this->client_buffer));
     }
 }
@@ -79,6 +79,7 @@ int client::start()
         if(!_Error)
         {
             std::cout << std::endl << "Connected to server" << std::endl;
+            asio::write(this->_Sock,asio::buffer("Hello, World!"), this->_Error);
             running_timeout = !running_timeout;
             return EXIT_SUCCESS;
         }

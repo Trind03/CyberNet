@@ -99,7 +99,7 @@ void server::session_status()
                 }
 
                 else
-                    continue;
+                    this->Connections[i].response();
             }
     }
 }
