@@ -5,12 +5,13 @@
 #include "server.h"
 #include "title.h"
 #include <thread>
+#include <vector>
 #include "command.h"
 #include "session.h"
 
 server::server(unsigned short port,bool title): Port(std::move(port)), Io_context(), 
 Endpoint(asio::ip::address::from_string(server_ip),port),Acceptor(Io_context,Endpoint),
-Running(true),Sock(Io_context)
+Running(true),Sock(Io_context),Buffer(std::vector<unsigned char>(1240))
 {
     if(title)
     {
