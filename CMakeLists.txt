@@ -64,14 +64,6 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/src/lib
 )
 
-add_library("Client_lib" SHARED
-    ${client_build_list}
-)
-
-add_library("Server_lib" SHARED
-    ${server_build_list}
-)
-
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
