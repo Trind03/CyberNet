@@ -13,6 +13,8 @@ file(COPY ${CMAKE_SOURCE_DIR}/title.dat DESTINATION ${CMAKE_BINARY_DIR})
 
 project(CyberNet LANGUAGES CXX)
 
+
+
 # Executable names
 set(Client "client")
 set(Server "server")
@@ -25,6 +27,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(Server_dir "${CMAKE_SOURCE_DIR}/src/server")
 set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 set(Root_src "${CMAKE_SOURCE_DIR}/src")
+set(Lib "${CMAKE_SOURCE_DIR}/src/lib")
 
 set(client_build_list
 ${Client_dir}/main.cpp
@@ -56,8 +59,18 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio/detail
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio
     ${Boost_INCLUDE_DIRS}
+
+    # Dynamic link library
+    ${CMAKE_SOURCE_DIR}/src/lib
 )
 
+add_library("Client_lib" SHARED
+    ${client_build_list}
+)
+
+add_library("Server_lib" SHARED
+    ${server_build_list}
+)
 
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
