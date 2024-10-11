@@ -77,6 +77,7 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     target_link_libraries(${Client} PRIVATE ws2_32 mswsock)
 
     add_definitions(-D_WIN32_WINNT=0x0601)
+
     return()
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     message("-- System identyfied as: MacOS")
@@ -103,4 +104,3 @@ else()
     return(-1)
     
 endif()
-
