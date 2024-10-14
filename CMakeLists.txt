@@ -29,6 +29,9 @@ set(Client_dir "${CMAKE_SOURCE_DIR}/src/client")
 set(Root_src "${CMAKE_SOURCE_DIR}/src")
 set(Lib "${CMAKE_SOURCE_DIR}/src/lib")
 
+set(Clientlib "${CMAKE_SOURCE_DIR}/src/Serverlib")
+set(Serverlib "${CMAKE_SOURCE_DIR}/src/Clientlib")
+
 set(client_build_list
 ${Client_dir}/main.cpp
 ${Client_dir}/title.cpp
@@ -61,7 +64,8 @@ include_directories(
     ${Boost_INCLUDE_DIRS}
 
     # Dynamic link library
-    ${CMAKE_SOURCE_DIR}/src/lib
+    ${CMAKE_SOURCE_DIR}/src/Serverlib
+    ${CMAKE_SOURCE_DIR}/src/Clientlib
 )
 
 # Platform dependant code
