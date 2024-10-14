@@ -37,7 +37,6 @@ include_directories(
 
     # Client
     ${Client_dir}
-
     
     # Source dir
 
@@ -87,19 +86,35 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
         C_Internet_computer
         C_client
         ws2_32 mswsock
-        )
+    )
 
     add_definitions(-D_WIN32_WINNT=0x0601)
 
     return()
+
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     message("-- System identyfied as: MacOS")
-    find_package(Boost REQUIRED)
+    find_package(Boost REQUIRED COMPONENTS SYSTEM)
     add_compile_options(-std=${Standard})
     set(CMAKE_CXX_COMPILER "clang++")
 
-    add_executable(${Server} ${server_build_list})
-    add_executable(${Client} ${client_build_list})
+    add_executable(${Server} ${Server_dir}/main.cpp)
+
+    target_link_libraries(${Server} PRIVATE
+        S_commands
+        S_server
+        S_session
+        S_title
+        S_Internet_computer
+    )
+
+    add_executable(${Client} ${Client_dir}/main.cpp)
+    target_link_libraries(${Client} PRIVATE
+        C_commands
+        C_title
+        C_Internet_computer
+        C_client
+    )
     return()
 
 elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
