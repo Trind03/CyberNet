@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.30)
+project(CyberNet LANGUAGES CXX)
 
 # Defining global source macros for build
 add_compile_definitions(server_ip="0.0.0.0")
@@ -10,9 +11,6 @@ add_compile_definitions(_Debug_=true)
 set(${CMAKE_BINARY_DIR} ${CMAKE_SOURCE_DIR}/build)
 file(COPY ${CMAKE_SOURCE_DIR}/title.dat DESTINATION ${CMAKE_BINARY_DIR})
 #include(${CMAKE_SOURCE_DIR}/tests/tests.cmake)
-
-project(CyberNet LANGUAGES CXX)
-
 
 
 # Executable names
@@ -32,13 +30,6 @@ set(Lib "${CMAKE_SOURCE_DIR}/src/lib")
 set(Clientlib "${CMAKE_SOURCE_DIR}/src/Serverlib")
 set(Serverlib "${CMAKE_SOURCE_DIR}/src/Clientlib")
 
-# Commin assembly
-set(Internet_computer "Internet_computer")
-
-# Server dynamic link library
-set(Server_dlls "commands" "server" "session" "title" "Internet_computer")
-# Client dynamic link library
-set(Client_dlls "client" "command" "title" "Internet_computer")
 
 include_directories(
     # Server
@@ -60,23 +51,18 @@ include_directories(
 
 )
 
-function(build_libs)
 # Client
-    add_library("client" SHARED ${Client_dir}/client.cpp)
-    add_library("command" SHARED ${Client_dir}/command.cpp)
-    add_library("title" SHARED ${Client_dir}/title.cpp)
+    add_library(C_client SHARED ${Client_dir}/client.cpp)
+    add_library(C_commands SHARED ${Client_dir}/command.cpp)
+    add_library(C_title SHARED ${Client_dir}/title.cpp)
+    add_library(C_Internet_computer SHARED ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
 
-# Common assembly
-    add_library(${Internet_computer} SHARED ${CMAKE_SOURCE_DIR}/src/${Internet_computer}.cpp)
 # Server
-    add_library("commands" SHARED ${Server_dir}/commands.cpp)
-    add_library("server" SHARED ${Server_dir}/server.cpp)
-    add_library("session" SHARED ${Server_dir}/session.cpp)
-    add_library("title" SHARED ${Server_dir}/title.cpp)
-    add_library(${Internet_computer} SHARED ${CMAKE_SOURCE_DIR}/src/${Internet_computer}.cpp)
-
-endfunction(build_libs)
-
+    add_library(S_commands SHARED ${Server_dir}/commands.cpp)
+    add_library(S_server SHARED ${Server_dir}/server.cpp)
+    add_library(S_session SHARED ${Server_dir}/session.cpp)
+    add_library(S_title SHARED ${Server_dir}/title.cpp)
+    add_library(S_Internet_computer SHARED ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
 
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
@@ -85,10 +71,23 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 
     add_executable(${Server} ${Server_dir}/main.cpp)
 
-    target_link_libraries(${Server} PRIVATE ${Server_dlls} ws2_32 mswsock)
+    target_link_libraries(${Server} PRIVATE
+        S_commands
+        S_server
+        S_session
+        S_title
+        S_Internet_computer
+        ws2_32 mswsock
+    )
 
     add_executable(${Client} ${Client_dir}/main.cpp)
-    target_link_libraries(${Client} PRIVATE ${Client_dlls} ws2_32 mswsock)
+    target_link_libraries(${Client} PRIVATE
+        C_commands
+        C_title
+        C_Internet_computer
+        C_client
+        ws2_32 mswsock
+        )
 
     add_definitions(-D_WIN32_WINNT=0x0601)
 
