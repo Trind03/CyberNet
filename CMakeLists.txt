@@ -36,9 +36,9 @@ set(Serverlib "${CMAKE_SOURCE_DIR}/src/Clientlib")
 set(Internet_computer "Internet_computer")
 
 # Server dynamic link library
-set(Server_dlls "commands.dll" "server.dll" "session.dll" "title.dll" "Internet_computer.dll")
+set(Server_dlls "commands" "server" "session" "title" "Internet_computer")
 # Client dynamic link library
-set(Client_dlls "client.dll" "command.dll" "title.dll" "Internet_computer.dll")
+set(Client_dlls "client" "command" "title" "Internet_computer")
 
 include_directories(
     # Server
