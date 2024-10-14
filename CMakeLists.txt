@@ -32,19 +32,13 @@ set(Lib "${CMAKE_SOURCE_DIR}/src/lib")
 set(Clientlib "${CMAKE_SOURCE_DIR}/src/Serverlib")
 set(Serverlib "${CMAKE_SOURCE_DIR}/src/Clientlib")
 
-set(client_build_list
-${Client_dir}/main.cpp
-${Client_dir}/title.cpp
-${Client_dir}/client.cpp
-${CMAKE_SOURCE_DIR}/src/internet_computer.cpp)
+# Commin assembly
+set(Internet_computer "Internet_computer")
 
-set(server_build_list
-${Server_dir}/main.cpp
-${Server_dir}/commands.cpp
-${Server_dir}/server.cpp
-${Server_dir}/title.cpp
-${Server_dir}/session.cpp
-${Root_src}/internet_computer.cpp)
+# Server dynamic link library
+set(Server_dlls "commands.dll" "server.dll" "session.dll" "title.dll" "Internet_computer.dll")
+# Client dynamic link library
+set(Client_dlls "client.dll" "command.dll" "title.dll" "Internet_computer.dll")
 
 include_directories(
     # Server
@@ -53,6 +47,7 @@ include_directories(
     # Client
     ${Client_dir}
 
+    
     # Source dir
 
     ${Root_src}
@@ -63,22 +58,37 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/asio/asio/include/asio
     ${Boost_INCLUDE_DIRS}
 
-    # Dynamic link library
-    ${CMAKE_SOURCE_DIR}/src/Serverlib
-    ${CMAKE_SOURCE_DIR}/src/Clientlib
 )
+
+function(build_libs)
+# Client
+    add_library("client" SHARED ${Client_dir}/client.cpp)
+    add_library("command" SHARED ${Client_dir}/command.cpp)
+    add_library("title" SHARED ${Client_dir}/title.cpp)
+
+# Common assembly
+    add_library(${Internet_computer} SHARED ${CMAKE_SOURCE_DIR}/src/${Internet_computer}.cpp)
+# Server
+    add_library("commands" SHARED ${Server_dir}/commands.cpp)
+    add_library("server" SHARED ${Server_dir}/server.cpp)
+    add_library("session" SHARED ${Server_dir}/session.cpp)
+    add_library("title" SHARED ${Server_dir}/title.cpp)
+    add_library(${Internet_computer} SHARED ${CMAKE_SOURCE_DIR}/src/${Internet_computer}.cpp)
+
+endfunction(build_libs)
+
 
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     set(CXX_STANDARD Standard)
 
-    add_executable(${Server} ${server_build_list})
+    add_executable(${Server} ${Server_dir}/main.cpp)
 
-    target_link_libraries(${Server} PRIVATE ws2_32 mswsock)
+    target_link_libraries(${Server} PRIVATE ${Server_dlls} ws2_32 mswsock)
 
-    add_executable(${Client} ${client_build_list})
-    target_link_libraries(${Client} PRIVATE ws2_32 mswsock)
+    add_executable(${Client} ${Client_dir}/main.cpp)
+    target_link_libraries(${Client} PRIVATE ${Client_dlls} ws2_32 mswsock)
 
     add_definitions(-D_WIN32_WINNT=0x0601)
 
