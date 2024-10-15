@@ -1,4 +1,4 @@
 #pragma once
 #include <iostream>
 
-int boot_message_client(const char*&  filename);
+int boot_message_client(const char*&);

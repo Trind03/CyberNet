@@ -50,19 +50,22 @@ include_directories(
 
 )
 
+#function(build_dll)
 # Client
-    add_library(C_client SHARED ${Client_dir}/client.cpp)
-    add_library(C_commands SHARED ${Client_dir}/command.cpp)
-    add_library(C_title SHARED ${Client_dir}/title.cpp)
-    add_library(C_Internet_computer SHARED ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
+    add_library(C_client STATIC ${Client_dir}/client.cpp)
+    add_library(C_commands STATIC ${Client_dir}/commands.cpp)
+    add_library(C_title STATIC ${Client_dir}/title.cpp)
 
-# Server
-    add_library(S_commands SHARED ${Server_dir}/commands.cpp)
-    add_library(S_server SHARED ${Server_dir}/server.cpp)
-    add_library(S_session SHARED ${Server_dir}/session.cpp)
-    add_library(S_title SHARED ${Server_dir}/title.cpp)
-    add_library(S_Internet_computer SHARED ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
+    # Common assembly
+    add_library(Internet_computer STATIC ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
 
+    # Server
+    add_library(S_commands STATIC ${Server_dir}/commands.cpp)
+    add_library(S_server STATIC ${Server_dir}/server.cpp)
+    add_library(S_session STATIC ${Server_dir}/session.cpp)
+    add_library(S_title STATIC ${Server_dir}/title.cpp)
+
+#endfunction(build_dll)
 # Platform dependant code
 if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
@@ -75,17 +78,17 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
         S_server
         S_session
         S_title
-        S_Internet_computer
-        ws2_32 mswsock
+        Internet_computer
+        ws2_32
+        mswsock
     )
 
-    add_executable(${Client} ${Client_dir}/main.cpp)
+    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/commands.cpp ${Client_dir}/title.cpp ${Client_dir}/client.cpp ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
+
     target_link_libraries(${Client} PRIVATE
-        C_commands
-        C_title
-        C_Internet_computer
-        C_client
-        ws2_32 mswsock
+
+        ws2_32
+        mswsock
     )
 
     add_definitions(-D_WIN32_WINNT=0x0601)
@@ -105,15 +108,16 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
         S_server
         S_session
         S_title
-        S_Internet_computer
+        Internet_computer
     )
 
     add_executable(${Client} ${Client_dir}/main.cpp)
     target_link_libraries(${Client} PRIVATE
         C_commands
         C_title
-        C_Internet_computer
-        C_client
+        Internet_computer
+        
+        ${BOOST_LIBRARY}
     )
     return()
 
