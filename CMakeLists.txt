@@ -71,7 +71,9 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     message("-- System identyfied as: Windows")
     set(CXX_STANDARD Standard)
 
-    add_executable(${Server} ${Server_dir}/main.cpp)
+    add_executable(${Server}
+        ${Server_dir}/main.cpp
+    )
 
     target_link_libraries(${Server} PRIVATE
         S_commands
@@ -83,10 +85,16 @@ if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
         mswsock
     )
 
-    add_executable(${Client} ${Client_dir}/main.cpp ${Client_dir}/commands.cpp ${Client_dir}/title.cpp ${Client_dir}/client.cpp ${CMAKE_SOURCE_DIR}/src/Internet_computer.cpp)
+    add_executable(${Client}
+        ${Client_dir}/main.cpp
+    )
 
     target_link_libraries(${Client} PRIVATE
 
+        C_client
+        C_title
+        C_commands
+        Internet_computer
         ws2_32
         mswsock
     )
@@ -101,7 +109,9 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     add_compile_options(-std=${Standard})
     set(CMAKE_CXX_COMPILER "clang++")
 
-    add_executable(${Server} ${Server_dir}/main.cpp)
+    add_executable(${Server}
+        ${Server_dir}/main.cpp
+    )
 
     target_link_libraries(${Server} PRIVATE
         S_commands
